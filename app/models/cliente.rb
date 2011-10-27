@@ -3,7 +3,7 @@ class Cliente < ActiveRecord::Base
   has_many :historials
   #has_many :receta
   
-  scope :con_documento, lambda { |documento| where('LOWER(documento) LIKE ?', "#{documento}%") }
+  scope :con_documento, lambda { |documento| where('documento LIKE ?', "#{documento}%") }
   
   validate :nombre, :apellido, :documento, presence: true
   validate :documento, uniqueness: true

@@ -81,6 +81,8 @@ class ClientesController < ApplicationController
     end
   end
   
+  
+  
   def autocompletar 
     @clientes = Cliente.con_documento(params[:term])
     

@@ -1,6 +1,7 @@
 Optica::Application.routes.draw do
   resources :receta, :historials
   
+  
   resources :clientes do
     get :autocompletar, on: :collection
   end
