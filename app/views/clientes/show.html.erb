@@ -16,12 +16,12 @@
 </p>
 
 <p>
-  <b>Direccion:</b>
+  <b>Dirección:</b>
   <%= @cliente.direccion %>
 </p>
 
 <p>
-  <b>Telefono:</b>
+  <b>Teléfono:</b>
   <%= @cliente.telefono %>
 </p>
 
@@ -37,11 +37,11 @@
 
 <p>
   <b>Nacimiento:</b>
-  <%= @cliente.nacimiento %>
+  <%= l @cliente.nacimiento %>
 </p>
 
 <p>
-  <b>Ocupacion:</b>
+  <b>Ocupación:</b>
   <%= @cliente.ocupacion %>
 </p>
 
@@ -51,5 +51,6 @@
 </p>
 
 
-<%= link_to 'Edit', edit_cliente_path(@cliente) %> |
-<%= link_to 'Back', clientes_path %>
+<%= link_to 'Editar', edit_cliente_path(@cliente) %> |
+<%= link_to 'Borrar', @cliente, confirm: 'Seguro quiere eliminar?', method: :delete %> |
+<%= link_to 'Volver', clientes_path %>
