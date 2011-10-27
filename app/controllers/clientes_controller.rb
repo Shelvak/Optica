@@ -80,4 +80,13 @@ class ClientesController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  def autocompletar 
+    @clientes = Cliente.con_documento(params[:term])
+    
+    respond_to do |format|
+      format.js { render text: @clientes.map(&:to_s) }
+    end
+  end
+  
 end
