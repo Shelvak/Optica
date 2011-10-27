@@ -1,4 +1,8 @@
 Optica::Application.routes.draw do
+  resources :receta
+
+  resources :historials
+
   resources :clientes
 
   # The priority is based upon order of creation:

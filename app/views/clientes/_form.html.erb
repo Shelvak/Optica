@@ -12,44 +12,26 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :nombre %><br />
-    <%= f.text_field :nombre %>
+    <%= f.text_field :nombre, placeholder: 'Nombre: Marcela' %> 
+    <%= f.text_field :apellido, placeholder: 'Apellido: Palpacelli' %>
+    <%= f.number_field :documento, placeholder: 'DNI: 12345678 Sin puntos' %><br />
   </div>
+ 
   <div class="field">
-    <%= f.label :apellido %><br />
-    <%= f.text_field :apellido %>
+    <%= f.text_field :direccion, placeholder: 'Dirección: Loria este 220 G.Cruz' %>
+    <%= f.number_field :telefono, placeholder: 'Teléfono: 4390602 Sin puntos' %>
+    <%= f.text_field :celular, placeholder: 'Celular: 261-5570086' %><br />
   </div>
+
   <div class="field">
-    <%= f.label :documento %><br />
-    <%= f.number_field :documento %>
+    <%= f.email_field :email, placeholder: 'Email: opticapalpacelli@gmail.com' %>
+    <%= f.text_field :ocupacion, placeholder: 'Ocupación: Oculista - Contactologa' %>
+    <%= f.text_field :recomendado, placeholder: 'Recomendado por : Luciano' %><br />
   </div>
+ 
   <div class="field">
-    <%= f.label :direccion %><br />
-    <%= f.text_field :direccion %>
-  </div>
-  <div class="field">
-    <%= f.label :telefono %><br />
-    <%= f.number_field :telefono %>
-  </div>
-  <div class="field">
-    <%= f.label :celular %><br />
-    <%= f.text_field :celular %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :nacimiento %><br />
-    <%= f.date_select :nacimiento %>
-  </div>
-  <div class="field">
-    <%= f.label :ocupacion %><br />
-    <%= f.text_field :ocupacion %>
-  </div>
-  <div class="field">
-    <%= f.label :actividad %><br />
-    <%= f.text_area :actividad %>
+    Nacio el:<%= f.date_select :nacimiento %><br /><br />
+    <%= f.text_area :actividad, placeholder: 'Toda actividad recreativa, o no =)', size: '138x10' %>
   </div>
   <div class="actions">
     <%= f.submit %>
