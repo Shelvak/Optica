@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111027172847) do
+ActiveRecord::Schema.define(:version => 20111027210620) do
 
   create_table "clientes", :force => true do |t|
     t.string   "nombre"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20111027172847) do
     t.boolean  "distancia"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "receta"
   end
 
 end

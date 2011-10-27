@@ -4,6 +4,26 @@ body {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px; }
+div {
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+#lentesflotantes {
+    float: left;
+}
+
+#lentescontacto {
+    float: right;
+}
+
+.botones {
+    position:absolute;
+    bottom: 10px;
+}
 
 p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
