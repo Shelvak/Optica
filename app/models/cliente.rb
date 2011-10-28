@@ -1,5 +1,5 @@
 class Cliente < ActiveRecord::Base
-  before_save :camel
+  before_save :camel, :verificar_documento
   has_many :historials
   #has_many :receta
   
@@ -14,7 +14,11 @@ class Cliente < ActiveRecord::Base
   end
   
   def to_s 
-		self.nombre
+		self.documento
 	end
+  
+  def verificar_documento
+    self.documento = self.documento.split('.').join
+  end
   
 end

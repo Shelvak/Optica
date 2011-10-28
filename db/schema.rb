@@ -11,12 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111027211319) do
+ActiveRecord::Schema.define(:version => 20111027172847) do
 
   create_table "clientes", :force => true do |t|
     t.string   "nombre"
     t.string   "apellido"
-    t.integer  "documento"
+    t.string   "documento"
     t.string   "direccion"
     t.integer  "telefono"
     t.string   "celular"
@@ -24,14 +24,16 @@ ActiveRecord::Schema.define(:version => 20111027211319) do
     t.date     "nacimiento"
     t.string   "ocupacion"
     t.text     "actividad"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "recomendado"
     t.text     "salud"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
+  add_index "clientes", ["documento"], :name => "index_clientes_on_documento", :unique => true
+
   create_table "historials", :force => true do |t|
-    t.boolean  "tipolente"
+    t.boolean  "tipolente",                                    :default => false
     t.string   "lente"
     t.string   "colorlente"
     t.string   "armazon"
@@ -39,11 +41,11 @@ ActiveRecord::Schema.define(:version => 20111027211319) do
     t.text     "observaciones"
     t.text     "uso"
     t.text     "seguimiento"
-    t.decimal  "precio"
+    t.decimal  "precio",        :precision => 15, :scale => 2, :default => 0.0
     t.integer  "orden"
+    t.integer  "cliente_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "cliente_id"
   end
 
   create_table "receta", :force => true do |t|
@@ -55,9 +57,10 @@ ActiveRecord::Schema.define(:version => 20111027211319) do
     t.decimal  "adicion"
     t.string   "av"
     t.boolean  "distancia"
+    t.string   "receta"
+    t.integer  "historial_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "receta"
   end
 
 end
