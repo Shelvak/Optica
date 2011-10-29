@@ -15,7 +15,7 @@ class ClientesController < ApplicationController
   def show
     @cliente = Cliente.find(params[:id])
     @historiales = Historial.where('cliente_id = ?', "#{@cliente.id}").order(
-      'created_at DESC').paginate(page: params[:page], per_page: 3)
+      'created_at DESC').paginate(page: params[:page], per_page: 10)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @cliente }

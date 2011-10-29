@@ -4,37 +4,41 @@
   <b>Nombre y apellido :</b>
   <%= @cliente.nombre %>
   <%= @cliente.apellido %>
-  <b>Documento: </b> <%= @cliente.documento %>
-  <b>Dirección: </b> <%= @cliente.direccion %>
+  <%= raw "<b>Documento: </b>" + @cliente.documento if @cliente.documento.present? %>
+  <%= raw "<b>Dirección: </b>" + @cliente.direccion if @cliente.direccion.present? %>
 </p>
 
 <p>
-  <b>Teléfono:   </b>    <%= @cliente.telefono ? @cliente.telefono : 'no tiene' %>
-  <b>Celular:    </b>    <%= @cliente.celular ? @cliente.celular : 'no tiene' %>
-  <b>Email:      </b>    <%= @cliente.email ? @cliente.email : 'no tiene' %>
+  <%= raw "<b>Teléfono: </b>" + @cliente.telefono if @cliente.telefono.present? %>
+  <%= raw "<b>Celular: </b>" + @cliente.celular if @cliente.celular.present? %>
+  <%= raw "<b>Email: </b>" + @cliente.email if @cliente.email.present?%>
   <b>Nacimiento: </b>    <%= l @cliente.nacimiento %>
 </p>
 
 <p>
-  
-  <%= raw '<b>Ocupación:</b>' + @cliente.ocupacion if @cliente.ocupacion.present? %>
+  <%= raw '<b>Ocupación: </b>' + @cliente.ocupacion if @cliente.ocupacion.present? %>
 </p>
 
 <p>
   
-  <%= raw '<b>Actividad:</b>' + @cliente.actividad if @cliente.actividad.present? %>
+  <%= raw '<b>Actividad: </b>' + @cliente.actividad if @cliente.actividad.present? %>
 </p>
 
-<p> <%= raw '<b>Recomendado por :</b>' + @cliente.recomendado if @cliente.recomendado.present? %> 
-   <%#= raw '<b>Cantidad de recomendaciones: </b>' +  @cliente.cantidadrecom if @cliente.cantidadrecom != 0 %>
-   <%= @cliente.cantidadrecom %>
+<p> <%= raw '<b>Recomendado por: </b>' + @cliente.recomendado if @cliente.recomendado.present? %> 
+  <% if @cliente.cantidadrecom != 0 %>
+   <b>Cantidad de recomendaciones: </b> <%= @cliente.cantidadrecom %>
+   <% end %>
+   <%= raw '<b>Total gastado: </b>' + number_to_currency(@cliente.gastado) if @cliente.gastado != 0 %>
 </p>
 
   <% @historiales.each do |h| %>
     <%= link_to l(h.created_at, format: :short), controller: "historials", action: "show", id: h.id  %> <br />
   <% end %>
-  <%= will_paginate @historiales %>
-
+    
+<div class="will_paginate">
+<%= will_paginate @historiales %>
+</div>
+<br />
 <%= link_to 'Editar', edit_cliente_path(@cliente) %> |
 <%= link_to 'Borrar', @cliente, confirm: 'Seguro quiere eliminar?', method: :delete %> |
 <%= link_to 'Volver', clientes_path %>

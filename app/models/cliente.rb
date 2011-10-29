@@ -1,6 +1,6 @@
 class Cliente < ActiveRecord::Base
-  before_save :camel, :verificar_documento, :asignar_cantidadrecom
-  before_validation :asignar_recomendado
+  before_save :camel, :asignar_cantidadrecom
+  before_validation :asignar_recomendado, :verificar_documento
   has_many :historials
   #has_many :receta
   
@@ -11,8 +11,8 @@ class Cliente < ActiveRecord::Base
   scope :con_documento, lambda { |buscar| where('documento LIKE ?', "#{buscar}%") }
   scope :con_nombre, lambda { |nombre| where('LOWER(nombre) LIKE ?', "#{nombre}%".downcase)}
   
-  validate :nombre, :apellido, :documento, presence: true
-  validate :documento, uniqueness: true
+  validates :nombre, :apellido, :documento, presence: true
+  validates :documento, uniqueness: true
   
   def camel
     self.nombre = self.nombre.split.map(&:camelize).join(' ')

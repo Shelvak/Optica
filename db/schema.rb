@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111029030120) do
+ActiveRecord::Schema.define(:version => 20111029060752) do
 
   create_table "clientes", :force => true do |t|
     t.string   "nombre"
@@ -28,7 +28,8 @@ ActiveRecord::Schema.define(:version => 20111029030120) do
     t.text     "salud"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "cantidadrecom", :default => 0
+    t.integer  "cantidadrecom",                                :default => 0
+    t.decimal  "gastado",       :precision => 15, :scale => 2, :default => 0.0
   end
 
   add_index "clientes", ["documento"], :name => "index_clientes_on_documento", :unique => true
@@ -67,9 +68,10 @@ ActiveRecord::Schema.define(:version => 20111029030120) do
   create_table "venta", :force => true do |t|
     t.integer  "mes"
     t.integer  "anio"
-    t.decimal  "vendido",    :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "vendido",     :precision => 15, :scale => 2, :default => 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "cantvendida",                                :default => 0
   end
 
 end
