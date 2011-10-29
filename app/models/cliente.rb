@@ -3,7 +3,8 @@ class Cliente < ActiveRecord::Base
   has_many :historials
   #has_many :receta
   
-  scope :con_documento, lambda { |documento| where('documento LIKE ?', "#{documento}%") }
+  #scope :con_nombre, lambda { |nombre| where('LOWER(nombre) LIKE ?', "#{nombre}%".downcase) }
+  scope :busqueda, lambda { |buscar| where('documento LIKE ?', "#{buscar}%") }
   
   validate :nombre, :apellido, :documento, presence: true
   validate :documento, uniqueness: true
@@ -14,7 +15,8 @@ class Cliente < ActiveRecord::Base
   end
   
   def to_s 
-		self.documento
+		self.nombre + ' ' + self.apellido + ' ' + self.documento
+    #self.documento
 	end
   
   def verificar_documento

@@ -81,10 +81,9 @@ class ClientesController < ApplicationController
     end
   end
   
-  
-  
-  def autocompletar 
-    @clientes = Cliente.con_documento(params[:term])
+  # get /
+  def autocompletar
+    @clientes = Cliente.busqueda(params[:term]).limit(5)
     
     respond_to do |format|
       format.js { render text: @clientes.map(&:to_s) }
