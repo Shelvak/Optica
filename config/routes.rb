@@ -1,4 +1,6 @@
 Optica::Application.routes.draw do
+  resources :venta
+
   resources :receta, :historials
   
   

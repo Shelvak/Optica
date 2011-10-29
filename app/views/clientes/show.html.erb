@@ -49,6 +49,8 @@
   <b>Actividad:</b>
   <%= @cliente.actividad %>
 </p>
+<p>Recomendado por : <%= @cliente.recomendado %></p>
+<p>Cantidad de recomendaciones: <%= @cliente.cantidadrecom %></p>
 
 
 <%= link_to 'Editar', edit_cliente_path(@cliente) %> |

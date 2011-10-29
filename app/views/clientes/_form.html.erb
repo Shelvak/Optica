@@ -26,12 +26,13 @@
   <div class="field">
     <%= f.email_field :email, placeholder: 'Email: opticapalpacelli@gmail.com' %>
     <%= f.text_field :ocupacion, placeholder: 'Ocupación: Oculista - Contactologa' %>
-    <%= f.text_field :recomendado, placeholder: 'Recomendado por : Luciano' %><br />
+    <%= f.text_field :auto_recomendado, value: @cliente.recomendado.try(:nombre), placeholder: 'Recomendado por : Luciano' %><br />
   </div>
  
   <div class="field">
     Nacio el:<%= f.date_select :nacimiento, start_year: 1920, end_year: 2010 %><br /><br />
-    <%= f.text_area :actividad, placeholder: 'Toda actividad recreativa, o no =)', size: '138x10' %>
+    <%= f.text_area :actividad, placeholder: 'Toda actividad recreativa, o no =)', size: '66x10' %>
+    <%= f.text_area :salud, placeholder: 'Historial de salud del cliente', size: '66x10' %>
   </div>
   <div class="actions">
     <%= f.submit %>
