@@ -26,7 +26,7 @@
   <div class="field">
     <%= f.email_field :email, placeholder: 'Email: opticapalpacelli@gmail.com' %>
     <%= f.text_field :ocupacion, placeholder: 'Ocupación: Oculista - Contactologa' %>
-    <%= f.text_field :auto_recomendado, value: @cliente.recomendado.try(:nombre), placeholder: 'Recomendado por : Luciano' %><br />
+    <%= f.text_field :auto_recomendado, value: @cliente.recomendado, placeholder: 'Recomendado por : Luciano' %><br />
   </div>
  
   <div class="field">

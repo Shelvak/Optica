@@ -1,57 +1,39 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Nombre:</b>
+  <b>Nombre y apellido :</b>
   <%= @cliente.nombre %>
-</p>
-
-<p>
-  <b>Apellido:</b>
   <%= @cliente.apellido %>
+  <b>Documento: </b> <%= @cliente.documento %>
+  <b>Dirección: </b> <%= @cliente.direccion %>
 </p>
 
 <p>
-  <b>Documento:</b>
-  <%= @cliente.documento %>
+  <b>Teléfono:   </b>    <%= @cliente.telefono ? @cliente.telefono : 'no tiene' %>
+  <b>Celular:    </b>    <%= @cliente.celular ? @cliente.celular : 'no tiene' %>
+  <b>Email:      </b>    <%= @cliente.email ? @cliente.email : 'no tiene' %>
+  <b>Nacimiento: </b>    <%= l @cliente.nacimiento %>
 </p>
 
 <p>
-  <b>Dirección:</b>
-  <%= @cliente.direccion %>
+  
+  <%= raw '<b>Ocupación:</b>' + @cliente.ocupacion if @cliente.ocupacion.present? %>
 </p>
 
 <p>
-  <b>Teléfono:</b>
-  <%= @cliente.telefono %>
+  
+  <%= raw '<b>Actividad:</b>' + @cliente.actividad if @cliente.actividad.present? %>
 </p>
 
-<p>
-  <b>Celular:</b>
-  <%= @cliente.celular %>
+<p> <%= raw '<b>Recomendado por :</b>' + @cliente.recomendado if @cliente.recomendado.present? %> 
+   <%#= raw '<b>Cantidad de recomendaciones: </b>' +  @cliente.cantidadrecom if @cliente.cantidadrecom != 0 %>
+   <%= @cliente.cantidadrecom %>
 </p>
 
-<p>
-  <b>Email:</b>
-  <%= @cliente.email %>
-</p>
-
-<p>
-  <b>Nacimiento:</b>
-  <%= l @cliente.nacimiento %>
-</p>
-
-<p>
-  <b>Ocupación:</b>
-  <%= @cliente.ocupacion %>
-</p>
-
-<p>
-  <b>Actividad:</b>
-  <%= @cliente.actividad %>
-</p>
-<p>Recomendado por : <%= @cliente.recomendado %></p>
-<p>Cantidad de recomendaciones: <%= @cliente.cantidadrecom %></p>
-
+  <% @historiales.each do |h| %>
+    <%= link_to l(h.created_at, format: :short), controller: "historials", action: "show", id: h.id  %> <br />
+  <% end %>
+  <%= will_paginate @historiales %>
 
 <%= link_to 'Editar', edit_cliente_path(@cliente) %> |
 <%= link_to 'Borrar', @cliente, confirm: 'Seguro quiere eliminar?', method: :delete %> |
