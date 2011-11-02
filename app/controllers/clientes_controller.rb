@@ -82,7 +82,7 @@ class ClientesController < ApplicationController
     end
   end
   
-  # get /
+  
   def autocompletar
     @clientes = Cliente.buscar(params[:term]).limit(5) 
     
