@@ -8,8 +8,10 @@ class Cliente < ActiveRecord::Base
   attr_accessor :auto_recomendado
   
   
-  scope :con_documento, lambda { |buscar| where('documento LIKE ?', "#{buscar}%") }
-  scope :con_nombre, lambda { |nombre| where('LOWER(nombre) LIKE ?', "#{nombre}%".downcase)}
+  
+  scope :buscar, lambda { |nombre| where('LOWER(nombre)LIKE ? OR LOWER(apellido) LIKE ? OR documento LIKE ?',
+      "#{nombre}%".downcase, "#{nombre}%".downcase, "#{nombre}%")}
+
   
   validates :nombre, :apellido, :documento, presence: true
   validates :documento, uniqueness: true

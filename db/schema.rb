@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111029060752) do
+ActiveRecord::Schema.define(:version => 20111029150825) do
 
   create_table "clientes", :force => true do |t|
     t.string   "nombre"
@@ -60,6 +60,21 @@ ActiveRecord::Schema.define(:version => 20111029060752) do
     t.string   "av"
     t.boolean  "distancia"
     t.string   "receta"
+    t.integer  "historial_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "recetes", :force => true do |t|
+    t.boolean  "ojo",          :default => true
+    t.decimal  "esferico",     :default => 0.0
+    t.decimal  "cilindrico",   :default => 0.0
+    t.decimal  "eje",          :default => 0.0
+    t.decimal  "diametro",     :default => 0.0
+    t.decimal  "adicion",      :default => 0.0
+    t.string   "av"
+    t.boolean  "distancia",    :default => false
+    t.boolean  "receta",       :default => true
     t.integer  "historial_id"
     t.datetime "created_at"
     t.datetime "updated_at"

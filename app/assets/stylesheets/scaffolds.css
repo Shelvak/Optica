@@ -11,6 +11,9 @@ table, th, tr, td {
     text-align: center;
     border: 2px solid gray;
 }
+table {
+    margin: 0em auto;
+}
 h1 {
     text-align: center;
 }

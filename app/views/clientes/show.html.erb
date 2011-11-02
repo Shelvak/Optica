@@ -25,9 +25,9 @@
 </p>
 
 <p> <%= raw '<b>Recomendado por: </b>' + @cliente.recomendado if @cliente.recomendado.present? %> 
-  <% if @cliente.cantidadrecom != 0 %>
-   <b>Cantidad de recomendaciones: </b> <%= @cliente.cantidadrecom %>
-   <% end %>
+
+    <%= raw "<b>Cantidad de recomendaciones: </b>" + @cliente.cantidadrecom.to_s if @cliente.cantidadrecom.to_s %>
+
    <%= raw '<b>Total gastado: </b>' + number_to_currency(@cliente.gastado) if @cliente.gastado != 0 %>
 </p>
 
