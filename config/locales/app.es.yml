@@ -1,0 +1,4 @@
+'es':
+  models:
+  activerecord:
+    attributes:

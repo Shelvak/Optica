@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  mes: 1
+  anio: 1
+  vendido: 9.99
+
+two:
+  mes: 1
+  anio: 1
+  vendido: 9.99

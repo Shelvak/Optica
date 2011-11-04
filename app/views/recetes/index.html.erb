@@ -1,0 +1,41 @@
+<h1>Listing recetes</h1>
+
+<table>
+  <tr>
+    <th>Ojo</th>
+    <th>Esferico</th>
+    <th>Cilindrico</th>
+    <th>Eje</th>
+    <th>Diametro</th>
+    <th>Adicion</th>
+    <th>Av</th>
+    <th>Distancia</th>
+    <th>Receta</th>
+    <th>Historial</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @recetes.each do |recete| %>
+  <tr>
+    <td><%= recete.ojo %></td>
+    <td><%= recete.esferico %></td>
+    <td><%= recete.cilindrico %></td>
+    <td><%= recete.eje %></td>
+    <td><%= recete.diametro %></td>
+    <td><%= recete.adicion %></td>
+    <td><%= recete.av %></td>
+    <td><%= recete.distancia %></td>
+    <td><%= recete.receta %></td>
+    <td><%= recete.historial_id %></td>
+    <td><%= link_to 'Show', recete %></td>
+    <td><%= link_to 'Edit', edit_recete_path(recete) %></td>
+    <td><%= link_to 'Destroy', recete, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Recete', new_recete_path %>

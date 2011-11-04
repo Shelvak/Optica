@@ -1,0 +1,19 @@
+Ojo izq => False
+Ojo der => true
+
+crear receta
+ojo:boolean esferico:decimal cilindrico:decimal eje:decimal diametro:decimal adicion:decimal av:string distancia:boolean receta:boolean historial_id:integer
+reate_table "receta", :force => true do |t|
+    t.boolean "ojo"
+    t.decimal "esferico"
+    t.decimal "cilindrico"
+    t.integer "eje"
+    t.decimal "diametro"
+    t.decimal "adicion"
+    t.string "av"
+    t.boolean "distancia"
+    t.string "receta"
+    t.integer "historial_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end

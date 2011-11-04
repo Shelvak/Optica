@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Mes:</b>
+  <%= @ventum.mes %>
+</p>
+
+<p>
+  <b>Anio:</b>
+  <%= @ventum.anio %>
+</p>
+
+<p>
+  <b>Vendido:</b>
+  <%= @ventum.vendido %>
+</p>
+
+
+<%= link_to 'Edit', edit_ventum_path(@ventum) %> |
+<%= link_to 'Back', venta_path %>

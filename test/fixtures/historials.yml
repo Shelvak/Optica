@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  salud: MyText
+  tipolente: false
+  lente: MyString
+  colorlente: MyString
+  armazon: MyString
+  cristales: MyString
+  observaciones: MyText
+  uso: MyText
+  seguimiento: MyText
+  precio: 9.99
+  orden: 1
+
+two:
+  salud: MyText
+  tipolente: false
+  lente: MyString
+  colorlente: MyString
+  armazon: MyString
+  cristales: MyString
+  observaciones: MyText
+  uso: MyText
+  seguimiento: MyText
+  precio: 9.99
+  orden: 1

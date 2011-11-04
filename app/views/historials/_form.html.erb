@@ -1,0 +1,120 @@
+<%= form_for(@historial) do |f| %>
+  <% if @historial.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@historial.errors.count, "error") %> prohibited this historial from being saved:</h2>
+
+      <ul>
+      <% @historial.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div class="field">
+  <%= f.text_field :auto_cliente, value: @historial.cliente.try(:documento), 
+      placeholder: 'DNI del cliente...' %>
+</div>
+  <div id="info_cliente">
+  </div>
+  <div class="field">
+    Contacto?<%= f.check_box :tipolente, id: 'contacto' %> 
+    <%= f.text_field :lente, placeholder: 'Descripción del lente:' %> 
+    <%= f.text_field :colorlente, placeholder: 'Color del lente:' %>
+  </div>
+<div class="field">
+  
+  <b>Receta:</b>
+  <table>
+    <tr><th>Ojo</th><th>Esf</th><th>Cil</th><th>Eje</th><th>Diam</th><th>Adici</th><th>AV</th></tr>
+    
+  <%= f.fields_for :recetes do |f_r| %>
+    <%#= [].each do %>
+    <%# [ true, false].each do |viejas| %>
+    <tr>
+      <td>Derecho<%= f_r.hidden_field :ojo, value: true %></td>
+      <td><%= f_r.text_field :esferico, size: 3 %></td>
+      <td><%= f_r.text_field :cilindrico, size: 3 %></td>
+      <td><%= f_r.text_field :eje, size: 3 %></td>
+      <td><%= f_r.text_field :diametro, size: 3 %></td>
+      <td><%= f_r.text_field :adicion, size: 3 %></td>
+      <td><%= f_r.text_field :av, size: 3 %></td>
+      <td><%= f_r.check_box :distancia, id: 'recetaizq'%></td>
+      <%= f_r.hidden_field :receta, value: true %>
+    </tr>
+   <% end %>
+   <%# end %>
+    <%= f.fields_for :recetes do |f_r| %>
+    <%#= [].each do %>
+    <%# [ true, false].each do |viejas| %>
+    <tr>
+      <td>Izquierdo<%= f_r.hidden_field :ojo, value: false %></td>
+      <td><%= f_r.text_field :esferico, size: 3 %></td>
+      <td><%= f_r.text_field :cilindrico, size: 3 %></td>
+      <td><%= f_r.text_field :eje, size: 3 %></td>
+      <td><%= f_r.text_field :diametro, size: 3 %></td>
+      <td><%= f_r.text_field :adicion, size: 3 %></td>
+      <td><%= f_r.text_field :av, size: 3 %></td>
+      <td><%= f_r.check_box :distancia, id: 'recetaizq'%></td>
+      <%= f_r.hidden_field :receta, value: true %>
+    </tr>
+   <% end %>
+    </table>
+  <%# end %>
+</div>
+<div class="field">
+
+  <b>Corrección:</b>
+  <table>
+    <tr><th>Ojo</th><th>Esf</th><th>Cil</th><th>Eje</th><th>Diam</th><th>Adici</th><th>AV</th></tr>
+    <%= f.fields_for :recetes do |f_r| %>
+    <%# [ true, false].each do |vueltas| %>
+    <tr>
+      <td>Derecho<%= f_r.hidden_field :ojo, value: true %></td>
+      <td><%= f_r.text_field :esferico, size: 3 %></td>
+      <td><%= f_r.text_field :cilindrico, size: 3 %></td>
+      <td><%= f_r.text_field :eje, size: 3 %></td>
+      <td><%= f_r.text_field :diametro, size: 3 %></td>
+      <td><%= f_r.text_field :adicion, size: 3 %></td>
+      <td><%= f_r.text_field :av, size: 3 %></td>
+      <td><%= f_r.check_box :distancia, id: 'correcder' %></td>
+      <%= f_r.hidden_field :receta, value: false %>
+    </tr>
+    <%# end %>
+    <% end %><%# end %>
+    <%= f.fields_for :recetes do |f_r| %>
+    <%# [ true, false].each do |vueltas| %>
+    <tr>
+      <td>Izquierdo<%= f_r.hidden_field :ojo, value: false %></td>
+      <td><%= f_r.text_field :esferico, size: 3 %></td>
+      <td><%= f_r.text_field :cilindrico, size: 3 %></td>
+      <td><%= f_r.text_field :eje, size: 3 %></td>
+      <td><%= f_r.text_field :diametro, size: 3 %></td>
+      <td><%= f_r.text_field :adicion, size: 3 %></td>
+      <td><%= f_r.text_field :av, size: 3 %></td>
+      <td><%= f_r.check_box :distancia, id: 'correcder' %></td>
+      <%= f_r.hidden_field :receta, value: false %>
+    </tr>
+    <%# end %>
+    <% end %><%# end %>
+    </table>
+  
+</div>
+<br />
+  <div class="contacto">
+    <%= f.text_field :armazon, size: 40, placeholder: 'Descripción del armazón: ' %>
+    <%= f.text_field :cristales, placeholder: 'Descripción de los cristales: ' %>
+  </div><br />
+  <div class="field">
+    <%= f.text_area :observaciones, placeholder: 'Observaciones que se han hecho...' %> 
+    <%= f.text_area :uso, placeholder: 'Como los debe usar...' %> 
+    <%= f.text_area :seguimiento, placeholder: 'Seguimiento...' %>
+  </div>
+  
+  <div class="field">
+    <%= f.text_field :precio, placeholder: '125.50' %> 
+    <%= f.number_field :orden, placeholder: 'Número de orden, para retirar...' %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,75 @@
+<p id="notice"><%= notice %></p>
+
+
+<p>
+<%= @historial.cliente %></p><p>
+  <b>Tipolente:</b>
+  <%= @historial.tipolente ? 'Contacto' : 'Flotante' %>
+</p>
+
+<p>
+  <b>Lente:</b>
+  <%= @historial.lente %>
+</p>
+
+<p>
+  <b>Colorlente:</b>
+  <%= @historial.colorlente %>
+</p>
+
+<p>
+  <b>Armazon:</b>
+  <%= @historial.armazon %>
+</p>
+
+<p>
+  <b>Cristales:</b>
+  <%= @historial.cristales %>
+</p>
+
+<p>
+  <b>Observaciones:</b>
+  <%= @historial.observaciones %>
+</p>
+
+<p>
+  <b>Uso:</b>
+  <%= @historial.uso %>
+</p>
+
+<p>
+  <b>Seguimiento:</b>
+  <%= @historial.seguimiento %>
+</p>
+
+<p>
+  <b>Precio:</b>
+  <%= @historial.precio %>
+</p>
+
+<p>
+  <b>Orden:</b>
+  <%= @historial.orden %>
+</p>
+
+<% @receta.each do |r| %>
+  <table>
+    <%= r.receta  %>
+    <tr>
+      <td> <%= r.ojo ? 'Derecho' : 'Izquierda' %> </td>
+      <td> <%= r.esferico %> </td>
+      <td> <%= r.cilindrico %> </td>
+      <td> <%= r.eje %> </td>
+      <td> <%= r.diametro %> </td>
+      <td> <%= r.adicion %> </td>
+      <td> <%= r.av %> </td>
+      <td> <%= r.distancia ? 'Lejos' : 'Cerca' %> </td>
+    </tr>
+  </table>
+  
+  <% end %>
+
+
+<%= link_to 'Editar', edit_historial_path(@historial) %> |
+<%= link_to 'Borrar', @historial, confirm: 'Seguro??', method: :delete %> |
+<%= link_to 'Volver', historials_path %>

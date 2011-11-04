@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  ojo: false
+  esferico: 9.99
+  cilindrico: 9.99
+  eje: 9.99
+  diametro: 9.99
+  adicion: 9.99
+  av: MyString
+  distancia: false
+  receta: false
+  historial_id: 1
+
+two:
+  ojo: false
+  esferico: 9.99
+  cilindrico: 9.99
+  eje: 9.99
+  diametro: 9.99
+  adicion: 9.99
+  av: MyString
+  distancia: false
+  receta: false
+  historial_id: 1
