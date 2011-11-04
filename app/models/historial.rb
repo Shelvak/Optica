@@ -5,7 +5,7 @@ class Historial < ActiveRecord::Base
   accepts_nested_attributes_for :recetes
   attr_accessor :auto_cliente
   before_validation :asignar_cliente
-  after_save :asignar_total
+  after_save :asignar_total, :asignar_lente
   scope :asociado, lambda { |cliente| where('cliente_id LIKE ?', "#{cliente}") }
   
   def asignar_cliente
@@ -24,6 +24,21 @@ class Historial < ActiveRecord::Base
     @venta.update_attributes(vendido: @venta.vendido, cantvendida: @venta.cantvendida)
     @cliente.update_attributes(gastado: @cliente.gastado)
   end
+  
+  def asignar_lente
+    @historial = Historial.order('created_at DESC').first
+    @cliente = Cliente.find_by_id(@historial.cliente.id)
+    if @cliente.lente == nil
+      @cliente.lente = 'flotantes' if (@historial.tipolente == false)
+      @cliente.lente = 'contacto' if (@historial.tipolente == true)
+    end
+    
+    (@cliente.lente = 'ambos' if (@historial.tipolente == false)) if @cliente.lente == 'contacto'
+    (@cliente.lente = 'ambos' if (@historial.tipolente == true)) if @cliente.lente == 'flotantes'
+    @cliente.update_attributes(lente: @cliente.lente)
+      
+  end
+  
   
   def to_s
     self.id

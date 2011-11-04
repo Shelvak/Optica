@@ -6,6 +6,10 @@
   <%= @cliente.apellido %>
   <%= raw "<b>Documento: </b>" + @cliente.documento if @cliente.documento.present? %>
   <%= raw "<b>Dirección: </b>" + @cliente.direccion if @cliente.direccion.present? %>
+  <%= raw "<b>Ambos lentes</b>" if @cliente.lente == 'ambos'%>
+  <%= raw "<b>Lentes flotantes</b>" if @cliente.lente == 'flotantes'%>
+  <%= raw "<b>Lentes de contacto</b>" if @cliente.lente == 'contacto'%>
+  
 </p>
 
 <p>

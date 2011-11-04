@@ -53,20 +53,16 @@
 </p>
 
 <% @receta.each do |r| %>
-  <table>
-    <%= r.receta  %>
-    <tr>
-      <td> <%= r.ojo ? 'Derecho' : 'Izquierda' %> </td>
-      <td> <%= r.esferico %> </td>
-      <td> <%= r.cilindrico %> </td>
-      <td> <%= r.eje %> </td>
-      <td> <%= r.diametro %> </td>
-      <td> <%= r.adicion %> </td>
-      <td> <%= r.av %> </td>
-      <td> <%= r.distancia ? 'Lejos' : 'Cerca' %> </td>
-    </tr>
-  </table>
-  
+    <%= r.receta ? 'Receta' : 'Corrección'  %> |
+    <%= r.ojo ? 'Derecho' : 'Izquierda' %> |
+    <%= r.esferico %> | 
+    <%= r.cilindrico %> |
+    <%= r.eje %> | 
+    <%= r.diametro %> | 
+    <%= r.adicion %> | 
+    <%= r.av %> | 
+    <%= r.distancia ? 'Lejos' : 'Cerca' %>
+<br />
   <% end %>
 
 
