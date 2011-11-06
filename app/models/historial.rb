@@ -6,7 +6,20 @@ class Historial < ActiveRecord::Base
   attr_accessor :auto_cliente
   before_validation :asignar_cliente
   after_save :asignar_total, :asignar_lente
+  
   scope :asociado, lambda { |cliente| where('cliente_id LIKE ?', "#{cliente}") }
+  
+  def initialize(attributes = nil, options = {}) 
+    super(attributes, options)
+    
+      if self.recetes.empty?
+        [true, false].each do |recete|
+          [true, false].each do |ojo|
+            self.recetes.build(ojo: ojo, receta: recete)
+          end
+        end
+      end
+  end
   
   def asignar_cliente
     if self.auto_cliente.present?

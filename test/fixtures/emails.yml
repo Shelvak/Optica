@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  to: MyString
+  cuerpo: MyText
+
+two:
+  to: MyString
+  cuerpo: MyText

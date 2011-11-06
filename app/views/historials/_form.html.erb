@@ -23,80 +23,28 @@
   </div>
 <div class="field">
   
-  <b>Receta:</b>
-  <table>
-    <tr><th>Ojo</th><th>Esf</th><th>Cil</th><th>Eje</th><th>Diam</th><th>Adici</th><th>AV</th></tr>
-    
+  
   <%= f.fields_for :recetes do |f_r| %>
-    <%#= [].each do %>
-    <%# [ true, false].each do |viejas| %>
-    <tr>
-      <td>Derecho<%= f_r.hidden_field :ojo, value: true %></td>
-      <td><%= f_r.text_field :esferico, size: 3 %></td>
-      <td><%= f_r.text_field :cilindrico, size: 3 %></td>
-      <td><%= f_r.text_field :eje, size: 3 %></td>
-      <td><%= f_r.text_field :diametro, size: 3 %></td>
-      <td><%= f_r.text_field :adicion, size: 3 %></td>
-      <td><%= f_r.text_field :av, size: 3 %></td>
-      <td><%= f_r.check_box :distancia, id: 'recetaizq'%></td>
-      <%= f_r.hidden_field :receta, value: true %>
-    </tr>
-   <% end %>
-   <%# end %>
-    <%= f.fields_for :recetes do |f_r| %>
-    <%#= [].each do %>
-    <%# [ true, false].each do |viejas| %>
-    <tr>
-      <td>Izquierdo<%= f_r.hidden_field :ojo, value: false %></td>
-      <td><%= f_r.text_field :esferico, size: 3 %></td>
-      <td><%= f_r.text_field :cilindrico, size: 3 %></td>
-      <td><%= f_r.text_field :eje, size: 3 %></td>
-      <td><%= f_r.text_field :diametro, size: 3 %></td>
-      <td><%= f_r.text_field :adicion, size: 3 %></td>
-      <td><%= f_r.text_field :av, size: 3 %></td>
-      <td><%= f_r.check_box :distancia, id: 'recetaizq'%></td>
-      <%= f_r.hidden_field :receta, value: true %>
-    </tr>
-   <% end %>
-    </table>
-  <%# end %>
-</div>
-<div class="field">
-
-  <b>Corrección:</b>
+    <% if f_r.object.ojo %>
+    <b>Receta:</b>
   <table>
     <tr><th>Ojo</th><th>Esf</th><th>Cil</th><th>Eje</th><th>Diam</th><th>Adici</th><th>AV</th></tr>
-    <%= f.fields_for :recetes do |f_r| %>
-    <%# [ true, false].each do |vueltas| %>
+    <% end %>
     <tr>
-      <td>Derecho<%= f_r.hidden_field :ojo, value: true %></td>
+      <td><%= f_r.hidden_field :ojo %></td>
       <td><%= f_r.text_field :esferico, size: 3 %></td>
       <td><%= f_r.text_field :cilindrico, size: 3 %></td>
       <td><%= f_r.text_field :eje, size: 3 %></td>
       <td><%= f_r.text_field :diametro, size: 3 %></td>
       <td><%= f_r.text_field :adicion, size: 3 %></td>
       <td><%= f_r.text_field :av, size: 3 %></td>
-      <td><%= f_r.check_box :distancia, id: 'correcder' %></td>
-      <%= f_r.hidden_field :receta, value: false %>
+      <td><%= f_r.check_box :distancia %></td>
+      <%= f_r.hidden_field :receta %>
     </tr>
-    <%# end %>
-    <% end %><%# end %>
-    <%= f.fields_for :recetes do |f_r| %>
-    <%# [ true, false].each do |vueltas| %>
-    <tr>
-      <td>Izquierdo<%= f_r.hidden_field :ojo, value: false %></td>
-      <td><%= f_r.text_field :esferico, size: 3 %></td>
-      <td><%= f_r.text_field :cilindrico, size: 3 %></td>
-      <td><%= f_r.text_field :eje, size: 3 %></td>
-      <td><%= f_r.text_field :diametro, size: 3 %></td>
-      <td><%= f_r.text_field :adicion, size: 3 %></td>
-      <td><%= f_r.text_field :av, size: 3 %></td>
-      <td><%= f_r.check_box :distancia, id: 'correcder' %></td>
-      <%= f_r.hidden_field :receta, value: false %>
-    </tr>
-    <%# end %>
-    <% end %><%# end %>
-    </table>
+    <% unless f_r.object.ojo %>
+      </table>
+    <% end %>
+   <% end %>
   
 </div>
 <br />

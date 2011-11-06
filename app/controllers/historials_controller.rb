@@ -28,7 +28,6 @@ class HistorialsController < ApplicationController
   # GET /historials/new.json
   def new
     @historial = Historial.new
-    @historial.recetes.build
 
     respond_to do |format|
       format.html # new.html.erb
