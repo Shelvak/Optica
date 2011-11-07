@@ -8,6 +8,8 @@ gem 'rails', '3.1.0'
 gem 'sqlite3'
 gem 'will_paginate'
 gem 'jquery-rails'
+gem 'unicode'
+gem 'passenger'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -23,7 +25,7 @@ end
 # gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+gem 'capistrano'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
@@ -31,4 +33,8 @@ end
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
+end
+
+group :production do
+	gem 'mysql2'
 end

@@ -5,5 +5,5 @@
  *= require_self
  *= require jquery/jquery-custom
  *= require_tree . 
- *= require_scaffolds
+ *= require scaffolds
 */
