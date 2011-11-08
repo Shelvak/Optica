@@ -7,6 +7,12 @@ body {
 div {
     text-align: center;
 }
+div #email-form {
+  text-align: center;
+}
+div #mensaje {
+  margin: 0em 0em 0em 20em;
+}
 table, th, tr, td {
     text-align: center;
     border: 2px solid gray;

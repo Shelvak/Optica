@@ -47,7 +47,7 @@ class HistorialsController < ApplicationController
 
     respond_to do |format|
       if @historial.save
-        format.html { redirect_to @historial, notice: 'Historial was successfully created.' }
+        format.html { redirect_to @historial, notice: 'Historial ha sido creado.' }
         format.json { render json: @historial, status: :created, location: @historial }
       else
         format.html { render action: "new" }

@@ -1,5 +1,5 @@
-theme: 'advanced'
-mode: "textareas"
+#theme: 'advanced'
+#mode: "textareas"
 # :height => 100
 # #:content_css => "/stylesheets/base.css"
 # :remove_script_host => true

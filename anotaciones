@@ -14,20 +14,6 @@ uses_tiny_mce(:options => {
      :theme_advanced_toolbar_align => "left",
      :theme_advanced_buttons2 => %w{ spellchecker },
      :edito
-  def enviar_mail(destinatarios, asunto, mensaje)
-    @destinatarios = Cliente.where('lente == ?', "#{destinatarios}")
-    mail(to: @destinatarios,
-      subject: asunto,
-      body: mensaje
-    )
-  endr_selector => 'mceEditor',
-     :spellchecker_rpc_url => "/users/spellchecker",
-     :spellchecker_languages => "+English=en",
-     :plugins => %w{ contextmenu paste spellchecker}
-      },
-     <img src="http://webonrails.com/wp-includes/images/smilies/icon_surprised.gif" alt=":o" class="wp-smiley"> nly => [:new])
-
-<%= f.tinymce :descripcion %>
 
 
 
