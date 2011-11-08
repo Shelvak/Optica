@@ -51,9 +51,10 @@ LoadModule passenger_module /usr/lib/ruby/gems/1.9.1/gems/passenger-3.0.9/ext/ap
    PassengerRuby /usr/bin/ruby1.9.1 
 
 cd /usr/bin
-passenger start
+passenger start  // -e production
 
 
 ssh-keygen -t rsa (en el directorio de la aplicacion)
 
 sudo apachectl restart
+
