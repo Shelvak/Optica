@@ -1,10 +1,20 @@
+
+
 <%= form_tag('/emails/sendemail') do %>
   <%= label_tag "destino:" %><br />
   <%= select :to,"", ['ambos','flotantes', 'contacto', 'todos'] %><br />
   <%= label_tag "asunto:" %><br />
   <%= text_field_tag :subject %><br />
 <%= label_tag "cuerpo del mensaje:" %> <br />
-  <%= text_area_tag :body %><br />
+  <%= text_area_tag :body, "", size: '30x30'  %><br />
   <%= submit_tag "Enviar" %>
 
 <% end %>
+
+<script type="text/javascript">
+  $(function() {
+    $('textarea').tinymce({
+      theme: 'advanced'
+    });
+  });
+</script>

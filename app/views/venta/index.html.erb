@@ -1,4 +1,4 @@
-<h1>Listing venta</h1>
+<h1>Ventas</h1>
 
 <table>
   <tr>
@@ -14,13 +14,10 @@
     <td><%= ventum.anio %></td>
     <td><%= number_to_currency(ventum.vendido) %></td>
     <td><%= ventum.cantvendida %></td>
-    <td><%= link_to 'Show', ventum %></td>
-    <td><%= link_to 'Edit', edit_ventum_path(ventum) %></td>
-    <td><%= link_to 'Destroy', ventum, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+   
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Ventum', new_ventum_path %>
+<%#= will_paginate @venta %>

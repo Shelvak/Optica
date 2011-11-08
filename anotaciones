@@ -31,10 +31,29 @@ uses_tiny_mce(:options => {
 
 
 
-  def enviar_mail(destinatarios, asunto, mensaje)
-    @destinatarios = Cliente.where('lente == ?', "#{destinatarios}")
-    mail(to: @destinatarios,
-      subject: asunto,
-      body: mensaje
-    )
-  end
+  
+
+
+Para produccion
+
+sudo apt-get install mysql-server mysql-client
+gem install passenger
+passenger-install-apache2-module
+sudo gedit /etc/apache2/apache2.config - httpd.config
+en apache.config
+<VirtualHost *:80>
+ServerName localhost
+DocumentRoot /home/rotsen/Documentos/rails/www/optica/current/public
+</VirtualHost>
+en httpd.config (lo da la instalacion de passenger)
+LoadModule passenger_module /usr/lib/ruby/gems/1.9.1/gems/passenger-3.0.9/ext/apache2/mod_passenger.so
+   PassengerRoot /usr/lib/ruby/gems/1.9.1/gems/passenger-3.0.9
+   PassengerRuby /usr/bin/ruby1.9.1 
+
+cd /usr/bin
+passenger start
+
+
+ssh-keygen -t rsa (en el directorio de la aplicacion)
+
+sudo apachectl restart

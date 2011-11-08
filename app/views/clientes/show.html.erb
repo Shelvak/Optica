@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+
 
 <p>
   <b>Nombre y apellido :</b>
@@ -33,7 +33,7 @@
     <%= raw "<b>Cantidad de recomendaciones: </b>" + @cliente.cantidadrecom.to_s if @cliente.cantidadrecom.to_s %>
 
    <%= raw '<b>Total gastado: </b>' + number_to_currency(@cliente.gastado) if @cliente.gastado != 0 %>
-</p>
+</p> <% unless @historiales.empty? %>
 <table>
   <tr><th>Fecha</th><th>Lentes</th><th>Color</th><th>Observaciones</th><th>Nº de orden</th></tr>
   <% @historiales.each do |h| %>
@@ -45,7 +45,7 @@
   </tr>
   <% end %>
   </table>
-
+<% end %>
 <div class="will_paginate">
 <%= will_paginate @historiales %>
 </div>
