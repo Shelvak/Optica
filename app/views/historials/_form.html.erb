@@ -28,10 +28,10 @@
     <% if f_r.object.ojo %>
     <b>Receta:</b>
   <table>
-    <tr><th>Ojo</th><th>Esf</th><th>Cil</th><th>Eje</th><th>Diam</th><th>Adici</th><th>AV</th></tr>
+    <tr><th>Ojo</th><th>Esf</th><th>Cil</th><th>Eje</th><th>Diam</th><th>Adici</th><th>AV</th><th>Lejos?</th></tr>
     <% end %>
     <tr>
-      <td><%= f_r.hidden_field :ojo %></td>
+      <td><%= f_r.hidden_field :ojo %> <%= f_r.object.ojo ? 'Derecho' : 'Izquierdo' %></td>
       <td><%= f_r.text_field :esferico, size: 3 %></td>
       <td><%= f_r.text_field :cilindrico, size: 3 %></td>
       <td><%= f_r.text_field :eje, size: 3 %></td>
@@ -49,17 +49,17 @@
 </div>
 <br />
   <div class="contacto">
-    <%= f.text_field :armazon, size: 40, placeholder: 'Descripción del armazón: ' %>
-    <%= f.text_field :cristales, placeholder: 'Descripción de los cristales: ' %>
+    Armazon <%= f.text_field :armazon, size: 40, placeholder: 'Descripción del armazón: ' %>
+    Cristales <%= f.text_field :cristales, placeholder: 'Descripción de los cristales: ' %>
   </div><br />
   <div class="field">
-    <%= f.text_area :observaciones, placeholder: 'Observaciones que se han hecho...' %> 
-    <%= f.text_area :uso, placeholder: 'Como los debe usar...' %> 
-    <%= f.text_area :seguimiento, placeholder: 'Seguimiento...' %>
+    <%= f.label :observaciones%> <%= f.text_area :observaciones, placeholder: 'Observaciones que se han hecho...' %> 
+    Uso <%= f.text_area :uso, placeholder: 'Como los debe usar...' %> 
+    Seguimiento <%= f.text_area :seguimiento, placeholder: 'Seguimiento...' %>
   </div>
   
   <div class="field">
-    <%= f.text_field :precio, placeholder: '125.50' %> 
+    $ <%= f.text_field :precio, placeholder: '125.50' %> 
     <%= f.number_field :orden, placeholder: 'Número de orden, para retirar...' %>
   </div>
   <div class="actions">

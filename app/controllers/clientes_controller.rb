@@ -3,7 +3,23 @@ class ClientesController < ApplicationController
   # GET /clientes.json
   def index
     @clientes = Cliente.order('apellido DESC', 'nombre DESC').paginate(page: params[:page], per_page: 15)
-
+    @clientes.each do |clien|
+      @cliente = clien
+      mes = @cliente.nacimiento.to_s.split('-')[1].to_i
+      dia = @cliente.nacimiento.to_s.split('-')[2].to_i
+      if mes == Date.today.month
+        if (dia == Date.today.day.to_i && dia <= 7.days.from_now.to_date.to_s.split('-')[2].to_i)
+          if @cumples.nil? 
+            @cumples = Array.new
+            @cumples << @cliente
+          else
+          @cumples << @cliente
+          end
+        end
+      end
+    end
+   
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @clientes }
@@ -45,7 +61,7 @@ class ClientesController < ApplicationController
 
     respond_to do |format|
       if @cliente.save
-        format.html { redirect_to @cliente, notice: 'Cliente was successfully created.' }
+        format.html { redirect_to @cliente, notice: 'Cliente creado =)' }
         format.json { render json: @cliente, status: :created, location: @cliente }
       else
         format.html { render action: "new" }
@@ -61,7 +77,7 @@ class ClientesController < ApplicationController
 
     respond_to do |format|
       if @cliente.update_attributes(params[:cliente])
-        format.html { redirect_to @cliente, notice: 'Cliente was successfully updated.' }
+        format.html { redirect_to @cliente, notice: 'Cliente actualizado ^^' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

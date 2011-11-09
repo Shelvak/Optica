@@ -1,13 +1,14 @@
 <h1> Lentes Flotantes </h1>
 <table id="tablaflotantes">
   <tr>
+    <th>Cliente</th>
     <th>Lente</th>
     <th>Color</th>
     <th>Armazon</th>
     <th>Cristales</th>
-    <th>Observaciones</th>
+   <!--  <th>Observaciones</th>
     <th>Uso</th>
-    <th>Seguimiento</th>
+    <th>Seguimiento</th> -->
     <th>Precio</th>
     <th>Orden</th>
   </tr>
@@ -15,13 +16,14 @@
 <% @historials.each do |historial| %>
   <% if historial.tipolente == false %>
   <tr>
-    <td><%= link_to historial.lente, historial %></td>
+    <td><%= historial.cliente.nombre.camelize + ' ' + historial.cliente.apellido.camelize %></td>
+    <td><%= link_to ( truncate historial.lente, length: 10), historial %></td>
     <td><%= historial.colorlente %></td>
     <td><%= historial.armazon  %></td>
     <td><%= historial.cristales %></td>
-    <td><%= historial.observaciones %></td>
+   <!--  <td><%= historial.observaciones %></td>
     <td><%= historial.uso %></td>
-    <td><%= historial.seguimiento %></td>
+    <td><%= historial.seguimiento %></td> -->
     <td><%= number_to_currency(historial.precio) %></td>
     <td><%= historial.orden %></td>
   </tr>

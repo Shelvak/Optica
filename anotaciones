@@ -3,20 +3,6 @@ Ojo der => true
 tipolente false => flotante true => contacto
 crear receta
 ojo:boolean esferico:decimal cilindrico:decimal eje:decimal diametro:decimal adicion:decimal av:string distancia:boolean receta:boolean historial_id:integer
-
-uses_tiny_mce(:options => {
-     :theme => 'advanced',
-     :mode => "textareas",
-     :height => 100,
-     :content_css => "/stylesheets/base.css",
-     :remove_script_host => true,
-     :theme_advanced_toolbar_location => "top",
-     :theme_advanced_toolbar_align => "left",
-     :theme_advanced_buttons2 => %w{ spellchecker },
-     :edito
-
-
-
   
 
 
@@ -44,3 +30,15 @@ ssh-keygen -t rsa (en el directorio de la aplicacion)
 
 sudo apachectl restart
 
+
+
+Correccion LC
+
+Cambiar lejos y contacto select
+ventas separadas
+flotantes correccion no hay
+antes de correccion doctor
+distancia interpupilar, 
+Altura solo flotante
+prescripcion definitiva
+correccion => CB y queratometria (string)

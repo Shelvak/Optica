@@ -2,11 +2,12 @@
 
 <table id="tablacontato">
   <tr>
+    <th>Cliente</th>
     <th>Lente</th>
     <th>Color</th>
-    <th>Observaciones</th>
+    <!-- <th>Observaciones</th>
     <th>Uso</th>
-    <th>Seguimiento</th>
+    <th>Seguimiento</th> -->
     <th>Precio</th>
     <th>Orden</th>
   </tr>
@@ -14,14 +15,14 @@
 <% @historials.each do |historial| %>
   <% if historial.tipolente == true  %>
   <tr> 
-    <td><%= link_to historial.lente, historial %></td>
+    <td><%= historial.cliente.nombre.camelize + ' ' + historial.cliente.apellido.camelize %></td>
+    <td><%= link_to ( truncate historial.lente, length: 3), historial %></td>
     <td><%= historial.colorlente %></td>
-    <td><%= truncate historial.observaciones, length: 20 %></td>
+    <!-- <td><%= truncate historial.observaciones, length: 20 %></td>
     <td><%= truncate historial.uso, length: 20 %></td>
-    <td><%= truncate historial.seguimiento, length: 20 %></td>
+    <td><%= truncate historial.seguimiento, length: 20 %></td> -->
     <td><%= number_to_currency(historial.precio) %></td>
     <td><%= historial.orden %></td>
-    <td></td>
   </tr>
   <% end %>
 <% end %>

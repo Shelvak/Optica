@@ -1,14 +1,13 @@
 class Cliente < ActiveRecord::Base
  
   
-  before_save :camel, :asignar_cantidadrecom
+  before_save :camel, :asignar_cantidadrecom, :mejorar_nacimiento
   before_validation :asignar_recomendado, :verificar_documento
   has_many :historials
   #has_many :receta
   
   
   attr_accessor :auto_recomendado
-  
   
   
   scope :buscar, lambda { |nombre| where('LOWER(nombre)LIKE ? OR LOWER(apellido) LIKE ? OR documento LIKE ?',
@@ -43,6 +42,10 @@ class Cliente < ActiveRecord::Base
       @cliente.cantidadrecom += 1
       @cliente.update_attributes(cantidadrecom: @cliente.cantidadrecom)
     end
+  end
+  
+  def mejorar_nacimiento
+    self.nacimiento = self.nacimiento.to_s
   end
   
 end

@@ -1,12 +1,12 @@
 class EmailsController < ApplicationController
 
 
-  def index
-    logger.debug { "Hola".inspect }
-  end  
+#  def index
+#    logger.debug { "Hola".inspect }
+#  end  
   
   def sendemail 
-     MyMailer.enviar(params[:to],params[:subject],params[:body]).deliver
+     MyMailer.enviar(params[:to],params[:subject],params[:body],params[:file]).deliver
      flash[:notice] = 'Emails mandados'
     redirect_to '/emails/index'
   end

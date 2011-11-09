@@ -63,7 +63,7 @@ class HistorialsController < ApplicationController
 
     respond_to do |format|
       if @historial.update_attributes(params[:historial])
-        format.html { redirect_to @historial, notice: 'Historial was successfully updated.' }
+        format.html { redirect_to @historial, notice: 'Historial actualizado =)' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

@@ -1,24 +1,3 @@
-<h1>Clientes</h1>
+<%= render 'clientes' %>
+<%= render 'cumples' %>
 
-<table>
-  <tr>
-    <th>Cliente</th>
-    <th>Documento</th>
-    <th>Teléfono</th>
-    <th>Celular</th>
-  </tr>
-
-<% @clientes.each do |cliente| %>
-  <tr>
-    <td><%= cliente.nombre.split[0] + ' ' + cliente.apellido.split[0] %></td>
-    <td><%= link_to cliente.documento, cliente %></td>
-    <td><%= cliente.telefono %></td>
-    <td><%= cliente.celular %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'Nuevo Cliente', new_cliente_path %> <br /> 
-<%= will_paginate @clients %>
