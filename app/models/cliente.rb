@@ -1,7 +1,7 @@
 class Cliente < ActiveRecord::Base
  
   
-  before_save :camel, :asignar_cantidadrecom, :mejorar_nacimiento
+  before_save :camel, :asignar_cantidadrecom
   before_validation :asignar_recomendado, :verificar_documento
   has_many :historials
   #has_many :receta
@@ -44,8 +44,19 @@ class Cliente < ActiveRecord::Base
     end
   end
   
-  def mejorar_nacimiento
-    self.nacimiento = self.nacimiento.to_s
+  def self.happyverde
+    @clientes = Cliente.all
+    @clientes.each do |clien|
+      @cliente = clien
+      mes = @cliente.nacimiento.to_s.split('-')[1].to_i
+      dia = @cliente.nacimiento.to_s.split('-')[2].to_i
+      if mes == Date.today.month && dia == Date.today.day
+        MyMailer.feliz_cumple(clien).deliver
+      end
+    end
+    
   end
+  
+  
   
 end

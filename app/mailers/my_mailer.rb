@@ -20,9 +20,9 @@ class MyMailer < ActionMailer::Base
     
   end
   
-  def felizcumple(cliente)
-    @cliente = cliente
-    mail(to: @cliente.email, subject: 'Muy feliz cumpleaños')
+  def feliz_cumple(clien)
+    @cliente = clien
+    mail(to: @cliente.email, subject: 'Muy feliz cumpleanios')
   end
   
   

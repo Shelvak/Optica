@@ -11,6 +11,7 @@ gem 'jquery-rails'
 gem 'unicode'
 gem 'passenger'
 gem 'tinymce-rails'
+gem 'whenever'
 #gem 'RedCloth'
 #gem 'sanitize'
 

@@ -8,7 +8,7 @@ class ClientesController < ApplicationController
       mes = @cliente.nacimiento.to_s.split('-')[1].to_i
       dia = @cliente.nacimiento.to_s.split('-')[2].to_i
       if mes == Date.today.month
-        if (dia == Date.today.day.to_i && dia <= 7.days.from_now.to_date.to_s.split('-')[2].to_i)
+        if (dia >= Date.today.day.to_i && dia <= 7.days.from_now.to_date.to_s.split('-')[2].to_i)
           if @cumples.nil? 
             @cumples = Array.new
             @cumples << @cliente
