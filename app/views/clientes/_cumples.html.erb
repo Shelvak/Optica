@@ -1,0 +1,15 @@
+<div id="cumples">
+  <% unless @cumples.nil?  %>
+  <h1>Cumples de la semana</h1>
+<table>
+  <tr><th>Día</th><th>Cliente</th><th>Años</th></tr>
+  <% @cumples.each do |cump| %>
+  <tr>
+    <td><%= l(cump.nacimiento, format: :short) %></td>
+    <td><%= cump.nombre + ' ' + cump.apellido%></td>
+    <td><%= edad(cump)%></td>
+  </tr>
+    <% end %>
+</table>
+  <% end %>
+</div>
