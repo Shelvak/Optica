@@ -36,12 +36,10 @@ class Historial < ActiveRecord::Base
     @venta.vendido += @historial.precio
     @venta.cantvendida += 1
       if @historial.tipolente == false
-        @venta.tipo_venta = 'flotante'
         @venta.cant_flotante += 1
         @venta.venta_flotante += @historial.precio
         @venta.update_attributes(venta_flotante: @venta.venta_flotante, cant_flotante: @venta.cant_flotante)
       elsif @historial.tipolente == true
-        @venta.tipo_venta = 'contacto'
         @venta.cant_contacto += 1
         @venta.venta_contacto += @historial.precio
         @venta.update_attributes(venta_contacto: @venta.venta_contacto, cant_contacto: @venta.cant_contacto)

@@ -84,15 +84,14 @@ ActiveRecord::Schema.define(:version => 20111116212313) do
   create_table "venta", :force => true do |t|
     t.integer  "mes"
     t.integer  "anio"
-    t.decimal  "vendido",        :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "vendido",        :default => 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "cantvendida",                                   :default => 0
-    t.string   "tipo_venta"
-    t.integer  "cant_contacto",                                 :default => 0
-    t.integer  "cant_flotante",                                 :default => 0
-    t.decimal  "venta_contacto",                                :default => 0.0
-    t.decimal  "venta_flotante",                                :default => 0.0
+    t.integer  "cantvendida",    :default => 0
+    t.integer  "cant_contacto",  :default => 0
+    t.integer  "cant_flotante",  :default => 0
+    t.decimal  "venta_contacto", :default => 0.0
+    t.decimal  "venta_flotante", :default => 0.0
   end
 
 end
