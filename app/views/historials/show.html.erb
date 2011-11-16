@@ -18,6 +18,15 @@
 </p>
 
 <p>
+  <b>Doctor:</b>
+  <%= @historial.doctor %>
+</p>
+<p>
+  <b>Distancia Intrapupilar:</b>
+  <%= @historial.dist_intra %>
+</p>
+
+<p>
   <b>Armazon:</b>
   <%= @historial.armazon %>
 </p>
@@ -44,27 +53,43 @@
 
 <p>
   <b>Precio:</b>
-  <%= @historial.precio %>
+  <%= number_to_currency(@historial.precio) %>
 </p>
 
 <p>
   <b>Orden:</b>
   <%= @historial.orden %>
 </p>
-
+<table>
+  <tr>
+  <th>Tipo Receta</th>
+  <th>Ojo</th>
+  <th>Esfe</th>
+  <th>Cilin</th>
+  <th>Eje</th>
+  <th>Diam</th>
+  <th>Adic</th>
+  <th>Av</th>
+  <th>CB</th>
+  <th>Quera</th>
+  <th>Distancia</th>
+  </tr>
 <% @receta.each do |r| %>
-    <%= r.receta ? 'Receta' : 'Corrección'  %> |
-    <%= r.ojo ? 'Derecho' : 'Izquierda' %> |
-    <%= r.esferico %> | 
-    <%= r.cilindrico %> |
-    <%= r.eje %> | 
-    <%= r.diametro %> | 
-    <%= r.adicion %> | 
-    <%= r.av %> | 
-    <%= r.distancia ? 'Lejos' : 'Cerca' %>
-<br />
+  <tr>
+    <td> <%= r.receta ? 'Receta' : 'Corrección'  %>  </td>
+     <td><%= r.ojo ? 'Derecho' : 'Izquierda' %> </td>
+    <td> <%= r.esferico %> </td>
+    <td> <%= r.cilindrico %> </td>
+    <td> <%= r.eje %> </td>
+     <td><%= r.diametro %> </td>
+     <td><%= r.adicion %> </td>
+     <td><%= r.av %> </td>
+     <td><%= r.cb %> </td>
+     <td><%= r.quera %> </td>
+     <td><%= r.distancia ? 'Lejos' : 'Cerca' %></td>
+  </tr>
   <% end %>
-
+</table>
 
 <%= link_to 'Editar', edit_historial_path(@historial) %> |
 <%= link_to 'Borrar', @historial, confirm: 'Seguro??', method: :delete %> |

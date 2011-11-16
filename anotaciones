@@ -5,7 +5,12 @@ distancia cerca => false  lejos => true
 crear receta
 ojo:boolean esferico:decimal cilindrico:decimal eje:decimal diametro:decimal adicion:decimal av:string distancia:boolean receta:boolean historial_id:integer
   
-
+  FALTA 
+  No guardar receta vacia.
+  Mejorar tabla show historial
+  Ocultar parametros vacios
+  Terminar la subida de archivo
+  Crear tarea que Backupee
 
 Para produccion
 
@@ -44,10 +49,7 @@ sudo apachectl start
 
 Correccion LC
 
-ventas separadas
-flotantes correccion no hay
-antes de correccion doctor
-distancia interpupilar, 
-Altura solo flotante
-prescripcion definitiva
-correccion => CB y queratometria (string)
+antes de correccion doctor  "listo"
+distancia interpupilar, "listo"
+Altura solo flotante    <=== FALTA
+correccion => CB y queratometria (string) "listo"
