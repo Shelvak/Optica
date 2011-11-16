@@ -1,6 +1,7 @@
 Ojo izq => False
 Ojo der => true
 tipolente false => flotante true => contacto
+distancia cerca => false  lejos => true
 crear receta
 ojo:boolean esferico:decimal cilindrico:decimal eje:decimal diametro:decimal adicion:decimal av:string distancia:boolean receta:boolean historial_id:integer
   

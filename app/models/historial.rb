@@ -3,9 +3,12 @@ class Historial < ActiveRecord::Base
   belongs_to :cliente
   has_many :recetes
   accepts_nested_attributes_for :recetes
+  
   attr_accessor :auto_cliente
+  
   before_validation :asignar_cliente
   after_save :asignar_total, :asignar_lente
+  before_save :asignar_lente_distancia
   
   scope :asociado, lambda { |cliente| where('cliente_id LIKE ?', "#{cliente}") }
   
@@ -55,6 +58,20 @@ class Historial < ActiveRecord::Base
   
   def to_s
     self.id
+  end
+  
+  def asignar_lente_distancia
+    self.tipolente = true if self.tipolente == 'De Contacto'
+    self.tipolente = false if self.tipolente == 'Flotante'
+    @receta = self.recetes
+    #self.recetes = nil
+    self.recetes = Array.new
+    @receta.each do |recete|
+      recete.distancia = true if recete.distancia == 'De Lejos'
+      recete.distancia = false if recete.distancia == 'De Cerca'
+      self.recetes << recete
+    end
+    
   end
   
 end
