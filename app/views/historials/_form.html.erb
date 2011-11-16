@@ -9,15 +9,18 @@
       <% end %>
       </ul>
     </div>
-  <% end %>
+  <% end %> 
+
 <div class="field">
+  <b>Asignar cliente: </b><br />
   <%= f.text_field :auto_cliente, value: @historial.cliente.try(:documento), 
       placeholder: 'DNI del cliente...' %>
+  <b>Lente </b><%= f.select :tipolente, tipo_lente %> 
 </div>
   <div id="info_cliente">
   </div>
   <div class="field">
-    Contacto?<%= f.check_box :tipolente, id: 'contacto' %> 
+    <b>Lente | Color </b> <br />
     <%= f.text_field :lente, placeholder: 'Descripción del lente:' %> 
     <%= f.text_field :colorlente, placeholder: 'Color del lente:' %>
   </div>
@@ -25,10 +28,17 @@
   
   
   <%= f.fields_for :recetes do |f_r| %>
+    
     <% if f_r.object.ojo %>
-    <b>Receta:</b>
+      <% if f_r.object.receta %>
+          <b> Receta: </b>
+         <div >
+       <% else %>
+          <div class="contacto">
+          <b> Corrección:</b>
+       <% end %>
   <table>
-    <tr><th>Ojo</th><th>Esf</th><th>Cil</th><th>Eje</th><th>Diam</th><th>Adici</th><th>AV</th><th>Lejos?</th></tr>
+    <tr><th>Ojo</th><th>Esf</th><th>Cil</th><th>Eje</th><th>Diam</th><th>Adici</th><th>AV</th><th>Distancia</th></tr>
     <% end %>
     <tr>
       <td><%= f_r.hidden_field :ojo %> <%= f_r.object.ojo ? 'Derecho' : 'Izquierdo' %></td>
@@ -38,30 +48,34 @@
       <td><%= f_r.text_field :diametro, size: 3 %></td>
       <td><%= f_r.text_field :adicion, size: 3 %></td>
       <td><%= f_r.text_field :av, size: 3 %></td>
-      <td><%= f_r.check_box :distancia %></td>
+      <td><%= f_r.select :distancia, tipo_distancia %></td>
       <%= f_r.hidden_field :receta %>
     </tr>
     <% unless f_r.object.ojo %>
-      </table>
+     </table>
+        </div>
     <% end %>
    <% end %>
   
 </div>
 <br />
-  <div class="contacto">
-    Armazon <%= f.text_field :armazon, size: 40, placeholder: 'Descripción del armazón: ' %>
-    Cristales <%= f.text_field :cristales, placeholder: 'Descripción de los cristales: ' %>
+  <div class="flotante">
+    <b>  Armazon | Cristales</b> <br />
+      <%= f.text_field :armazon, size: 40, placeholder: 'Descripción del armazón: ' %>
+      <%= f.text_field :cristales, size: 40, placeholder: 'Descripción de los cristales: ' %>
   </div><br />
   <div class="field">
-    <%= f.label :observaciones%> <%= f.text_area :observaciones, placeholder: 'Observaciones que se han hecho...' %> 
-    Uso <%= f.text_area :uso, placeholder: 'Como los debe usar...' %> 
-    Seguimiento <%= f.text_area :seguimiento, placeholder: 'Seguimiento...' %>
+        <b><xmp>Observaciones                         Uso                            Seguimiento</xmp></b>
+    <%= f.text_area :observaciones, placeholder: 'Observaciones que se han hecho...' %> 
+    <%= f.text_area :uso, placeholder: 'Como los debe usar...' %> 
+     <%= f.text_area :seguimiento, placeholder: 'Seguimiento...' %>
   </div>
   
   <div class="field">
-    $ <%= f.text_field :precio, placeholder: '125.50' %> 
-    <%= f.number_field :orden, placeholder: 'Número de orden, para retirar...' %>
-  </div>
+    <b> Precio | Orden</b> <br />
+    $<%= f.text_field :precio,size: 10, placeholder: '125.50' %> 
+    <%= f.number_field :orden,size: 10, placeholder: 'Nº orden' %>
+  </div><br />
   <div class="actions">
     <%= f.submit %>
   </div>
