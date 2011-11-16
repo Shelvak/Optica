@@ -30,6 +30,15 @@ ssh-keygen -t rsa (en el directorio de la aplicacion)
 
 sudo apachectl restart
 
+si no arranca
+
+sudo netstat -lnp | grep :80
+
+kill (proceso)
+
+/usr/sbin/apachectl graceful
+
+sudo apachectl start
 
 
 Correccion LC
