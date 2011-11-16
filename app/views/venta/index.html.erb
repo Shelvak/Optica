@@ -2,18 +2,26 @@
 
 <table>
   <tr>
-    <th>Mes</th>
-    <th>Año</th>
-    <th>Vendido</th>
-    <th>Cantidad de ventas</th>
+    <th> Mes </th>
+    <th> Año </th>
+    <th colspan="3"> Flotantes </th>
+    <th colspan="3"> Contacto </th>
+    <th colspan="3"> Total </th>
   </tr>
 
 <% @venta.each do |ventum| %>
   <tr>
     <td><%= ventum.mes %></td>
     <td><%= ventum.anio %></td>
-    <td><%= number_to_currency(ventum.vendido) %></td>
+    <td class="oculto"></td>
+    <td><%= ventum.cant_flotante %></td>
+    <td><%= number_to_currency(ventum.venta_flotante) %></td>
+     <td class="oculto"></td>
+    <td><%= ventum.cant_contacto %></td>
+    <td><%= number_to_currency(ventum.venta_contacto) %></td>
+     <td class="oculto"></td>
     <td><%= ventum.cantvendida %></td>
+    <td><%= number_to_currency(ventum.vendido) %></td>
    
 <% end %>
 </table>

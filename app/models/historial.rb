@@ -8,7 +8,6 @@ class Historial < ActiveRecord::Base
   
   before_validation :asignar_cliente
   after_save :asignar_total, :asignar_lente
-  before_save :asignar_lente_distancia
   
   scope :asociado, lambda { |cliente| where('cliente_id LIKE ?', "#{cliente}") }
   
@@ -36,6 +35,17 @@ class Historial < ActiveRecord::Base
     @cliente = Cliente.find_by_documento(@historial.cliente.documento)
     @venta.vendido += @historial.precio
     @venta.cantvendida += 1
+      if @historial.tipolente == false
+        @venta.tipo_venta = 'flotante'
+        @venta.cant_flotante += 1
+        @venta.venta_flotante += @historial.precio
+        @venta.update_attributes(venta_flotante: @venta.venta_flotante, cant_flotante: @venta.cant_flotante)
+      elsif @historial.tipolente == true
+        @venta.tipo_venta = 'contacto'
+        @venta.cant_contacto += 1
+        @venta.venta_contacto += @historial.precio
+        @venta.update_attributes(venta_contacto: @venta.venta_contacto, cant_contacto: @venta.cant_contacto)
+      end
     @cliente.gastado += @historial.precio
     @venta.update_attributes(vendido: @venta.vendido, cantvendida: @venta.cantvendida)
     @cliente.update_attributes(gastado: @cliente.gastado)
@@ -60,18 +70,5 @@ class Historial < ActiveRecord::Base
     self.id
   end
   
-  def asignar_lente_distancia
-    self.tipolente = true if self.tipolente == 'De Contacto'
-    self.tipolente = false if self.tipolente == 'Flotante'
-    @receta = self.recetes
-    #self.recetes = nil
-    self.recetes = Array.new
-    @receta.each do |recete|
-      recete.distancia = true if recete.distancia == 'De Lejos'
-      recete.distancia = false if recete.distancia == 'De Cerca'
-      self.recetes << recete
-    end
-    
-  end
   
 end

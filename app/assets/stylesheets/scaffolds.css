@@ -20,9 +20,15 @@ div #email-form {
 div #mensaje {
   margin: 0em 0em 0em 20em;
 }
-table, th, tr, td {
+table, th {
+    text-align: center;
+}
+table, tr, td {
     text-align: center;
     border: 2px solid gray;
+}
+.oculto{
+    border: 0px;
 }
 table {
     margin: 0em auto;

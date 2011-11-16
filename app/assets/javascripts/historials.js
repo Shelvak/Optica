@@ -1,12 +1,16 @@
 jQuery(function($){
    //Muestra u oculta las convenientes partes de flotantes o contacto
        $('#historial_tipolente').change(function(){
-                if($(this).val() == 'De Contacto') {
-                     $('.flotante').hide();
-                     $('.contacto').show();
+                if($(this).val() == '1') {
+                     $('.flotante').slideUp();
+                     //.attr('hidden', true);
+                     $('.contacto').slideDown();
+                     //.attr('hidden', false);
                  }else {
-                    $('.flotante').show();
-                    $('.contacto').hide();
+                    $('.flotante').slideDown();
+                    //.attr('hidden', false);
+                    $('.contacto').slideUp();
+                    //.attr('hidden', true);
                  }
        });
 
