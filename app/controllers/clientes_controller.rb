@@ -2,7 +2,7 @@ class ClientesController < ApplicationController
   # GET /clientes
   # GET /clientes.json
   def index
-    @clientes = Cliente.order('apellido DESC', 'nombre DESC').paginate(page: params[:page], per_page: 15)
+    @clientes = Cliente.order('apellido DESC', 'nombre DESC').paginate(page: params[:page], per_page: 2)
     @clientes.each do |clien|
       @cliente = clien
       mes = @cliente.nacimiento.to_s.split('-')[1].to_i
@@ -25,6 +25,7 @@ class ClientesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @clientes }
+      format.js 
     end
   end
 

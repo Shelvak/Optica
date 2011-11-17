@@ -1,4 +1,4 @@
-<div id="clientes">
+
   <h1>Clientes</h1>
 
 <table>
@@ -18,9 +18,8 @@
   </tr>
 <% end %>
 </table>
-
 <br />
 
-<%= link_to 'Nuevo Cliente', new_cliente_path %> <br /> 
-<%= will_paginate @clients %>
-</div>
+<%= will_paginate @clients %> <br />
+
+<%= link_to 'Nuevo Cliente', new_cliente_path %>
