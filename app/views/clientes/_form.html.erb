@@ -12,28 +12,32 @@
   <% end %>
 
   <div class="field">
+    <b> <xmp> Nombre:                            Apellido:                                    Documento:</xmp></b>
     <%= f.text_field :nombre, placeholder: 'Nombre: Marcela' %> 
     <%= f.text_field :apellido, placeholder: 'Apellido: Palpacelli' %>
     <%= f.number_field :documento, placeholder: 'DNI: 12345678 Sin puntos' %><br />
   </div>
  
   <div class="field">
+    <b> <xmp>Dirección:                         Teléfono:                                  Celular:</xmp></b>
     <%= f.text_field :direccion, placeholder: 'Dirección: Loria este 220 G.Cruz' %>
     <%= f.number_field :telefono, placeholder: 'Teléfono: 4390602 Sin puntos' %>
     <%= f.text_field :celular, placeholder: 'Celular: 261-5570086' %><br />
   </div>
 
   <div class="field">
+    <b> <xmp> Email:                          Ocupación:                             Recomendado por:</xmp></b>
     <%= f.email_field :email, placeholder: 'Email: opticapalpacelli@gmail.com' %>
     <%= f.text_field :ocupacion, placeholder: 'Ocupación: Oculista - Contactologa' %>
     <%= f.text_field :auto_recomendado, value: @cliente.recomendado, placeholder: 'Recomendado por : Luciano' %><br />
-  </div>
+  </div><br />
  
   <div class="field">
-    Nacio el:<%= f.date_select :nacimiento, start_year: 1920, end_year: 2010 %><br /><br />
+    <b>Nacio el: </b><%= f.date_select :nacimiento, start_year: 1920, end_year: 2010 %><br /><br />
+    <b>Actividad | Hist Salud</b><br />
     <%= f.text_area :actividad, placeholder: 'Toda actividad recreativa, o no =)', size: '66x10' %>
     <%= f.text_area :salud, placeholder: 'Historial de salud del cliente', size: '66x10' %>
-  </div>
+  </div><br />
   <div class="actions">
     <%= f.submit %>
   </div>

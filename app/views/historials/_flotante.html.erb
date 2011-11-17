@@ -6,29 +6,21 @@
     <th>Color</th>
     <th>Armazon</th>
     <th>Cristales</th>
-   <!--  <th>Observaciones</th>
-    <th>Uso</th>
-    <th>Seguimiento</th> -->
     <th>Precio</th>
     <th>Orden</th>
   </tr>
 
-<% @historials.each do |historial| %>
-  <% if historial.tipolente == false %>
+<% @flotante.each do |historial| %>
   <tr>
     <td><%= historial.cliente.nombre.camelize + ' ' + historial.cliente.apellido.camelize %></td>
     <td><%= link_to ( truncate historial.lente, length: 10), historial %></td>
     <td><%= historial.colorlente %></td>
     <td><%= historial.armazon  %></td>
     <td><%= historial.cristales %></td>
-   <!--  <td><%= historial.observaciones %></td>
-    <td><%= historial.uso %></td>
-    <td><%= historial.seguimiento %></td> -->
     <td><%= number_to_currency(historial.precio) %></td>
     <td><%= historial.orden %></td>
   </tr>
-  <% end %>
 <% end %>
 </table>
 
-<%= will_paginate @flotante %>
+<%= will_paginate @flotante, :param_name => :p_f %>

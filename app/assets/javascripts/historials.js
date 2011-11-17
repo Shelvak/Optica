@@ -3,14 +3,10 @@ jQuery(function($){
        $('#historial_tipolente').change(function(){
                 if($(this).val() == '1') {
                      $('.flotante').slideUp();
-                     //.attr('hidden', true);
                      $('.contacto').slideDown();
-                     //.attr('hidden', false);
                  }else {
                     $('.flotante').slideDown();
-                    //.attr('hidden', false);
                     $('.contacto').slideUp();
-                    //.attr('hidden', true);
                  }
        });
 
@@ -18,5 +14,14 @@ jQuery(function($){
        $('#historial_auto_cliente').autocomplete({
         source: '/clientes/autocompletar.js'
         });
+        
+//        //paginar
+       $('.pagination a').live("click", function() {  
+          $.get(this.href, null, null, 'script');  
+            return false;  
+        });  
+
+
+  
   
 });

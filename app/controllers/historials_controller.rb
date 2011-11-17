@@ -1,14 +1,18 @@
 class HistorialsController < ApplicationController
+
+#  proc { |c| c.request.xhr? ? false : 'application'}
+  
   # GET /historials
   # GET /historials.json
   def index
-    @historials = Historial.order('created_at DESC').paginate(page: params[:page], per_page: 20)
-    @contacto = Historial.where(tipolente: true).paginate(page: params[:page], per_page: 20)
-    @flotante = Historial.where(tipolente: false).paginate(page: params[:page], per_page: 20)
+    @historials = Historial.order('created_at DESC')
+    @contacto = Historial.where(tipolente: true).paginate(page: params[:p_c], per_page: 5)
+    @flotante = Historial.where(tipolente: false).paginate(page: params[:p_f], per_page: 5)
     
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @historials }
+      format.js
     end
   end
 

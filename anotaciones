@@ -2,12 +2,12 @@ Ojo izq => False
 Ojo der => true
 tipolente false => flotante true => contacto
 distancia cerca => false  lejos => true
+receta
 crear receta
 ojo:boolean esferico:decimal cilindrico:decimal eje:decimal diametro:decimal adicion:decimal av:string distancia:boolean receta:boolean historial_id:integer
   
   FALTA 
   loggin
-  No guardar receta vacia.
   Terminar la subida de archivo
   Crear tarea que Backupee
 

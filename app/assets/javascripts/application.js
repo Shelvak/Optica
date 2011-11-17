@@ -9,4 +9,5 @@
 //= require jquery_ujs
 //= require historials
 //= require clientes
+//= require generals
 //= require tinymce-jquery
