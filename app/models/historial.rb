@@ -2,13 +2,13 @@ class Historial < ActiveRecord::Base
   
   belongs_to :cliente
   has_many :recetes
-  accepts_nested_attributes_for :recetes
+  accepts_nested_attributes_for :recetes, :allow_destroy => true
   
   attr_accessor :auto_cliente
   
   before_validation :asignar_cliente
   after_save :asignar_total, :asignar_lente
-  
+  before_save :eliminar_vacio
   scope :asociado, lambda { |cliente| where('cliente_id LIKE ?', "#{cliente}") }
   
   def initialize(attributes = nil, options = {}) 
@@ -68,5 +68,11 @@ class Historial < ActiveRecord::Base
     self.id
   end
   
+  def eliminar_vacio
+    if self.tipolente == 0 || self.tipolente == false
+      self.recetes[2].destroy
+      self.recetes[3].destroy
+    end
+  end
   
 end

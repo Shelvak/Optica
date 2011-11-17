@@ -1,5 +1,5 @@
 class Recete < ActiveRecord::Base
-  belongs_to :historial
+  has_one :historial
   scope :histori, lambda { |id| where("historial_id = #{id}")}
   
 end

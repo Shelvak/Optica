@@ -5,9 +5,6 @@
     <th>Cliente</th>
     <th>Lente</th>
     <th>Color</th>
-    <!-- <th>Observaciones</th>
-    <th>Uso</th>
-    <th>Seguimiento</th> -->
     <th>Precio</th>
     <th>Orden</th>
   </tr>
@@ -16,11 +13,8 @@
   <% if historial.tipolente == true  %>
   <tr> 
     <td><%= historial.cliente.nombre.camelize + ' ' + historial.cliente.apellido.camelize %></td>
-    <td><%= link_to ( truncate historial.lente, length: 3), historial %></td>
+    <td><%= link_to ( truncate historial.lente, length: 20), historial %></td>
     <td><%= historial.colorlente %></td>
-    <!-- <td><%= truncate historial.observaciones, length: 20 %></td>
-    <td><%= truncate historial.uso, length: 20 %></td>
-    <td><%= truncate historial.seguimiento, length: 20 %></td> -->
     <td><%= number_to_currency(historial.precio) %></td>
     <td><%= historial.orden %></td>
   </tr>

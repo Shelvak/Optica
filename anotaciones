@@ -6,9 +6,8 @@ crear receta
 ojo:boolean esferico:decimal cilindrico:decimal eje:decimal diametro:decimal adicion:decimal av:string distancia:boolean receta:boolean historial_id:integer
   
   FALTA 
+  loggin
   No guardar receta vacia.
-  Mejorar tabla show historial
-  Ocultar parametros vacios
   Terminar la subida de archivo
   Crear tarea que Backupee
 
