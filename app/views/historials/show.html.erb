@@ -1,82 +1,57 @@
-<p id="notice"><%= notice %></p>
-
 
 <p>
-<%= @historial.cliente %></p><p>
-  <b>Tipolente:</b>
-  <%= @historial.tipolente ? 'Contacto' : 'Flotante' %>
-</p>
-
-<p>
+<%= link_to @historial.cliente, @historial.cliente %></p>
   <b>Lente:</b>
-  <%= @historial.lente %>
+  <%= @historial.tipolente ? 'de Contacto' : 'Flotante' %> 
+
+  
+  <%= raw '<b>  Desc. lente:  </b>' + @historial.lente if @historial.lente.present? %> 
+
+  
+  <%= raw '<b>  Color : </b>' + @historial.colorlente if @historial.colorlente.present? %>  
 </p>
 
 <p>
-  <b>Colorlente:</b>
-  <%= @historial.colorlente %>
+  
+  <%= raw '<b>Doctor: </b>' + @historial.doctor if @historial.doctor.present? %> 
+
+  
+  <%= raw '<b>  Distancia Intrapupilar: </b>' + @historial.dist_intra if @historial.dist_intra.present? %>
+</p>
+ 
+<p>
+  <%= raw '<b> Armazon: </b>' + @historial.armazon if @historial.armazon.present? %>
+
+  <%= raw '<b>  Cristales: </b>' +  @historial.cristales if @historial.cristales.present? %>
 </p>
 
 <p>
-  <b>Doctor:</b>
-  <%= @historial.doctor %>
-</p>
-<p>
-  <b>Distancia Intrapupilar:</b>
-  <%= @historial.dist_intra %>
+  <%= raw '<b>Observaciones: </b>' + @historial.observaciones if @historial.observaciones.present? %>
 </p>
 
 <p>
-  <b>Armazon:</b>
-  <%= @historial.armazon %>
+  <%= raw '<b>Uso: </b>' + @historial.uso if @historial.uso.present?%>
 </p>
 
 <p>
-  <b>Cristales:</b>
-  <%= @historial.cristales %>
+  <%= raw '<b>Seguimiento: </b>' + @historial.seguimiento if @historial.seguimiento.present? %>
 </p>
 
 <p>
-  <b>Observaciones:</b>
-  <%= @historial.observaciones %>
+  <%= raw '<b>Precio: </b>' + number_to_currency(@historial.precio) if @historial.precio != 0 %>
+  <%= raw '<b>Orden: </b>' + @historial.orden.to_s if @historial.orden.present? %>
 </p>
 
-<p>
-  <b>Uso:</b>
-  <%= @historial.uso %>
-</p>
-
-<p>
-  <b>Seguimiento:</b>
-  <%= @historial.seguimiento %>
-</p>
-
-<p>
-  <b>Precio:</b>
-  <%= number_to_currency(@historial.precio) %>
-</p>
-
-<p>
-  <b>Orden:</b>
-  <%= @historial.orden %>
-</p>
 <table>
   <tr>
-  <th>Tipo Receta</th>
-  <th>Ojo</th>
-  <th>Esfe</th>
-  <th>Cilin</th>
-  <th>Eje</th>
-  <th>Diam</th>
-  <th>Adic</th>
-  <th>Av</th>
-  <th>CB</th>
-  <th>Quera</th>
-  <th>Distancia</th>
+  <th>Ojo</th>   <th>Esfe</th>   <th>Cilin</th>
+  <th>Eje</th>   <th>Diam</th>   <th>Adic</th>  <th>Av</th>
+  <th>CB</th>  <th>Quera</th>  <th>Distancia</th>
   </tr>
-<% @receta.each do |r| %>
-  <tr>
-    <td> <%= r.receta ? 'Receta' : 'Corrección'  %>  </td>
+<% @receta.each_with_index do |r,i| %>
+  
+  <% if i % 2 == 0 %> <tr> <td colspan="10"> <b><%= r.receta ? 'Receta' : 'Corrección LC'  %> </b> </td></tr> <% end %>
+    <tr>
      <td><%= r.ojo ? 'Derecho' : 'Izquierda' %> </td>
     <td> <%= r.esferico %> </td>
     <td> <%= r.cilindrico %> </td>
