@@ -6,8 +6,8 @@ class HistorialsController < ApplicationController
   # GET /historials.json
   def index
     @historials = Historial.order('created_at DESC')
-    @contacto = Historial.where(tipolente: true).paginate(page: params[:p_c], per_page: 5)
-    @flotante = Historial.where(tipolente: false).paginate(page: params[:p_f], per_page: 5)
+    @contacto = Historial.where(tipolente: true).paginate(page: params[:p_c], per_page: 14)
+    @flotante = Historial.where(tipolente: false).paginate(page: params[:p_f], per_page: 14)
     
     respond_to do |format|
       format.html # index.html.erb

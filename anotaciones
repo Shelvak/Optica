@@ -7,9 +7,10 @@ crear receta
 ojo:boolean esferico:decimal cilindrico:decimal eje:decimal diametro:decimal adicion:decimal av:string distancia:boolean receta:boolean historial_id:integer
   
   FALTA 
-  loggin
-  Terminar la subida de archivo
-  Crear tarea que Backupee
+	  loggin
+	  Terminar la subida de archivo
+	  Crear tarea que Backupee
+	  Agregar info luego de autocompletado
 
 Para produccion
 
