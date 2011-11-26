@@ -10,4 +10,4 @@
 //= require historials
 //= require clientes
 //= require generals
-//= require tinymce-jquery
+//= require nicEdit

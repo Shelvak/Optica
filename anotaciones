@@ -11,6 +11,7 @@ ojo:boolean esferico:decimal cilindrico:decimal eje:decimal diametro:decimal adi
 	  Terminar la subida de archivo
 	  Crear tarea que Backupee
 	  Agregar info luego de autocompletado
+	  hacer andar todo en produccion
 
 Para produccion
 

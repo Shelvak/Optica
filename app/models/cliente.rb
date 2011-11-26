@@ -15,7 +15,7 @@ class Cliente < ActiveRecord::Base
 
   
   validates :nombre, :apellido, :documento, presence: true
-  validates :documento, uniqueness: true
+  validates :documento, uniqueness: true, presence: true
   
   def camel
     self.nombre = self.nombre.split.map(&:camelize).join(' ')

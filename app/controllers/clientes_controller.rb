@@ -17,7 +17,7 @@ class ClientesController < ApplicationController
           end
         end
       end
-      @cumples.sort! { |a, b|  a.nacimiento.day <=> b.nacimiento.day }
+      @cumples.sort! { |a, b|  a.nacimiento.day <=> b.nacimiento.day } if @cumples
 
     end
    

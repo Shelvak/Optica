@@ -1,43 +1,21 @@
 
 <div id="email-form">
 <br />
-<%= form_tag '/emails/sendemail', :multipart => true do %>
+<%= form_tag '/emails/sendemail', html: { multipart: true} do |f| %>
   <%= label_tag "destino:" %>
   <%= select :to, "", ['todos', 'ambos', 'flotantes', 'contacto'] %>
   <%= label_tag "asunto:" %>
   <%= text_field_tag :subject %><br /><br />
-  <div id='mensaje'>
+  
 <br />
+<div id="div-mensaje">
   <%= text_area_tag :body %>
-  </div>
+</div>
   <br /> 
- <%= file_field_tag :file, :accept => 'image/jpeg', :multiple => true %><br />
 <%= submit_tag "Enviar" %>
 <% end %>
 </div>
 
 <script type="text/javascript">
-  $(function() {
-    $('textarea').tinymce({
-        mode: "exact",
-        elements: "textarea",
-        theme: "advanced",
-        language: "es",
-        width: '75%',
-        
-        // Theme options
-        theme_advanced_buttons1: "fullscreen,code,|,cut,copy,paste,pastetext,pasteword,|,undo,redo,|,bold,italic,underline,strikethrough,|,blockquote,sub,sup,|,justifyleft,justifycenter,justifyright,|,bullist,numlist,outdent,indent",
-        theme_advanced_buttons2: "link,unlink,removeformat,cleanup,charmap,emotions,|,formatselect,fontselect,fontsizeselect,|,forecolor,backcolor,insertcode,template",
-        theme_advanced_buttons3: "",
-        theme_advanced_toolbar_location: "top",
-        theme_advanced_toolbar_align: "center",
-        theme_advanced_statusbar_location: "bottom",
-        theme_advanced_resizing: true,
-        theme_advanced_resize_horizontal: false,
-        tab_focus: ":prev,:next",
-        extended_valid_elements: "textarea[cols|rows|disabled|name|readonly|class]",
-
-
-    });
-  });
+       bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
 </script>

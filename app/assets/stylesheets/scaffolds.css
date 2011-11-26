@@ -14,11 +14,13 @@ div {
     float: left;
     margin: 0em 20em;
 }
-div #email-form {
-  text-align: center;
+#div-mensaje{
+    margin: 0em 20em 0em 20em;
+    background-color: #fff;
 }
-div #mensaje {
-  margin: 0em 0em 0em 20em;
+#body{
+    height: 300px;
+    width: 100%;
 }
 table, th {
     text-align: center;

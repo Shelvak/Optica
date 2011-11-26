@@ -10,10 +10,7 @@ gem 'will_paginate'
 gem 'jquery-rails'
 gem 'unicode'
 gem 'passenger'
-gem 'tinymce-rails'
 gem 'whenever'
-#gem 'RedCloth'
-#gem 'sanitize'
 
 # Gems used only for assets and not required
 # in production environments by default.

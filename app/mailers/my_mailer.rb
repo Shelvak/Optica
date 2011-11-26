@@ -5,25 +5,26 @@ class MyMailer < ActionMailer::Base
   :content_type => "text/html"
 
   
-  def enviar(to,subject,body,file)
+  def enviar(to,subject,body)
   	to = to.join
-  	#body = sanitize(body)
+    
     @destinatarios = Cliente.where("lente = ?", "#{to}").map(&:email).compact if to != 'todos'
     @destinatarios = Cliente.all.map(&:email).compact if to == 'todos'
-    @body = body.html_safe
+
     # attachments.inline['IBM.jpg'] = File.read("#{Rails.root}/public/IBM.jpg")
 
     mail(
       :bcc => @destinatarios,
       :subject => subject,
-      :body => @body)
+      :body => body)
     
   end
   
   def feliz_cumple(clien)
     @cliente = clien
-    mail(to: @cliente.email, subject: 'Muy feliz cumpleanios')
-  end
+    attachments.inline['IBM.jpg'] = File.read("#{Rails.root}/public/IBM.jpg")
+    mail(to: @cliente.email, subject: "Muy feliz cumpleanios #{@cliente.nombre.camelize}" )
+    end
   
   
 end
