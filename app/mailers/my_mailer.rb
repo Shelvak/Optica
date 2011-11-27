@@ -10,13 +10,14 @@ class MyMailer < ActionMailer::Base
     
     @destinatarios = Cliente.where("lente = ?", "#{to}").map(&:email).compact if to != 'todos'
     @destinatarios = Cliente.all.map(&:email).compact if to == 'todos'
-
+    @body = body
+    
     # attachments.inline['IBM.jpg'] = File.read("#{Rails.root}/public/IBM.jpg")
 
     mail(
       :bcc => @destinatarios,
       :subject => subject,
-      :body => body)
+      :body => @body)
     
   end
   

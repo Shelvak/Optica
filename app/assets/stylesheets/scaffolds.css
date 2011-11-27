@@ -17,6 +17,7 @@ div {
 #div-mensaje{
     margin: 0em 20em 0em 20em;
     background-color: #fff;
+    color: #000;
 }
 #body{
     height: 300px;
