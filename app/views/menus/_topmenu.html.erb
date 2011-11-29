@@ -7,7 +7,8 @@
   <%= link_to 'Mails', "/emails/index" %>
   
   <%= flash[:notice] %>
-  
+</div>
+<div class="user">
    <% if @current_user %>   
     <%= link_to @current_user.login ,:controller => 'users', :action => 'edit', :id => @current_user  %> |
     <%= link_to "Salir", new_user_session_path, :method => :delete, :confirm => "Seguro?" %>

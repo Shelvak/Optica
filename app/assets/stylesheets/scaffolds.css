@@ -7,6 +7,9 @@ body {
 div {
     text-align: center;
 }
+.user{
+    float: right;
+}
 #cumples{
     float: right;
 }
