@@ -4,5 +4,14 @@
   <%#= link_to 'recetas', recetes_path %>
   <%= link_to 'Ventas', venta_path %>
   <%= link_to 'Mails', "/emails/index" %>
+  
   <%= flash[:notice] %>
+  
+   <% if @current_user %>   
+    <%= link_to @current_user.login ,:controller => 'users', :action => 'edit', :id => @current_user  %> |
+    <%= link_to "Salir", new_user_session_path, :method => :delete, :confirm => "Seguro?" %>
+  <% else %>
+    <%= link_to "Registrarse", new_user_path %> 
+      |  <%= link_to "Entrar", new_user_session_path  %>
+  <% end %>
 </div>

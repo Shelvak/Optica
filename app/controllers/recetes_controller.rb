@@ -1,4 +1,7 @@
 class RecetesController < ApplicationController
+  
+  before_filter :requerir_user
+  
   # GET /recetes
   # GET /recetes.json
   def index

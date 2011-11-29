@@ -1,9 +1,9 @@
 Optica::Application.routes.draw do
-  
   match 'emails/index' => 'emails#index', :via => 'get' 
   match 'emails/sendemail' => 'emails#sendemail', :via => 'post' 
   
-  resources :recetes, :venta, :historials
+  resources :recetes, :venta, :historials,:users
+  resources :user_sessions, :only => [:new, :create, :destroy] 
   
   
   resources :clientes do

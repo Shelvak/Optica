@@ -1,5 +1,7 @@
 class EmailsController < ApplicationController
  
+  before_filter :requerir_user
+  
 #  def index
 #    logger.debug { "Hola".inspect }
 #  end  

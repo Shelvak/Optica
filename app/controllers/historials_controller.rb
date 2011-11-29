@@ -1,5 +1,7 @@
 class HistorialsController < ApplicationController
 
+  before_filter :requerir_user
+  
 #  proc { |c| c.request.xhr? ? false : 'application'}
   
   # GET /historials
