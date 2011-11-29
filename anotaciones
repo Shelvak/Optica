@@ -8,7 +8,6 @@ ojo:boolean esferico:decimal cilindrico:decimal eje:decimal diametro:decimal adi
   
   FALTA 
 	  loggin
-	  Terminar la subida de archivo
 	  Crear tarea que Backupee
 	  Agregar info luego de autocompletado
 	  hacer andar todo en produccion
