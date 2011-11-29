@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111129192806) do
+ActiveRecord::Schema.define(:version => 20111129202231) do
 
   create_table "clientes", :force => true do |t|
     t.string   "nombre"
@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(:version => 20111129192806) do
     t.string   "crypted_password"
     t.string   "password_salt"
     t.string   "persistence_token"
+    t.boolean  "admin"
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true

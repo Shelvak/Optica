@@ -23,7 +23,10 @@
    <%= f.label :password_confirmation, 'Respetir Clave' %><br />
    <%= f.password_field :password_confirmation, :size => 40 %>
   </div>
+<div class="field">
+  <%= f.check_box :admin %> Admin?
+</div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Crear" %>
   </div>
 <% end %>

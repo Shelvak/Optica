@@ -1,4 +1,5 @@
 <div class="topmenu">
+  <%= link_to 'Usuarios', users_path if (@current_user && @current_user.admin == true) %>
   <%= link_to 'Clientes', clientes_path %>
   <%= link_to 'Historiales', historials_path%>
   <%#= link_to 'recetas', recetes_path %>

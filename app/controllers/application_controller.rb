@@ -12,6 +12,14 @@ class ApplicationController < ActionController::Base
     @current_user ||= current_user_session && current_user_session.record
   end
     
+    def requerir_admin
+      unless current_user.try(:admin) == true
+        flash[:notice] = "Debe ser Admin"
+        store_location
+        redirect_to historials_url
+      end
+    end
+  
     def requerir_user
       unless current_user
         flash[:notice] = "Debe estar loggiado"
