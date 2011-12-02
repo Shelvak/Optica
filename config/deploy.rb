@@ -1,3 +1,8 @@
+#Wheneverize production =)
+require "whenever/capistrano"
+set :whenever_command, "bundle exec whenever"
+
+
 set :application, "optica"
 default_run_options[:pty] = true
 set :repository,  "git@github.com:Shelvak/Optica.git"
@@ -34,5 +39,9 @@ namespace :deploy do
 # task "bundle install", :roles => :app do
 # run "cd #{release_path} && bundle install"
 # end
-
+    #update Cron
+    desc "Update the crontab file"  
+      task :update_crontab, :roles => :db do  
+        run "cd #{release_path} && whenever --update-crontab #{application}"  
+      end  
 end
