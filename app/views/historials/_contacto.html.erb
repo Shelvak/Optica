@@ -8,20 +8,22 @@
     <th>Precio</th>
     <th>Orden</th>
     <th>Fecha</th>
+    <th>Retirado??</th>
   </tr>
 
-<% @contacto.each do |historial| %>
+<% @contactos.each do |historial| %>
   
   <tr> 
-    <td><%= historial.cliente.nombre.camelize + ' ' + historial.cliente.apellido.camelize %></td>
-    <td><%= link_to ( truncate historial.lente, length: 20), historial %></td>
+    <td><%= link_to (historial.cliente.nombre.split.first + ' ' + historial.cliente.apellido.split.first), historial %></td>
+    <td><%= truncate historial.lente, length: 20 %></td>
     <td><%= historial.colorlente %></td>
     <td><%= number_to_currency(historial.precio) %></td>
     <td><%= historial.orden %></td>
     <td><%= l(historial.created_at, format: :little ) %></td>
+    <td><%= historial.retirado ? 'retirado' : link_to("Retirar?", retirar_contacto_historial_path(historial), remote: true, class: 'retirado','data-type' => 'html') %></td>
   </tr>
   
 <% end %>
 </table>
-<%= will_paginate @contacto, :param_name => :p_c %>
+<%= will_paginate @contactos, :param_name => :p_c %>
 

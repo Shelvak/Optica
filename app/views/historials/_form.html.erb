@@ -10,7 +10,9 @@
       </ul>
     </div>
   <% end %> 
-
+<div class="mostrar_cliente" hidden="hidden">
+    <%#= text_field_tag :lala  %>
+  </div>
 <div class="field">
   <b>Asignar cliente: </b><br />
   <%= f.text_field :auto_cliente, value: @historial.cliente.try(:documento), 
@@ -19,7 +21,7 @@
 </div>
   <div id="info_cliente">
   </div>
-  <div class="field">
+  <div class="contacto">
     <b>Lente | Color </b> <br />
     <%= f.text_field :lente, placeholder: 'Descripción del lente:' %> 
     <%= f.text_field :colorlente, placeholder: 'Color del lente:' %>
@@ -31,27 +33,35 @@
     
     <% if f_r.object.ojo %>
       <% if f_r.object.receta %>
-          <b> Receta: </b>
+         <b> Receta: </b>
          <div>
+            <table>
+            <tr>
+              <th>Ojo</th><th>Esf</th><th>Cil</th><th>Eje</th>
+              <th>Adici</th><th>AV</th><th>Uso</th>
+            </tr>
        <% else %>
           <b> Doctor prescriptor: </b>  <%= f.text_field :doctor %>
           <b> Distancia Intrapupilar: </b>  <%= f.text_field :dist_intra, size: 3  %> <br /><br />
           <div class="contacto">
           <b> Corrección LC:</b>
-       <% end %>
+       
   <table>
     <tr><th>Ojo</th><th>Esf</th><th>Cil</th><th>Eje</th><th>Diam</th>
       <th>Adici</th><th>AV</th><th>CB</th><th>Quera</th><th>Distancia</th></tr>
+        <% end %>
     <% end %>
     <tr>
       <td><%= f_r.hidden_field :ojo %> <%= f_r.object.ojo ? 'Derecho' : 'Izquierdo' %></td>
       <td><%= f_r.text_field :esferico, size: 3 %></td>
       <td><%= f_r.text_field :cilindrico, size: 3 %></td>
       <td><%= f_r.text_field :eje, size: 3 %></td>
-      <td><%= f_r.text_field :diametro, size: 3 %></td>
+      <% if f_r.object.receta == false %>
+        <td class="contacto"><%= f_r.text_field :diametro, size: 3 %></td> <% end %>
       <td><%= f_r.text_field :adicion, size: 3 %></td>
+      <% if f_r.object.receta == false %>
       <td><%= f_r.text_field :av, size: 3 %></td>
-      <td><%= f_r.text_field :cb, size: 3 %></td>
+      <td><%= f_r.text_field :cb, size: 3 %></td> <% end %>
       <td><%= f_r.text_field :quera, size: 3 %></td>
       <td><%= f_r.select :distancia, tipo_distancia %></td>
       <%= f_r.hidden_field :receta %>
@@ -68,7 +78,9 @@
       <%= f.text_field :armazon, size: 40, placeholder: 'Descripción del armazón: ' %>
       <%= f.text_field :cristales, size: 40, placeholder: 'Descripción de los cristales: ' %>
   </div>
-  
+  <div> <b>Fecha de entrega: </b> <br />
+    <%= f.date_select :entrega %>
+  </div>
   <div class="field">
         <b><xmp>Observaciones                         Uso                            Seguimiento</xmp></b>
     <%= f.text_area :observaciones, placeholder: 'Observaciones que se han hecho...' %> 
@@ -77,11 +89,16 @@
   </div>
   
   <div class="field">
-    <b> Precio | Orden</b> <br />
-    $<%= f.text_field :precio,size: 10, placeholder: '125.50' %> 
-    <%= f.number_field :orden,size: 10, placeholder: 'Nº orden' %>
+    <b> <xmp>Precio             Nº Orden              Nº Factura</xmp></b>
+    $<%= f.text_field :precio, size: 10, placeholder: '125.50' %> 
+    <%= f.number_field :orden, size: 10, placeholder: 'Nº orden' %>
+    <%= f.number_field :factura, size: 10, placeholder: 'Nº factura' %>
   </div><br />
   <div class="actions">
     <%= f.submit %>
   </div>
-<% end %>
+
+
+  
+  
+  <% end %>

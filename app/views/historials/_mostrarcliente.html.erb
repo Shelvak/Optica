@@ -1,3 +1,5 @@
-<div id="mostrar_cliente">
-  <%= @historial.cliente.telefono %>
-</div>
+  <% if @historial.cliente.try(:documento) %>
+  <%= raw "<b>Teléfono: </b>" + @historial.cliente.telefono if @historial.cliente.telefono.present? %>
+  <%= raw "<b>Celular: </b>" + @historial.cliente.celular if @historial.cliente.celular.present? %> <br />
+  <%= raw "<b>Email: </b>" + @historial.cliente.email if @historial.cliente.email.present?%>
+  <% end %>

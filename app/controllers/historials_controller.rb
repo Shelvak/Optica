@@ -1,14 +1,16 @@
+# enconding: UTF-8
+
 class HistorialsController < ApplicationController
 
   before_filter :requerir_user
   
-#  proc { |c| c.request.xhr? ? false : 'application'}
+  proc { |c| c.request.xhr? ? false : 'application'}
   
   # GET /historials
   # GET /historials.json
   def index
     @historials = Historial.order('created_at DESC')
-    @contacto = Historial.where(tipolente: true).order('created_at DESC').paginate(page: params[:p_c], per_page: 14)
+    @contactos = Historial.where(tipolente: true).order('created_at DESC').paginate(page: params[:p_c], per_page: 14)
     @flotante = Historial.where(tipolente: false).order('created_at DESC').paginate(page: params[:p_f], per_page: 14)
     
     respond_to do |format|
@@ -89,12 +91,34 @@ class HistorialsController < ApplicationController
       format.json { head :ok }
     end
   end
-  def contacto
-    @historial = Historial.where(tipolente: true)
+  
+  def retirar_contacto
+    @historial = Historial.find(params[:id])
+    @historial.update_attribute :retirado, true
     
-    respond_to do |format|
-      format.html { redirect_to historials_url }
-      format.json { head :ok }
+    if request.xhr?
+      render partial: 'contactos', locals: { historial: @historial }
+    else
+      respond_to do |format|
+        format.html { redirect_to(historials_url) }
+        format.json  { head :ok }
+        end
     end
   end
+  
+  def retirar_flotante
+    @historial = Historial.find(params[:id])
+    @historial.update_attribute :retirado, true
+    
+    if request.xhr?
+      render partial: 'flotantes', locals: { historial: @historial }
+    else
+      respond_to do |format|
+        format.html { redirect_to(historials_url) }
+        format.json  { head :ok }
+        end
+    end
+  end
+  
+  
 end

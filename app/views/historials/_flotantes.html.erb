@@ -1,19 +1,4 @@
-<h1> Lentes Flotantes </h1>
-<table id="tablaflotantes">
-  <tr>
-    <th>Cliente</th>
-    <th>Lente</th>
-    <th>Color</th>
-    <th>Armazon</th>
-    <th>Cristales</th>
-    <th>Precio</th>
-    <th>Orden</th>
-    <th>Fecha</th>
-    <th>Retirado?</th>
-  </tr>
-
-<% @flotante.each do |historial| %>
-  <tr>
+<tr>
     <td><%= link_to (historial.cliente.nombre.camelize + ' ' + historial.cliente.apellido.camelize), historial %></td>
     <td><%= truncate historial.lente, length: 20 %></td>
     <td><%= historial.colorlente %></td>
@@ -24,9 +9,3 @@
     <td><%= l(historial.created_at, format: :little ) %></td>
     <td><%= historial.retirado ? 'retirado' : link_to("Retirar?", retirar_flotante_historial_path(historial), remote: true, class: 'retirado','data-type' => 'html') %></td>
   </tr>
-<% end %>
-</table>
-
-<%= will_paginate @flotante, :param_name => :p_f %>
-<br />
-<%= link_to 'Nuevo Historial', new_historial_path %> 

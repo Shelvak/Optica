@@ -7,7 +7,7 @@
   <% @cumples.each do |cump| %>
   <tr>
     <td><%= l(cump.nacimiento, format: :short) %></td>
-    <td><%= cump.nombre + ' ' + cump.apellido%></td>
+    <td><%= link_to (cump.nombre + ' ' + cump.apellido), cump%></td>
     <td><%= edad(cump)%></td>
   </tr>
     <% end %>

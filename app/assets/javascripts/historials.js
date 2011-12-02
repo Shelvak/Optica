@@ -14,6 +14,16 @@ jQuery(function($){
        $('#historial_auto_cliente').autocomplete({
         source: '/clientes/autocompletar.js'
         });
+       $('#historial_auto_cliente').live('keyup', function(e){
+           var key = e.which;
+           if (key == '08'){
+               $('#historial_auto_cliente').val(null);
+       }
+       });
+//       $('#historial_auto_cliente').live("change", function(){
+//          $('.mostrar_cliente').show();
+//            $('#lala').attr('href', '/edit/2').text('lala');
+//       });
         
         //paginar
        $('.pagination a').live("click", function() {  
@@ -21,7 +31,10 @@ jQuery(function($){
             return false;  
             $('#clientes').html("<%=j render 'clientes' %>");
         });  
-
+        
+        $('.retirado').live('ajax:success',function(xhr,data){
+            $(this).parents('tr:first').replaceWith(data);
+        });
 
   
   

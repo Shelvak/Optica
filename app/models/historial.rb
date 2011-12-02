@@ -12,6 +12,9 @@ class Historial < ActiveRecord::Base
   before_save :eliminar_vacio
   scope :asociado, lambda { |cliente| where('cliente_id LIKE ?', "#{cliente}") }
   
+  #validates :documento, presence: true
+  
+  
   def initialize(attributes = nil, options = {}) 
     super(attributes, options)
     
@@ -73,8 +76,8 @@ class Historial < ActiveRecord::Base
   
   def eliminar_vacio
     if self.tipolente == 0 || self.tipolente == false
-      self.recetes[2].destroy
-      self.recetes[3].destroy
+      self.recetes[2].destroy if self.recetes[2]
+      self.recetes[3].destroy if self.recetes[3]
     end
   end
   
