@@ -3,7 +3,7 @@ default_run_options[:pty] = true
 set :repository,  "git@github.com:Shelvak/Optica.git"
 set :deploy_to, '/home/rotsen/Documentos/rails/www/optica/'
 set :scm, :git
-set :user, 'rotsen'
+set :user, 'Shelvak'
 set :scm_passphrase, '12452'
 set :deploy_via, :remote_cache
 set :rails_env, :production

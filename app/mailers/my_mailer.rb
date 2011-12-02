@@ -1,6 +1,6 @@
+# enconding: UTF-8
 class MyMailer < ActionMailer::Base
   default from: "nestorcoppi@gmail.com",
- #default from: "coppistrike@yahoo.com.ar",
   :charset => "UTF-8",
   :content_type => "text/html"
 
@@ -23,9 +23,26 @@ class MyMailer < ActionMailer::Base
   
   def feliz_cumple(clien)
     @cliente = clien
-    attachments.inline['IBM.jpg'] = File.read("#{Rails.root}/public/IBM.jpg")
-    mail(to: @cliente.email, subject: "Muy feliz cumpleanios #{@cliente.nombre.camelize}" )
-    end
+    attachments.inline['cumple.jpg'] = File.read("#{Rails.root}/public/cumple.jpg")
+    mail(to: @cliente.email, subject: "Muy feliz cumple #{@cliente.nombre.camelize}" )
+  end
   
+  def feliz_navidad(cliente)
+    attachments.inline['navidad.jpg'] = File.read("#{Rails.root}/public/navidad.jpg")
+      mail(to: cliente.email, subject: "Muy feliz navidad #{cliente.nombre.camelize}!!! " )
+  end
+  
+  def feliz_anio(cliente)
+      attachments.inline['anio_nuevo.jpg'] = File.read("#{Rails.root}/public/anio_nuevo.jpg")
+      mail(to: cliente.email, subject: "Muy feliz anio nuevo #{cliente.nombre.camelize}!!!" )
+  end
+  
+  def fiestas
+    @clientes = Cliente.all
+    @clientes.each do |cliente| 
+      MyMailer.feliz_navidad(cliente).deliver if (Date.today.day == 24 && Date.today.month == 12)
+      MyMailer.feliz_anio(cliente).deliver if (Date.today.day == 31 && Date.today.month == 12)
+    end
+  end
   
 end

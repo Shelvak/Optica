@@ -6,23 +6,7 @@ class ClientesController < ApplicationController
   # GET /clientes.json
   def index
     @clientes = Cliente.order('apellido DESC', 'nombre DESC').paginate(page: params[:page], per_page: 15 )
-    @clientes.each do |clien|
-      @cliente = clien
-      mes = @cliente.nacimiento.to_s.split('-')[1].to_i
-      dia = @cliente.nacimiento.to_s.split('-')[2].to_i
-      if mes == Date.today.month
-        if (dia >= Date.today.day.to_i && dia <= 7.days.from_now.to_date.to_s.split('-')[2].to_i)
-          if @cumples.nil? 
-            @cumples = Array.new
-            @cumples << @cliente
-          else
-          @cumples << @cliente
-          end
-        end
-      end
-      @cumples.sort! { |a, b|  a.nacimiento.day <=> b.nacimiento.day } if @cumples
-
-    end
+    (@cumples = Cliente.cumple ) if Cliente.cumple
    
     
     respond_to do |format|

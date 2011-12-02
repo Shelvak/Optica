@@ -1,6 +1,7 @@
 class VentaController < ApplicationController
   
   before_filter :requerir_user
+  
   # GET /venta
   # GET /venta.json
   def index

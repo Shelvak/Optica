@@ -8,6 +8,7 @@ class Historial < ActiveRecord::Base
   
   before_validation :asignar_cliente
   after_save :asignar_total, :asignar_lente
+  #  , :asignar_adic
   before_save :eliminar_vacio
   scope :asociado, lambda { |cliente| where('cliente_id LIKE ?', "#{cliente}") }
   
@@ -74,5 +75,9 @@ class Historial < ActiveRecord::Base
       self.recetes[3].destroy
     end
   end
+  
+#  def asignar_adic
+#    self.a
+#  end
   
 end
