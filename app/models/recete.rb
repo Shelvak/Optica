@@ -3,5 +3,5 @@ class Recete < ActiveRecord::Base
   scope :histori, lambda { |id| where("historial_id = #{id}")}
   
   
-  validates :precio, :orden, :esferico, :cilindrico, :eje, :diametro, :adicion, presence: true, numericality: true
+  validates :esferico, :cilindrico, :eje, :diametro, :adicion, presence: true, numericality: true
 end

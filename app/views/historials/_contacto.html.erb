@@ -7,6 +7,7 @@
     <th>Color</th>
     <th>Precio</th>
     <th>Orden</th>
+    <th>Fecha</th>
   </tr>
 
 <% @contacto.each do |historial| %>
@@ -17,6 +18,7 @@
     <td><%= historial.colorlente %></td>
     <td><%= number_to_currency(historial.precio) %></td>
     <td><%= historial.orden %></td>
+    <td><%= l(historial.created_at, format: :little ) %></td>
   </tr>
   
 <% end %>

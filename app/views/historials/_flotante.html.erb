@@ -8,17 +8,19 @@
     <th>Cristales</th>
     <th>Precio</th>
     <th>Orden</th>
+    <th>Fecha</th>
   </tr>
 
 <% @flotante.each do |historial| %>
   <tr>
     <td><%= historial.cliente.nombre.camelize + ' ' + historial.cliente.apellido.camelize %></td>
-    <td><%= link_to ( truncate historial.lente, length: 10), historial %></td>
+    <td><%= link_to ( truncate historial.lente, length: 20), historial %></td>
     <td><%= historial.colorlente %></td>
     <td><%= historial.armazon  %></td>
     <td><%= historial.cristales %></td>
     <td><%= number_to_currency(historial.precio) %></td>
     <td><%= historial.orden %></td>
+    <td><%= l(historial.created_at, format: :little ) %></td>
   </tr>
 <% end %>
 </table>

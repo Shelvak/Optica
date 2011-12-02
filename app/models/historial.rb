@@ -31,23 +31,25 @@ class Historial < ActiveRecord::Base
   end
   
   def asignar_total
-    @venta = Venta.find_or_create_by_mes_and_anio(Date.today.month, Date.today.year)
     @historial = Historial.order('created_at DESC').first
-    @cliente = Cliente.find_by_documento(@historial.cliente.documento)
-    @venta.vendido += @historial.precio
-    @venta.cantvendida += 1
-      if @historial.tipolente == false
-        @venta.cant_flotante += 1
-        @venta.venta_flotante += @historial.precio
-        @venta.update_attributes(venta_flotante: @venta.venta_flotante, cant_flotante: @venta.cant_flotante)
-      elsif @historial.tipolente == true
-        @venta.cant_contacto += 1
-        @venta.venta_contacto += @historial.precio
-        @venta.update_attributes(venta_contacto: @venta.venta_contacto, cant_contacto: @venta.cant_contacto)
-      end
-    @cliente.gastado += @historial.precio
-    @venta.update_attributes(vendido: @venta.vendido, cantvendida: @venta.cantvendida)
-    @cliente.update_attributes(gastado: @cliente.gastado)
+    if @historial.created_at == @historial.updated_at
+      @cliente = Cliente.find_by_documento(@historial.cliente.documento)
+      @venta = Venta.find_or_create_by_mes_and_anio(Date.today.month, Date.today.year)
+      @venta.vendido += @historial.precio
+      @venta.cantvendida += 1
+        if @historial.tipolente == false
+          @venta.cant_flotante += 1
+          @venta.venta_flotante += @historial.precio
+          @venta.update_attributes(venta_flotante: @venta.venta_flotante, cant_flotante: @venta.cant_flotante)
+        elsif @historial.tipolente == true
+          @venta.cant_contacto += 1
+          @venta.venta_contacto += @historial.precio
+          @venta.update_attributes(venta_contacto: @venta.venta_contacto, cant_contacto: @venta.cant_contacto)
+        end  
+      @cliente.gastado += @historial.precio
+      @venta.update_attributes(vendido: @venta.vendido, cantvendida: @venta.cantvendida)
+      @cliente.update_attributes(gastado: @cliente.gastado)
+    end
   end
   
   def asignar_lente
