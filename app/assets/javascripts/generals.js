@@ -6,5 +6,20 @@ jQuery(function(){
                 );
     });
     
+    //paginar
+       $('.pagination a').live("click", function() {  
+          $.get(this.href, null, null, 'script');  
+            return false;  
+        });  
+        
+     // No enviar emails vacios
+        $('#subject, #body').live('change', function(){
+           if ($('#subject').val() != '' && $('#subject').val() != ' '){
+               $('#email_send').attr('disabled', false);
+           } else {
+               $('#email_send').attr('disabled', true);
+           }
+        });
+    
 });
 

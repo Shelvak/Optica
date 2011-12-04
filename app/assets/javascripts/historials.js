@@ -25,12 +25,7 @@ jQuery(function($){
 //            $('#lala').attr('href', '/edit/2').text('lala');
 //       });
         
-        //paginar
-       $('.pagination a').live("click", function() {  
-          $.get(this.href, null, null, 'script');  
-            return false;  
-            $('#clientes').html("<%=j render 'clientes' %>");
-        });  
+        
         
         $('.retirado').live('ajax:success',function(xhr,data){
             $(this).parents('tr:first').replaceWith(data);

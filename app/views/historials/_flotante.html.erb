@@ -2,26 +2,22 @@
 <table id="tablaflotantes">
   <tr>
     <th>Cliente</th>
-    <th>Lente</th>
-    <th>Color</th>
     <th>Armazon</th>
     <th>Cristales</th>
     <th>Precio</th>
     <th>Orden</th>
-    <th>Fecha</th>
+    <th>Fecha entrega</th>
     <th>Retirado?</th>
   </tr>
 
 <% @flotante.each do |historial| %>
   <tr>
     <td><%= link_to (historial.cliente.nombre.camelize + ' ' + historial.cliente.apellido.camelize), historial %></td>
-    <td><%= truncate historial.lente, length: 20 %></td>
-    <td><%= historial.colorlente %></td>
-    <td><%= historial.armazon  %></td>
-    <td><%= historial.cristales %></td>
+    <td><%= truncate historial.armazon,length: 20  %></td>
+    <td><%= truncate historial.cristales,length: 20 %></td>
     <td><%= number_to_currency(historial.precio) %></td>
     <td><%= historial.orden %></td>
-    <td><%= l(historial.created_at, format: :little ) %></td>
+    <td><%= l(historial.entrega, format: :little ) if historial.entrega %></td>
     <td><%= historial.retirado ? 'retirado' : link_to("Retirar?", retirar_flotante_historial_path(historial), remote: true, class: 'retirado','data-type' => 'html') %></td>
   </tr>
 <% end %>

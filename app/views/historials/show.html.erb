@@ -42,29 +42,45 @@
   <%= raw '<b>Orden: </b>' + @historial.orden.to_s if @historial.orden.present? %>
 </p>
 
-<table>
-  <tr>
-  <th>Ojo</th>   <th>Esfe</th>   <th>Cilin</th>
-  <th>Eje</th>   <th>Diam</th>   <th>Adic</th>  <th>Av</th>
-  <th>CB</th>  <th>Quera</th>  <th>Distancia</th>
-  </tr>
+
+
 <% @receta.each_with_index do |r,i| %>
   
-  <% if i % 2 == 0 %> <tr> <td colspan="10"> <b><%= r.receta ? 'Receta' : 'Corrección LC'  %> </b> </td></tr> <% end %>
-    <tr>
-     <td><%= r.ojo ? 'Derecho' : 'Izquierda' %> </td>
-    <td> <%= r.esferico %> </td>
-    <td> <%= r.cilindrico %> </td>
-    <td> <%= r.eje %> </td>
-     <td><%= r.diametro %> </td>
-     <td><%= r.adicion %> </td>
-     <td><%= r.av %> </td>
-     <td><%= r.cb %> </td>
-     <td><%= r.quera %> </td>
-     <td><%= r.distancia ? 'Lejos' : 'Cerca' %></td>
-  </tr>
+    <% if i % 2 == 0 %>
+      <table>
+      <tr> <td colspan="10"> <b><%= r.receta ? 'Receta' : 'Corrección LC'  %> </b> </td></tr>
+        <% if r.receta == false || (r.receta && @historial.tipolente == false )%><tr>
+        <th>Ojo</th>   <th>Esfe</th>   <th>Cilin</th>
+        <th>Eje</th>   <th>Diam</th>   <th>Adic</th>  <th>Av</th>
+        <th>CB</th>  <th>Quera</th>  <th>Uso</th>
+        <% end %> 
+     <% end %>
+  
+  
+<% if @historial.tipolente == true && r.receta == true && i == 0 %>
+  <th>Ojo</th>   <th>Esfe</th>   <th>Cilin</th> <th>Eje</th>  <th>Adic</th> <th>AV</th><th>Uso</th>
   <% end %>
-</table>
+  
+  
+  </tr>
+    <tr>
+      <td><%= r.ojo ? 'Derecho' : 'Izquierda' %> </td>
+      <td><%= r.esferico %> </td>
+      <td><%= r.cilindrico %> </td>
+      <td><%= r.eje %> </td>
+      <% unless @historial.tipolente == true && r.receta == true %>
+        <td><%= r.diametro %> </td> 
+      <% end %>
+      <td><%= r.adicion %> </td>
+      <td><%= r.av %> </td>
+      <% unless @historial.tipolente == true && r.receta == true %>
+        <td><%= r.cb %> </td>
+        <td><%= r.quera %> </td>
+      <% end %>
+      <td><%= r.distancia %></td>
+  </tr>
+  <%= raw "</table> " if i == 1 || i == 3 %>
+  <% end %>
 
 <%= link_to 'Editar', edit_historial_path(@historial) %> |
 <%= link_to 'Borrar', @historial, confirm: 'Seguro??', method: :delete %> |

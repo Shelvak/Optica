@@ -1,7 +1,7 @@
 <%= form_for(@cliente) do |f| %>
   <% if @cliente.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@cliente.errors.count, "error") %> ha surgido:</h2>
+      <h2>Han ocurrido <%= pluralize(@cliente.errors.count, 'error', 'errores' )%>: </h2>
 
       <ul>
       <% @cliente.errors.full_messages.each do |msg| %>

@@ -12,6 +12,7 @@ gem 'unicode'
 gem 'passenger'
 gem 'whenever'
 gem 'authlogic'
+gem 'validates_timeliness'
 
 # Gems used only for assets and not required
 # in production environments by default.

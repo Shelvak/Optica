@@ -100,6 +100,7 @@ es:
       short: "%d de %b"
       default: "%d/%m/%Y"
       long: "%A, %d de %B de %Y"
+      little: "%d de %b"
   time:
     formats:
       short: "%d de %b a las %H:%M hrs"
@@ -173,8 +174,13 @@ es:
 
   errors:
       format: "%{attribute} %{message}"
-
+      error:
+          one: "error"
+          other: "errores"
       messages: &errors_messages
+        presence:
+          one: "error"
+          other: "errores"
         inclusion: "no está incluído en la lista"
         exclusion: "está reservado"
         invalid: "es inválido"
@@ -208,6 +214,10 @@ es:
           attributes:
             date:
               on_or_before: "debe ser hoy o anterior"
+        historial:
+          attributes:
+            entrega:
+              on_or_after: "debe ser hoy o después"
       template:
         header:
           one: "%{model} no pudo guardarse debido a 1 error"

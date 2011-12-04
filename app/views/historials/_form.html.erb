@@ -1,7 +1,7 @@
 <%= form_for(@historial) do |f| %>
   <% if @historial.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@historial.errors.count, "error") %> prohibited this historial from being saved:</h2>
+      <h2>Han ocurrido <%= pluralize(@historial.errors.count, 'error', 'errores' )%>: </h2>
 
       <ul>
       <% @historial.errors.full_messages.each do |msg| %>

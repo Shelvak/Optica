@@ -4,6 +4,6 @@
     <td><%= historial.colorlente %></td>
     <td><%= number_to_currency(historial.precio) %></td>
     <td><%= historial.orden %></td>
-    <td><%= l(historial.created_at, format: :little ) %></td>
+    <td><%= l(historial.entrega, format: :little ) if historial.entrega %></td>
     <td><%= historial.retirado ? 'retirado' : link_to("Retirar?", retirar_contacto_historial_path(historial), remote: true, class: 'retirado', 'data-type' => 'html') %></td>
   </tr>

@@ -5,7 +5,7 @@ module HistorialsHelper
   end
   
   def tipo_distancia
-    [['De Cerca', '0'], ['De Lejos', '1']]
+    ['Cerca', 'Lejos', 'Ambos']
   end
   
  
