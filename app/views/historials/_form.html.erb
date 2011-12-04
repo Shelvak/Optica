@@ -10,13 +10,12 @@
       </ul>
     </div>
   <% end %> 
-<div class="mostrar_cliente" hidden="hidden">
-    <%#= text_field_tag :lala  %>
+<div id="mostrar_cliente" hidden="hidden">
   </div>
 <div class="field">
   <b>Asignar cliente: </b><br />
   <%= f.text_field :auto_cliente, value: @historial.cliente.try(:documento), 
-      placeholder: 'DNI del cliente...' %>
+      placeholder: 'DNI del cliente...' %> <%= link_to 'X', '#' %>
   <b>Lente </b><%= f.select :tipolente, tipo_lente %> 
 </div>
   <div id="info_cliente">

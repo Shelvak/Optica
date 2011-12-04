@@ -20,10 +20,15 @@ jQuery(function($){
                $('#historial_auto_cliente').val(null);
        }
        });
-//       $('#historial_auto_cliente').live("change", function(){
-//          $('.mostrar_cliente').show();
-//            $('#lala').attr('href', '/edit/2').text('lala');
-//       });
+       $('#historial_auto_cliente').live('change', function(){
+           
+//           var cliente = $('#historial_auto_cliente').val()
+//           prompt(cliente);
+           
+          $('#historial_auto_cliente').attr('disabled', true);
+          $('#borrar_autocliente').attr('value', 'X');
+          
+       });
         
         
         
