@@ -44,8 +44,11 @@
               <th>Adici</th><th>AV</th><th>Uso</th>
             </tr>
        <% else %>
-          <b> Doctor prescriptor: </b>  <%= f.text_field :doctor %>
-          <b> Distancia Intrapupilar: </b>  <%= f.text_field :dist_intra, size: 3  %> <br /><br />
+          <b> Doctor prescriptor: </b>  <%= f.text_field :doctor, size: 10 %>
+          <b> Distancia Intrapupilar: </b>  <%= f.text_field :dist_intra, size: 3  %> 
+          <span class="flotante" hidden="hidden">
+            <b> Altura:</b> <%= f.text_field :altura, size: 3 %>
+          </span><br /><br />
           <div class="contacto">
           <b> Corrección LC:</b>
        
