@@ -17,7 +17,7 @@
   <%= raw "<b>Celular: </b>" + @cliente.celular if @cliente.celular.present? %>
   <%= raw "<b>Email: </b>" + @cliente.email if @cliente.email.present?%>
   <b>Nacimiento: </b>    <%= l @cliente.nacimiento %>
-  <b>Edad: </b>  <%= edad(@cliente) %>
+  <b>Edad: </b>  <%= edad_show(@cliente) %>
 </p>
 
 <p>
