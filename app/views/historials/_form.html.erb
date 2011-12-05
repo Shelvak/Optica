@@ -35,8 +35,12 @@
          <b> Receta: </b>
          <div>
             <table>
-            <tr>
+            <tr class="contacto">
               <th>Ojo</th><th>Esf</th><th>Cil</th><th>Eje</th>
+              <th>Adici</th><th>AV</th><th>Uso</th>
+            </tr>
+            <tr class="flotante" hidden="hidden">
+              <th>Ojo</th><th>Esf</th><th>Cil</th><th>Eje</th><th>Diam</th>
               <th>Adici</th><th>AV</th><th>Uso</th>
             </tr>
        <% else %>
@@ -55,8 +59,10 @@
       <td><%= f_r.text_field :esferico, size: 3 %></td>
       <td><%= f_r.text_field :cilindrico, size: 3 %></td>
       <td><%= f_r.text_field :eje, size: 3 %></td>
+      <% if f_r.object.receta == true %>
+        <td class="flotante" hidden="hidden"><%= f_r.text_field :diametro, size: 3 %></td> <% end %>
       <% if f_r.object.receta == false %>
-        <td class="contacto"><%= f_r.text_field :diametro, size: 3 %></td> <% end %>
+        <td><%= f_r.text_field :diametro, size: 3 %></td> <% end %>
       <td><%= f_r.text_field :adicion, size: 3 %></td>
       <% if f_r.object.receta == false %>
       <td><%= f_r.text_field :av, size: 3 %></td>
