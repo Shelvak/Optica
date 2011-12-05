@@ -14,20 +14,18 @@ jQuery(function($){
        $('#historial_auto_cliente').autocomplete({
         source: '/clientes/autocompletar.js'
         });
-       $('#historial_auto_cliente').live('keyup', function(e){
-           var key = e.which;
-           if (key == '08'){
-               $('#historial_auto_cliente').val(null);
-       }
-       });
+      
+       // Fijar autocliente
        $('#historial_auto_cliente').live('change', function(){
-           
-//           var cliente = $('#historial_auto_cliente').val()
-//           prompt(cliente);
-           
           $('#historial_auto_cliente').attr('disabled', true);
-          $('#borrar_autocliente').attr('value', 'X');
-          
+          $('#borrar_autocliente').attr('hidden', false);  
+          $('#borrar_autocliente').live('click', function(){
+             $('#historial_auto_cliente').attr('value', '').attr('disabled', false);
+             $('#borrar_autocliente').attr('hidden', true);
+          });
+          $('#submit_historial').live('click', function(){
+            $('#historial_auto_cliente').attr('disabled', false);
+          });
        });
         
         

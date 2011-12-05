@@ -15,7 +15,7 @@
 <div class="field">
   <b>Asignar cliente: </b><br />
   <%= f.text_field :auto_cliente, value: @historial.cliente.try(:documento), 
-      placeholder: 'DNI del cliente...' %> <%= link_to 'X', '#' %>
+      placeholder: 'DNI del cliente...' %> <%= link_to 'X', '#', id: 'borrar_autocliente', hidden: true %>
   <b>Lente </b><%= f.select :tipolente, tipo_lente %> 
 </div>
   <div id="info_cliente">
@@ -100,7 +100,7 @@
     <%= f.number_field :factura, size: 10, placeholder: 'Nº factura' %>
   </div><br />
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit id: "submit_historial" %>
   </div>
 
 
