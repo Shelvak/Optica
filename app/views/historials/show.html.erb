@@ -3,13 +3,13 @@
 <%= link_to @historial.cliente, @historial.cliente %></p>
   <b>Lente:</b>
   <%= @historial.tipolente ? 'de Contacto' : 'Flotante' %> 
-
-  
+<br />
+  <% if @historial.tipolente == true %>
   <%= raw '<b>  Desc. lente:  </b>' + @historial.lente if @historial.lente.present? %> 
 
   
-  <%= raw '<b>  Color : </b>' + @historial.colorlente if @historial.colorlente.present? %>  
-</p>
+    <%= raw '<b>  Color : </b>' + @historial.colorlente if @historial.colorlente.present? %>   <% end %>
+</p> 
 
 <p>
   
@@ -18,13 +18,13 @@
   
   <%= raw '<b>  Distancia Intrapupilar: </b>' + @historial.dist_intra if @historial.dist_intra.present? %>
 </p>
- 
+<% if @historial.tipolente == false %>
 <p>
   <%= raw '<b> Armazon: </b>' + @historial.armazon if @historial.armazon.present? %>
 
   <%= raw '<b>  Cristales: </b>' +  @historial.cristales if @historial.cristales.present? %>
 </p>
-
+<% end %>
 <p>
   <%= raw '<b>Observaciones: </b>' + @historial.observaciones if @historial.observaciones.present? %>
 </p>

@@ -7,6 +7,7 @@ class ClientesController < ApplicationController
   def index
     @clientes = Cliente.order('apellido DESC', 'nombre DESC').paginate(page: params[:page], per_page: 15 )
     (@cumples = Cliente.cumple ) if Cliente.cumple
+    @clientes = Cliente.search(params[:s_cliente]).paginate(page: params[:page], per_page: 15 )
    
     
     respond_to do |format|

@@ -1,6 +1,11 @@
 
   <h1>Clientes</h1>
 
+    <%= form_tag clientes_path, method: :get do %>
+    <%= text_field_tag :s_cliente, params[:s_cliente] %>
+    <%= submit_tag "Buscar"  %>
+  <% end %> <br />
+  
 <table>
   <tr>
     <th>Cliente</th>

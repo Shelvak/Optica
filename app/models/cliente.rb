@@ -16,6 +16,16 @@ class Cliente < ActiveRecord::Base
   validates :nombre, :apellido, :documento, presence: true
   validates :documento, uniqueness: true, presence: true
   
+  
+  def self.search(search)
+     if search
+      where('LOWER(nombre) || LOWER(apellido) || documento LIKE ?', "%#{search}%".downcase)
+    else
+      scoped
+    end
+  end
+  
+  
   def camel
     self.nombre = self.nombre.split.map(&:camelize).join(' ')
     self.apellido = self.apellido.split.map(&:camelize).join(' ')
