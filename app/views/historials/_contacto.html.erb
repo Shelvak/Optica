@@ -1,5 +1,11 @@
 <h1>Lentes de Contacto</h1>
 
+<%= form_tag historials_path, method: :get do %>
+    <%= text_field_tag :s_c, params[:s_c] %>
+    <%= submit_tag "Buscar de Contacto"  %>
+  <% end %> <br />
+
+
 <table id="tablacontato">
   <tr>
     <th>Cliente</th>

@@ -1,4 +1,10 @@
 <h1> Lentes Flotantes </h1>
+
+<%= form_tag historials_path, method: :get do %>
+    <%= text_field_tag :s_f, params[:s_f] %>
+    <%= submit_tag "Buscar Flotante" %>
+  <% end %> <br />
+
 <table id="tablaflotantes">
   <tr>
     <th>Cliente</th>

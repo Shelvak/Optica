@@ -30,6 +30,16 @@ class Historial < ActiveRecord::Base
       end
   end
   
+  
+   def self.search(search)
+     if search
+      where('orden LIKE ?', "%#{search}%")
+    else
+      scoped
+    end
+  end
+  
+  
   def asignar_cliente
     if self.auto_cliente.present?
       self.cliente = Cliente.find_by_documento(self.auto_cliente.split(' ').last)

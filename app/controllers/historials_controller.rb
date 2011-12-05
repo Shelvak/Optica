@@ -12,6 +12,8 @@ class HistorialsController < ApplicationController
     @historials = Historial.order('created_at DESC')
     @contactos = Historial.where(tipolente: true).order('created_at DESC').paginate(page: params[:p_c], per_page: 14)
     @flotante = Historial.where(tipolente: false).order('created_at DESC').paginate(page: params[:p_f], per_page: 14)
+    @contactos = Historial.search(params[:s_c]).paginate(page: params[:p_c], per_page: 14) if params[:s_c]
+    @flotante = Historial.search(params[:s_f]).paginate(page: params[:p_f], per_page: 14) if params[:s_f]
     
     respond_to do |format|
       format.html # index.html.erb
