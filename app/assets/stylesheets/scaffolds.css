@@ -83,8 +83,9 @@ div {
 
 .field_with_errors {
   padding: 2px;
-  background-color: red;
-  display: table; }
+  display: table-cell;
+  border: 2px solid red;
+}
 
 #error_explanation {
   width: 450px;

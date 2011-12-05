@@ -64,10 +64,10 @@
       <% if f_r.object.receta == false %>
         <td><%= f_r.text_field :diametro, size: 3 %></td> <% end %>
       <td><%= f_r.text_field :adicion, size: 3 %></td>
-      <% if f_r.object.receta == false %>
       <td><%= f_r.text_field :av, size: 3 %></td>
-      <td><%= f_r.text_field :cb, size: 3 %></td> <% end %>
-      <td><%= f_r.text_field :quera, size: 3 %></td>
+      <% if f_r.object.receta == false %>
+      <td><%= f_r.text_field :cb, size: 3 %></td>
+      <td><%= f_r.text_field :quera, size: 3 %></td> <% end %>
       <td><%= f_r.select :distancia, tipo_distancia %></td>
       <%= f_r.hidden_field :receta %>
     </tr>

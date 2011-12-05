@@ -48,8 +48,8 @@
   
     <% if i % 2 == 0 %>
       <table>
-      <tr> <td colspan="10"> <b><%= r.receta ? 'Receta' : 'Corrección LC'  %> </b> </td></tr>
-        <% if r.receta == false || (r.receta && @historial.tipolente == false )%><tr>
+      <tr> <th colspan="10"> <b><%= r.receta ? 'Receta' : 'Corrección LC'  %> </b> </td></tr>
+        <% if r.receta == false %><tr>
         <th>Ojo</th>   <th>Esfe</th>   <th>Cilin</th>
         <th>Eje</th>   <th>Diam</th>   <th>Adic</th>  <th>Av</th>
         <th>CB</th>  <th>Quera</th>  <th>Uso</th>
@@ -60,6 +60,9 @@
 <% if @historial.tipolente == true && r.receta == true && i == 0 %>
   <th>Ojo</th>   <th>Esfe</th>   <th>Cilin</th> <th>Eje</th>  <th>Adic</th> <th>AV</th><th>Uso</th>
   <% end %>
+<% if @historial.tipolente == false && r.receta == true && i == 0 %>
+  <th>Ojo</th>   <th>Esfe</th>   <th>Cilin</th> <th>Eje</th> <th>Diam</th> <th>Adic</th> <th>AV</th><th>Uso</th>
+  <% end %>
   
   
   </tr>
@@ -68,12 +71,12 @@
       <td><%= r.esferico %> </td>
       <td><%= r.cilindrico %> </td>
       <td><%= r.eje %> </td>
-      <% unless @historial.tipolente == true && r.receta == true %>
+      <% if (@historial.tipolente == false && r.receta == true) || (@historial.tipolente == true && r.receta == false)  %>
         <td><%= r.diametro %> </td> 
       <% end %>
       <td><%= r.adicion %> </td>
       <td><%= r.av %> </td>
-      <% unless @historial.tipolente == true && r.receta == true %>
+      <% if @historial.tipolente == true && r.receta == false %>
         <td><%= r.cb %> </td>
         <td><%= r.quera %> </td>
       <% end %>

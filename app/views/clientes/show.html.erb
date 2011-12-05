@@ -13,7 +13,7 @@
 </p>
 
 <p>
-  <%= raw "<b>Teléfono: </b>" + @cliente.telefono if @cliente.telefono.present? %>
+  <%= raw "<b>Teléfono: </b>" + @cliente.telefono.to_s if @cliente.telefono.present? %>
   <%= raw "<b>Celular: </b>" + @cliente.celular if @cliente.celular.present? %>
   <%= raw "<b>Email: </b>" + @cliente.email if @cliente.email.present?%>
   <b>Nacimiento: </b>    <%= l @cliente.nacimiento %>
@@ -31,7 +31,7 @@
 
 <p> <%= raw '<b>Recomendado por: </b>' + @cliente.recomendado if @cliente.recomendado.present? %> 
 
-    <%= raw "<b>Cantidad de recomendaciones: </b>" + @cliente.cantidadrecom.to_s if @cliente.cantidadrecom.to_s %>
+    <%= raw "<b>Cantidad de recomendaciones: </b>" + @cliente.cantidadrecom.to_s if @cliente.cantidadrecom != 0 %>
 
    <%= raw '<b>Total gastado: </b>' + number_to_currency(@cliente.gastado) if @cliente.gastado != 0 %>
 </p> <% unless @historiales.empty? %>
