@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :requerir_admin, only: :edit
+  before_filter :requerir_admin, except: [:new, :create]
   before_filter :requerir_user, except: [:new, :create]
   
   # GET /users
