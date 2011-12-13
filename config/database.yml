@@ -22,7 +22,7 @@ production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: optica_production  
+  database: optica  
   username: rotsen
   password: '12452'
   host: localhost

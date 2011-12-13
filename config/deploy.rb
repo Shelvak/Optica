@@ -1,6 +1,7 @@
 #Wheneverize production =)
-require "whenever/capistrano"
-set :whenever_command, "bundle exec whenever"
+#require 'whenever/capistrano'
+require 'bundler/capistrano'
+#set :whenever_command, "bundle exec whenever"
 
 
 set :application, "optica"
@@ -11,6 +12,7 @@ set :scm, :git
 set :user, 'rotsen'
 set :scm_passphrase, '12452'
 set :deploy_via, :remote_cache
+set :port, 26
 #set :rails_env, :production
 #set :use_sudo, false
 
