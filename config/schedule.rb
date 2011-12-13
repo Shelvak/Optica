@@ -13,7 +13,7 @@ every 1.day do
  end
 
 #Send happy new year and crismas
-ever '* * 24,31 12 *' do
+every '* * 24,31 12 *' do
   runner "MyMailer.fiestas"
 end
 
