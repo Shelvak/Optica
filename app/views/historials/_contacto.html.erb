@@ -1,7 +1,7 @@
 <h1>Lentes de Contacto</h1>
 
 <%= form_tag historials_path, method: :get do %>
-    <%= text_field_tag :s_c, params[:s_c] %>
+    <%= text_field_tag :s_c, params[:s_c], placeholder: 'Nº de orden....' %>
     <%= submit_tag "Buscar de Contacto"  %>
   <% end %> <br />
 
