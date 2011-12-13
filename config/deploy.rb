@@ -6,19 +6,19 @@ set :whenever_command, "bundle exec whenever"
 set :application, "optica"
 default_run_options[:pty] = true
 set :repository,  "git@github.com:Shelvak/Optica.git"
-set :deploy_to, '/home/rotsen/Documentos/rails/www/optica/'
+set :deploy_to, '/home/rotsen/ruby/www/optica/'
 set :scm, :git
-set :user, 'Shelvak'
+set :user, 'rotsen'
 set :scm_passphrase, '12452'
 set :deploy_via, :remote_cache
-set :rails_env, :production
-
+#set :rails_env, :production
+#set :use_sudo, false
 
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 set :branch, 'master'
-role :web, "localhost"                          # Your HTTP server, Apache/etc
-role :app, "localhost"                          # This may be the same as your `Web` server
-role :db,  "localhost", :primary => true # This is where Rails migrations will run
+role :web, "192.168.0.8"                          # Your HTTP server, Apache/etc
+role :app, "192.168.0.8"                          # This may be the same as your `Web` server
+role :db,  "192.168.0.8", :primary => true # This is where Rails migrations will run
 #role :db,  "your slave db-server here"
 
 # if you're still using the script/reaper helper you will need
