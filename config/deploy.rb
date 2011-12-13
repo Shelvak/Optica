@@ -1,7 +1,7 @@
 #Wheneverize production =)
-#require 'whenever/capistrano'
+require 'whenever/capistrano'
+set :whenever_command, "bundle exec whenever"
 require 'bundler/capistrano'
-#set :whenever_command, "bundle exec whenever"
 
 
 set :application, "optica"
