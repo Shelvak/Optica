@@ -76,7 +76,7 @@
     </tr>
     <% unless f_r.object.ojo %>
      </table>
-         </div> <br />
+         </div><br />
     <% end %>
    <% end %>
   
@@ -86,9 +86,7 @@
       <%= f.text_field :armazon, size: 40, placeholder: 'Descripción del armazón: ' %>
       <%= f.text_field :cristales, size: 40, placeholder: 'Descripción de los cristales: ' %>
   </div>
-  <div> <b>Fecha de entrega: </b> <br />
-    <%= f.date_select :entrega %>
-  </div>
+
   <div class="field">
         <b><xmp>Observaciones                         Uso                            Seguimiento</xmp></b>
     <%= f.text_area :observaciones, placeholder: 'Observaciones que se han hecho...' %> 
@@ -97,11 +95,12 @@
   </div>
   
   <div class="field">
-    <b> <xmp>Pago           Precio             Nº Orden              Nº Factura</xmp></b>
+    <b> <xmp>Pago      Precio         Nº Orden        Nº Factura     Fecha Entrega      </xmp></b>
     $<%= f.select :formapago, formapago %> 
     $<%= f.text_field :precio, size: 10, placeholder: '125.50' %> 
     <%= f.number_field :orden, size: 10, placeholder: 'Nº orden' %>
     <%= f.text_field :factura, size: 10, placeholder: 'Nº factura' %>
+     <%= f.date_select :entrega %>
   </div><br />
   <div class="actions">
     <%= f.submit id: "submit_historial" %>
