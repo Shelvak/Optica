@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   
     def requerir_user
       unless current_user
-        flash[:notice] = "Debe estar loggiado"
+        flash[:notice] = "Debe entrar =)"
         store_location
         redirect_to new_user_session_url
         false
@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
 
     def no_requerir_user
       if current_user
-        flash[:notice] = "Debe estar desloggeado"
+        flash[:notice] = "Debe salir =/"
         store_location
         redirect_to clientes_path
         false

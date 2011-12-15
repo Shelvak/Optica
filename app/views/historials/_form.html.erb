@@ -97,10 +97,11 @@
   </div>
   
   <div class="field">
-    <b> <xmp>Precio             Nº Orden              Nº Factura</xmp></b>
+    <b> <xmp>Pago           Precio             Nº Orden              Nº Factura</xmp></b>
+    $<%= f.select :formapago, formapago %> 
     $<%= f.text_field :precio, size: 10, placeholder: '125.50' %> 
     <%= f.number_field :orden, size: 10, placeholder: 'Nº orden' %>
-    <%= f.number_field :factura, size: 10, placeholder: 'Nº factura' %>
+    <%= f.text_field :factura, size: 10, placeholder: 'Nº factura' %>
   </div><br />
   <div class="actions">
     <%= f.submit id: "submit_historial" %>

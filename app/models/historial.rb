@@ -8,14 +8,13 @@ class Historial < ActiveRecord::Base
   
   before_validation :asignar_cliente
   after_save :asignar_total, :asignar_lente
-  #  , :asignar_adic
   before_save :eliminar_vacio
   
   scope :asociado, lambda { |cliente| where('cliente_id LIKE ?', "#{cliente}") }
   
   validates :auto_cliente, presence: true
   validates :entrega, on: :create, timeliness: { type: :date, on_or_after: :today }
-  validates :precio, :orden, :factura, numericality: true
+  validates :precio, :orden, numericality: true
   
   
   def initialize(attributes = nil, options = {}) 
@@ -93,9 +92,5 @@ class Historial < ActiveRecord::Base
       self.recetes[3].destroy if self.recetes[3]
     end
   end
-  
-#  def asignar_adic
-#    self.a
-#  end
   
 end

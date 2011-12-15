@@ -40,8 +40,10 @@
 </p>
 
 <p>
+  <%= raw '<b>Pago en: </b>' + @historial.formapago if @historial.formapago.present? %>
   <%= raw '<b>Precio: </b>' + number_to_currency(@historial.precio) if @historial.precio != 0 %>
   <%= raw '<b>Orden: </b>' + @historial.orden.to_s if @historial.orden.present? %>
+  <%= raw '<b>Factura: </b>' + @historial.factura.to_s if @historial.factura.present? %>
 </p>
 
 

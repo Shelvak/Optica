@@ -8,5 +8,9 @@ module HistorialsHelper
     ['Cerca', 'Lejos', 'Ambos']
   end
   
+  def formapago
+    ['Efectivo', 'Tarjeta', 'Cheque']
+  end
+  
  
 end
