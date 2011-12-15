@@ -14,7 +14,10 @@ class Cliente < ActiveRecord::Base
 
   
   validates :nombre, :apellido, :documento, presence: true
-  validates :documento, uniqueness: true, presence: true
+  validates :documento, uniqueness: true
+  validates :telefono, allow_nil: true, allow_blank: true, numericality: {
+  only_integer: true, greater_than_or_equal_to: 0, less_than: 2147483648}
+    
   
   
   def self.search(search)

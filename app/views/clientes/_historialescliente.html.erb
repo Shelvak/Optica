@@ -1,5 +1,5 @@
 <table>
-  <tr><th>Fecha</th><th>Lentes</th><th>Color</th><th>Observaciones</th><th>Nº de orden</th></tr>
+  <tr><th>Fecha</th><th>Lentes</th><th>Color</th><th>Observaciones</th><th>Nº de orden</th> <th>Retirado?</th></tr>
   
 <% @historiales.each do |h| %>
   <tr> 
@@ -8,6 +8,7 @@
     <td><%= h.colorlente %></td>
     <td><%= truncate h.observaciones, length: 30 %></td>
     <td><%= h.orden %></td>
+    <td><%= h.retirado ? 'Retirado' : 'Aun no' %></td>
   </tr>
   <% end %>
 </table>

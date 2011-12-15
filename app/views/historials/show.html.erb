@@ -45,6 +45,9 @@
   <%= raw '<b>Orden: </b>' + @historial.orden.to_s if @historial.orden.present? %>
   <%= raw '<b>Factura: </b>' + @historial.factura.to_s if @historial.factura.present? %>
 </p>
+<p>
+  <%= raw '<b>Fecha entrega: ' + l(@historial.entrega) if @historial.entrega.present? %>
+</p>
 
 
 
