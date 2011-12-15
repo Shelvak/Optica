@@ -1,4 +1,4 @@
-'es':
+es:
   activerecord:
   will_paginate:
     previous_label: '&laquo; Anterior'

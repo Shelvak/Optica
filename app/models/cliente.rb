@@ -64,16 +64,16 @@ class Cliente < ActiveRecord::Base
   end
   
   def self.cumple
-      @cli = Cliente.all
-      @cli.each_with_index do |clien, i|
-        @clien = clien
-        mes = @clien.nacimiento.month.to_i
-        dia = @clien.nacimiento.day.to_i
-        if mes == Date.today.month.to_i
+      @cli = Cliente.all 
+      if @cli.present?
+        @cli.each_with_index do |clien, i| 
+          @clien = clien
+          mes = @clien.nacimiento.month.to_i
+          dia = @clien.nacimiento.day.to_i
+          @cumples = Array.new if i == 0
           if (dia >= Date.today.day.to_i && dia <= 7.days.from_now.day.to_i) || (dia >= 23 && mes == (Date.today.month.to_i + 1))
-            (@cumples = Array.new ) if i == 1
-            @cumples << @clien 
-          end
+              @cumples << @clien 
+            end if mes == Date.today.month.to_i
         end
       end
    @cumples.sort! { |a, b|  a.nacimiento.day <=> b.nacimiento.day } if @cumples  
