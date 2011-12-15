@@ -7,13 +7,13 @@ require 'bundler/capistrano'
 set :application, "optica"
 default_run_options[:pty] = true
 set :repository,  "git@github.com:Shelvak/Optica.git"
-set :deploy_to, '/var/www/'
+set :deploy_to, '/var/www/optica/'
 set :scm, :git
 set :user, 'marcela'
 set :deploy_via, :remote_cache
 #set :port, 26
 #set :rails_env, :production
-#set :use_sudo, false
+set :use_sudo, false
 
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 set :branch, 'master'
