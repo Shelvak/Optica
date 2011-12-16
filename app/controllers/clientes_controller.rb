@@ -1,6 +1,9 @@
+# encoding: UTF-8
+
 class ClientesController < ApplicationController
   
   before_filter :requerir_user
+  before_filter :requerir_admin, only: :destroy
   
   # GET /clientes
   # GET /clientes.json

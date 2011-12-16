@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class RecetesController < ApplicationController
   
   before_filter :requerir_user

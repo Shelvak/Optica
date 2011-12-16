@@ -3,6 +3,7 @@
 class HistorialsController < ApplicationController
 
   before_filter :requerir_user
+  before_filter :requerir_admin, only: :destroy
   
   proc { |c| c.request.xhr? ? false : 'application'}
   
@@ -10,8 +11,8 @@ class HistorialsController < ApplicationController
   # GET /historials.json
   def index
     @historials = Historial.order('created_at DESC')
-    @contactos = Historial.where(tipolente: true).order('created_at DESC').paginate(page: params[:p_c], per_page: 14)
-    @flotante = Historial.where(tipolente: false).order('created_at DESC').paginate(page: params[:p_f], per_page: 14)
+    @contactos = Historial.where(tipolente: true).order('entrega DESC').paginate(page: params[:p_c], per_page: 14)
+    @flotante = Historial.where(tipolente: false).order('entrega DESC').paginate(page: params[:p_f], per_page: 14)
     @contactos = Historial.search(params[:s_c]).paginate(page: params[:p_c], per_page: 14) if params[:s_c]
     @flotante = Historial.search(params[:s_f]).paginate(page: params[:p_f], per_page: 14) if params[:s_f]
     

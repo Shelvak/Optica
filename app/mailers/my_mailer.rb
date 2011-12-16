@@ -21,12 +21,12 @@ class MyMailer < ActionMailer::Base
   def feliz_cumple(clien)
     @cliente = clien
     attachments.inline['cumple.jpg'] = File.read("#{Rails.root}/public/cumple.jpg")
-    mail(to: @cliente.email, subject: "Muy feliz cumple #{@cliente.nombre.camelize}" )
+    mail(to: @cliente.email, subject: "Optica Palpacelli te desea un feliz cumple #{@cliente.nombre.camelize}" )
   end
   
   def felices_fiestas(cliente)
     attachments.inline['fiestas.jpg'] = File.read("#{Rails.root}/public/fiestas.jpg")
-      mail(to: cliente.email, subject: "Muy felices fiestas #{cliente.nombre.camelize}!!! " )
+      mail(to: cliente.email, subject: "Optica Palpacelli les desea muy felices fiestas #{cliente.nombre.camelize}!!! " )
   end
   
   

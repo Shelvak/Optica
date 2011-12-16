@@ -1,10 +1,8 @@
+# encoding: UTF-8
+
 class EmailsController < ApplicationController
  
   before_filter :requerir_user
-  
-#  def index
-#    logger.debug { "Hola".inspect }
-#  end  
   
   def sendemail 
      MyMailer.enviar(params[:to],params[:subject],params[:body]).deliver

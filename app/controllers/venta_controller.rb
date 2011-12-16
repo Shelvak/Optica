@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class VentaController < ApplicationController
   
   before_filter :requerir_user
