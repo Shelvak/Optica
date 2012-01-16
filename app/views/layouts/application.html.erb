@@ -14,5 +14,6 @@
 <%= yield %>
 
 </body>
+<%= render 'menus/notifier' if flash.notice || flash.alert%>
 
 </html>

@@ -1,0 +1,31 @@
+div#notice {
+  position: fixed;
+  bottom: .5em;
+  left: 0px;
+  right: 0px;
+  font-weight: bold;
+  font-size: 1.4em;
+  text-align: center;
+  padding: .75em 1em;
+  text-shadow: 0px 0px 1px #ccc;
+  opacity: .5;
+  background-color: #feb968;
+  
+  .close {
+    position: absolute;
+    top: .5em;
+    right: 1em;
+    font-size: .6em;
+    font-weight: normal;
+    border: 2px solid #464646;
+    
+    a {
+      background: inherit;
+      color: #464646;
+      text-decoration: none;
+      font-size: 1.2em;
+      font-weight: 600;
+      padding: 1px 5px;
+    }
+  }
+}
