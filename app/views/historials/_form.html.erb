@@ -98,7 +98,7 @@
     <b> <xmp>Pago      Precio         Nº Orden        Nº Factura     Fecha Entrega      </xmp></b>
     $<%= f.select :formapago, formapago %> 
     $<%= f.text_field :precio, size: 10, placeholder: '125.50' %> 
-    <%= f.number_field :orden, size: 10, placeholder: 'Nº orden' %>
+    <%= f.text_field :orden, size: 10, placeholder: 'Nº orden' %>
     <%= f.text_field :factura, size: 10, placeholder: 'Nº factura' %>
      <%= f.date_select :entrega %>
   </div><br />

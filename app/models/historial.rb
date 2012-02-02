@@ -8,12 +8,12 @@ class Historial < ActiveRecord::Base
   
   before_validation :asignar_cliente
   after_save :asignar_total, :asignar_lente
-  before_save :eliminar_vacio
+  before_save :eliminar_vacio, :asignar_retirado
   
   scope :asociado, lambda { |cliente| where('cliente_id LIKE ?', "#{cliente}") }
   
   validates :auto_cliente, presence: true
-  validates :entrega, on: :create, timeliness: { type: :date, on_or_after: :today }
+  #validates :entrega, on: :create, timeliness: { type: :date, on_or_after: :today }
   validates :precio, :orden, numericality: true
   
   
@@ -38,6 +38,9 @@ class Historial < ActiveRecord::Base
     end
   end
   
+   def asignar_retirado
+     self.retirado = true if self.entrega < Date.today
+   end
   
   def asignar_cliente
     if self.auto_cliente.present?
