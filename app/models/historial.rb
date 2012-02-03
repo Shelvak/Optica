@@ -50,7 +50,7 @@ class Historial < ActiveRecord::Base
   
   def asignar_total
     @historial = Historial.order('created_at DESC').first
-    if @historial.created_at == @historial.updated_at
+    if @historial.created_at == @historial.updated_at && @historial.entrega > Date.today
       @cliente = Cliente.find_by_documento(@historial.cliente.documento)
       @venta = Venta.find_or_create_by_mes_and_anio(Date.today.month, Date.today.year)
       @venta.vendido += @historial.precio
