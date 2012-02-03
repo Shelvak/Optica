@@ -23,8 +23,10 @@ production:
   encoding: utf8
   reconnect: false
   database: optica  
-  username: optica
-  password: '123546'
+#  username: optica
+#  password: '123546'
+  username: rotsen
+  password: '12452'
   host: localhost
   pool: 5
   timeout: 5000
