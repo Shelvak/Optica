@@ -8,8 +8,10 @@ set :application, "optica"
 default_run_options[:pty] = true
 set :repository,  "git@github.com:Shelvak/Optica.git"
 set :deploy_to, '/var/www/optica/'
+#set :deploy_to, '/home/rotsen/ruby/www/optica/'
 set :scm, :git
 set :user, 'marcela'
+#set :user, 'rotsen'
 set :deploy_via, :remote_cache
 #set :port, 26
 #set :rails_env, :production
@@ -20,6 +22,9 @@ set :branch, 'master'
 role :web, "optica-palpa.no-ip.org"                          # Your HTTP server, Apache/etc
 role :app, "optica-palpa.no-ip.org"                          # This may be the same as your `Web` server
 role :db,  "optica-palpa.no-ip.org", :primary => true # This is where Rails migrations will run
+#role :web, "rotsenweb.no-ip.org"                          # Your HTTP server, Apache/etc
+#role :app, "rotsenweb.no-ip.org"                          # This may be the same as your `Web` server
+#role :db,  "rotsenweb.no-ip.org", :primary => true # This is where Rails migrations will run
 #role :db,  "your slave db-server here"
 
 # if you're still using the script/reaper helper you will need
