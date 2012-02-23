@@ -21,8 +21,11 @@ class Cliente < ActiveRecord::Base
   
   
   def self.search(search)
-     if search
-      where('LOWER(nombre) || LOWER(apellido) || documento LIKE ?', "%#{search}%".downcase)
+     if search.present?
+      where(["LOWER(#{table_name}.nombre) LIKE :q",
+             "LOWER(#{table_name}.apellido) LIKE :q",
+             "#{table_name}.documento LIKE :q"].join(' OR '),
+              q: "%#{search}%".downcase)
     else
       scoped
     end

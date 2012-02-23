@@ -81,10 +81,9 @@ div {
 #notice {
   color: green; }
 
-.field_with_errors {
+input.field_with_errors {
   padding: 2px;
-  display: table-cell;
-  border: 2px solid red;
+  border: 5px solid red;
 }
 
 #error_explanation {

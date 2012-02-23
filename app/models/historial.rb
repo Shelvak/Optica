@@ -13,8 +13,10 @@ class Historial < ActiveRecord::Base
   scope :asociado, lambda { |cliente| where('cliente_id LIKE ?', "#{cliente}") }
   
   validates :auto_cliente, presence: true
-  #validates :entrega, on: :create, timeliness: { type: :date, on_or_after: :today }
-  validates :precio, :orden, numericality: true
+  validates :precio, numericality: true
+  validates :orden, numericality: {
+      only_integer: true, greater_than_or_equal_to: 0,
+          less_than: 2147483648 }, allow_nil: true, allow_blank: true
   
   
   def initialize(attributes = nil, options = {}) 
@@ -31,11 +33,21 @@ class Historial < ActiveRecord::Base
   
   
    def self.search(search)
-     if search
-      where('orden LIKE ?', "%#{search}%")
+    if search.present?
+      includes(:cliente).where(
+        [
+          "LOWER(#{Cliente.table_name}.nombre) LIKE :q",
+          "LOWER(#{Cliente.table_name}.apellido) LIKE :q",
+          "LOWER(#{Cliente.table_name}.documento) LIKE :q",
+          "LOWER(#{table_name}.factura) LIKE :q",
+          "LOWER(#{table_name}.orden) LIKE :q"
+        ].join(' OR '),
+        q: "#{search}%".downcase
+      )
     else
       scoped
     end
+     
   end
   
    def asignar_retirado
