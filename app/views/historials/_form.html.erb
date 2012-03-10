@@ -36,19 +36,26 @@
          <div>
             <table>
             <tr class="contacto">
-              <th>Ojo</th><th>Esf</th><th>Cil</th><th>Eje</th>
-              <th>Adici</th><th>AV</th><th>Uso</th>
+              <th>Ojo</th>
+              <th>Esf</th>
+              <th>Cil</th>
+              <th>Eje</th>
+              <th>Adici</th>
+              <th>AV</th>
+              <th>Uso</th>
             </tr>
             <tr class="flotante" hidden="hidden">
-              <th>Ojo</th><th>Esf</th><th>Cil</th><th>Eje</th><th>Diam</th>
-              <th>Adici</th><th>AV</th><th>Uso</th>
+              <th>Ojo</th>
+              <th>Esf</th>
+              <th>Cil</th>
+              <th>Eje</th>
+              <th>Diam</th>
+              <th>Adici</th>
+              <th>AV</th>
+              <th>Uso</th>
             </tr>
        <% else %>
-          <b> Doctor prescriptor: </b>  <%= f.text_field :doctor, size: 10 %>
-          <b> Distancia Intrapupilar: </b>  <%= f.text_field :dist_intra, size: 3  %> 
-          <span class="flotante" hidden="hidden">
-            <b> Altura:</b> <%= f.text_field :altura, size: 3 %>
-          </span><br /><br />
+          
           <div class="contacto">
           <b> Corrección LC:</b>
        
@@ -63,14 +70,16 @@
       <td><%= f_r.text_field :cilindrico, size: 3 %></td>
       <td><%= f_r.text_field :eje, size: 3 %></td>
       <% if f_r.object.receta == true %>
-        <td class="flotante" hidden="hidden"><%= f_r.text_field :diametro, size: 3 %></td> <% end %>
-      <% if f_r.object.receta == false %>
-        <td><%= f_r.text_field :diametro, size: 3 %></td> <% end %>
+        <td class="flotante" hidden="hidden"><%= f_r.text_field :diametro, size: 3 %></td>
+      <% else %>
+        <td><%= f_r.text_field :diametro, size: 3 %></td>
+      <% end %>
       <td><%= f_r.text_field :adicion, size: 3 %></td>
       <td><%= f_r.text_field :av, size: 3 %></td>
       <% if f_r.object.receta == false %>
-      <td><%= f_r.text_field :cb, size: 3 %></td>
-      <td><%= f_r.text_field :quera, size: 3 %></td> <% end %>
+        <td><%= f_r.text_field :cb, size: 3 %></td>
+        <td><%= f_r.text_field :quera, size: 3 %></td>
+      <% end %>
       <td><%= f_r.select :distancia, tipo_distancia %></td>
       <%= f_r.hidden_field :receta %>
     </tr>
@@ -80,6 +89,13 @@
     <% end %>
    <% end %>
   
+</div>
+<div>
+  <b> Doctor prescriptor: </b>  <%= f.text_field :doctor, size: 10 %>
+  <b> Distancia Intrapupilar: </b>  <%= f.text_field :dist_intra, size: 3  %> 
+  <span class="flotante" hidden="hidden">
+    <b> Altura:</b> <%= f.text_field :altura, size: 3 %>
+  </span><br /><br />
 </div>
 <div class="flotante" hidden="true" >
     <b>  Armazon | Cristales</b> <br />
@@ -100,7 +116,7 @@
     $<%= f.text_field :precio, size: 10, placeholder: '125.50' %> 
     <%= f.text_field :orden, size: 10, placeholder: 'Nº orden' %>
     <%= f.text_field :factura, size: 10, placeholder: 'Nº factura' %>
-     <%= f.date_select :entrega %>
+     <%= f.date_select :entrega, end_year: Time.now.year, start_year: 2000 %>
   </div><br />
   <div class="actions">
     <%= f.submit id: "submit_historial" %>
