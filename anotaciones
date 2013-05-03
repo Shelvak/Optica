@@ -6,12 +6,6 @@ receta
 crear receta
 ojo:boolean esferico:decimal cilindrico:decimal eje:decimal diametro:decimal adicion:decimal av:string distancia:boolean receta:boolean historial_id:integer
   
-  FALTA 
-	  loggin
-	  Crear tarea que Backupee
-	  Agregar info luego de autocompletado
-	  hacer andar todo en produccion
-
 Para produccion
 
 sudo apt-get install mysql-server mysql-client

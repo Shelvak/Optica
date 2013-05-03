@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(:version => 20120228154310) do
     t.text     "salud"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "cantidadrecom", :default => 0
-    t.decimal  "gastado",       :default => 0.0
+    t.integer  "cantidadrecom",                                :default => 0
+    t.decimal  "gastado",       :precision => 15, :scale => 2, :default => 0.0
     t.string   "lente"
   end
 
@@ -52,37 +52,22 @@ ActiveRecord::Schema.define(:version => 20120228154310) do
     t.string   "doctor"
     t.string   "dist_intra"
     t.date     "entrega"
-    t.integer  "factura"
-    t.boolean  "retirado"
+    t.string   "factura"
+    t.boolean  "retirado",                                     :default => false
     t.string   "altura"
     t.string   "formapago"
   end
 
-  create_table "receta", :force => true do |t|
+  create_table "recetes", :force => true do |t|
     t.boolean  "ojo"
     t.decimal  "esferico"
     t.decimal  "cilindrico"
-    t.integer  "eje"
+    t.decimal  "eje"
     t.decimal  "diametro"
     t.decimal  "adicion"
     t.string   "av"
-    t.boolean  "distancia"
-    t.string   "receta"
-    t.integer  "historial_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "recetes", :force => true do |t|
-    t.boolean  "ojo",          :default => true
-    t.decimal  "esferico",     :default => 0.0
-    t.decimal  "cilindrico",   :default => 0.0
-    t.decimal  "eje",          :default => 0.0
-    t.decimal  "diametro",     :default => 0.0
-    t.decimal  "adicion",      :default => 0.0
-    t.string   "av"
-    t.string   "distancia",    :default => "f"
-    t.boolean  "receta",       :default => true
+    t.string   "distancia"
+    t.boolean  "receta"
     t.integer  "historial_id"
     t.datetime "created_at"
     t.datetime "updated_at"

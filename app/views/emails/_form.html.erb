@@ -1,21 +1,16 @@
-
 <div id="email-form">
-<br />
-<%= form_tag '/emails/sendemail', html: { multipart: true} do |f| %>
-  <%= label_tag "destino:" %>
-  <%= select :to, "", ['todos', 'ambos', 'flotantes', 'contacto'] %>
-  <%= label_tag "asunto:" %>
-  <%= text_field_tag :subject %><br /><br />
-  
-<br />
-<div id="div-mensaje">
-  <%= text_area_tag :body %>
+  <br />
+  <%= form_tag '/emails/sendemail', html: { multipart: true} do |f| %>
+    <%= label_tag "destino:" %>
+    <%= select :to, "", ['todos', 'flotantes', 'contacto'] %>
+    <%= label_tag "asunto:" %>
+    <%= text_field_tag :subject %><br /><br />
+    
+  <br />
+  <div id="div-mensaje">
+    <%= text_area_tag :body, nil, class: 'nicEditor' %>
+  </div>
+    <br /> 
+  <%= submit_tag "Enviar", id: 'email_send', disabled: true %>
+  <% end %>
 </div>
-  <br /> 
-<%= submit_tag "Enviar", id: 'email_send', disabled: true %>
-<% end %>
-</div>
-
-<script type="text/javascript">
-       bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
-</script>

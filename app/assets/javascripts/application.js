@@ -9,5 +9,5 @@
 //= require jquery_ujs
 //= require historials
 //= require clientes
-//= require generals
 //= require nicEdit
+//= require generals

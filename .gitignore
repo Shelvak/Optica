@@ -4,3 +4,4 @@ log/*.log
 tmp/
 .sass-cache/
 /nbproject/private/
+config/app_config.yml

@@ -1,6 +1,6 @@
 # enconding: UTF-8
 class MyMailer < ActionMailer::Base
-  default from: "nestorcoppi@gmail.com",
+  default from: "Optica Palpacelli <info@opticapalpacelli.com.ar>",
   :charset => "UTF-8",
   :content_type => "text/html"
 

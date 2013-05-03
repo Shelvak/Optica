@@ -21,6 +21,10 @@ jQuery(function(){
                $('#email_send').attr('disabled', true);
            }
         });
+
+   if ($('.nicEditor').length > 0){
+     bkLib.onDomLoaded(nicEditors.allTextAreas);
+   }
     
 });
 
