@@ -31,6 +31,8 @@ role :db,  "optica-palpa.no-ip.org", :primary => true # This is where Rails migr
 # these http://github.com/rails/irs_process_scripts
 
 # If you are using Passenger mod_rails uncomment this:
+
+before 'deploy:finalize_update', 'deploy:create_shared_symlinks' 
 namespace :deploy do
   task :start do ; end
   task :stop do ; end
