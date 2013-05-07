@@ -35,19 +35,18 @@ namespace :deploy do
   task :start do ; end
   task :stop do ; end
   task :restart, :roles => :app, :except => { :no_release => true } do
-    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+    run "touch #{File.join(current_path,'tmp','restart.txt')}"
   end
-  # desc "reload the database with seed data"
-	task :seed do
-		run "cd #{current_path}; rake db:seed RAILS_ENV=#{rails_env}"
-	end
-# after "deploy:update_code", "bundle install"
-# task "bundle install", :roles => :app do
-# run "cd #{release_path} && bundle install"
-# end
-    #update Cron
-    desc "Update the crontab file"  
-      task :update_crontab, :roles => :db do  
-        run "cd #{release_path} && whenever --update-crontab #{application}"  
-      end  
+
+  desc 'Creates the symlinks for the shared folders'                            
+  task :create_shared_symlinks, roles: :app, except: { no_release: true } do    
+    shared_paths = [['config', 'app_config.yml']]                  
+                                                                                
+    shared_paths.each do |path|                                                 
+      shared_files_path = File.join(shared_path, *path)                         
+      release_files_path = File.join(release_path, *path)                       
+                                                                                
+      run "ln -s #{shared_files_path} #{release_files_path}"                    
+    end                                                                         
+  end
 end
