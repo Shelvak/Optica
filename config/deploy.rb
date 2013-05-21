@@ -31,9 +31,13 @@ role :db,  "optica-palpa.no-ip.org", :primary => true # This is where Rails migr
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
 
-# If you are using Passenger mod_rails uncomment this:
-
+# Callbacks
 before 'deploy:finalize_update', 'deploy:create_shared_symlinks' 
+# DelayedJob Callbacks
+after "deploy:stop",    "delayed_job:stop"
+after "deploy:start",   "delayed_job:start"
+after "deploy:restart", "delayed_job:restart"
+
 namespace :deploy do
   task :start do ; end
   task :stop do ; end
