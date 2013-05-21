@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120228154310) do
+ActiveRecord::Schema.define(:version => 20130521040128) do
 
   create_table "clientes", :force => true do |t|
     t.string   "nombre"
@@ -34,6 +34,22 @@ ActiveRecord::Schema.define(:version => 20120228154310) do
   end
 
   add_index "clientes", ["documento"], :name => "index_clientes_on_documento", :unique => true
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "historials", :force => true do |t|
     t.boolean  "tipolente",                                    :default => false
@@ -60,11 +76,11 @@ ActiveRecord::Schema.define(:version => 20120228154310) do
 
   create_table "recetes", :force => true do |t|
     t.boolean  "ojo"
-    t.decimal  "esferico"
-    t.decimal  "cilindrico"
-    t.decimal  "eje"
-    t.decimal  "diametro"
-    t.decimal  "adicion"
+    t.decimal  "esferico",     :precision => 15, :scale => 2
+    t.decimal  "cilindrico",   :precision => 15, :scale => 2
+    t.decimal  "eje",          :precision => 15, :scale => 2
+    t.decimal  "diametro",     :precision => 15, :scale => 2
+    t.decimal  "adicion",      :precision => 15, :scale => 2
     t.string   "av"
     t.string   "distancia"
     t.boolean  "receta"
@@ -95,14 +111,14 @@ ActiveRecord::Schema.define(:version => 20120228154310) do
   create_table "venta", :force => true do |t|
     t.integer  "mes"
     t.integer  "anio"
-    t.decimal  "vendido",        :default => 0.0
+    t.decimal  "vendido",        :precision => 15, :scale => 2, :default => 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "cantvendida",    :default => 0
-    t.integer  "cant_contacto",  :default => 0
-    t.integer  "cant_flotante",  :default => 0
-    t.decimal  "venta_contacto", :default => 0.0
-    t.decimal  "venta_flotante", :default => 0.0
+    t.integer  "cantvendida",                                   :default => 0
+    t.integer  "cant_contacto",                                 :default => 0
+    t.integer  "cant_flotante",                                 :default => 0
+    t.decimal  "venta_contacto", :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "venta_flotante", :precision => 15, :scale => 2, :default => 0.0
   end
 
 end

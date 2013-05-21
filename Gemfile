@@ -14,6 +14,7 @@ gem 'whenever'
 gem 'authlogic'
 gem 'validates_timeliness'
 gem 'newrelic_rpm'
+gem 'delayed_job_active_record'
 
 # Gems used only for assets and not required
 # in production environments by default.

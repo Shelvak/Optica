@@ -2,6 +2,7 @@
 require 'whenever/capistrano'
 set :whenever_command, "bundle exec whenever"
 require 'bundler/capistrano'
+require 'delayed/recipes'
 
 
 set :application, "optica"

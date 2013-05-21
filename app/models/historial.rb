@@ -84,7 +84,7 @@ class Historial < ActiveRecord::Base
   
   def asignar_lente
     @historial = Historial.order('created_at DESC').first
-    @cliente = Cliente.find_by_id(@historial.cliente.id)
+    @cliente = Cliente.find(@historial.try(:cliente_id))
     if @cliente.lente == nil
       @cliente.lente = 'flotantes' if (@historial.tipolente == false)
       @cliente.lente = 'contacto' if (@historial.tipolente == true)
