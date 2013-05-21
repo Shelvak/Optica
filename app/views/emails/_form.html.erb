@@ -2,7 +2,7 @@
   <br />
   <%= form_tag '/emails/sendemail', html: { multipart: true} do |f| %>
     <%= label_tag "destino:" %>
-    <%= select :to, "", ['todos', 'flotantes', 'contacto'] %>
+    <%= select_tag :to, "<option>todos</option><option>flotantes</option><option>contacto</option>".html_safe %>
     <%= label_tag "asunto:" %>
     <%= text_field_tag :subject %><br /><br />
     

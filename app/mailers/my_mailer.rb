@@ -1,4 +1,3 @@
-# enconding: UTF-8
 class MyMailer < ActionMailer::Base
   default from: "Optica Palpacelli <info@opticapalpacelli.com.ar>",
   :charset => "UTF-8",
@@ -6,16 +5,14 @@ class MyMailer < ActionMailer::Base
 
   
   def enviar(to,subject,body)
-  	to = to.join
-    
-    @destinatarios = Cliente.where("lente = ?", "#{to}").map(&:email).compact if to != 'todos'
-    @destinatarios = Cliente.all.map(&:email).compact if to == 'todos'
+    @destinatarios = Cliente.where(lente: to).map(&:email).uniq if to != 'todos'
+    @destinatarios = Cliente.all.map(&:email).uniq if to == 'todos'
     @body = body
+    %x{echo #{@destinatarios} > lala}
     mail(
       :bcc => @destinatarios,
       :subject => subject,
       :body => @body)
-    
   end
   
   def feliz_cumple(clien)
