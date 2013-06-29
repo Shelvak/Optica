@@ -8,6 +8,9 @@ class MyMailer < ActionMailer::Base
     @destinatarios = Cliente.where(lente: to).map(&:email).uniq if to != 'todos'
     @destinatarios = Cliente.all.map(&:email).uniq if to == 'todos'
     @body = body
+    @destinatarios.compact!
+    @destinatarios.delete('')
+    @destinatarios.delete(' ')
     %x{echo #{@destinatarios} > lala}
     mail(
       :bcc => @destinatarios,
