@@ -36,5 +36,4 @@ class MyMailer < ActionMailer::Base
       MyMailer.felices_fiestas(cliente).deliver if (Date.today.day == 24 && Date.today.month == 12)
     end
   end
-  
 end
