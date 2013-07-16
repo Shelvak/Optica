@@ -2,7 +2,6 @@
 require 'whenever/capistrano'
 set :whenever_command, "bundle exec whenever"
 require 'bundler/capistrano'
-require 'delayed/recipes'
 
 
 set :application, "optica"
@@ -33,10 +32,6 @@ role :db,  "optica-palpa.no-ip.org", :primary => true # This is where Rails migr
 
 # Callbacks
 before 'deploy:finalize_update', 'deploy:create_shared_symlinks' 
-# DelayedJob Callbacks
-after "deploy:stop",    "delayed_job:stop"
-after "deploy:start",   "delayed_job:start"
-after "deploy:restart", "delayed_job:restart"
 
 namespace :deploy do
   task :start do ; end
