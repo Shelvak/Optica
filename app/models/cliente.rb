@@ -1,25 +1,25 @@
 class Cliente < ActiveRecord::Base
- 
-  
+
+
   before_save :camel, :asignar_cantidadrecom
   before_validation :asignar_recomendado, :verificar_documento
   has_many :historials
-  
-  
+
+
   attr_accessor :auto_recomendado
-  
-  
+
+
   scope :buscar, lambda { |nombre| where("LOWER(nombre)LIKE ? OR LOWER(apellido) LIKE ? OR documento LIKE ?",
       "#{nombre}%".downcase, "#{nombre}%".downcase, "#{nombre}%")}
 
-  
+
   validates :nombre, :apellido, :documento, presence: true
   validates :documento, uniqueness: true
   validates :telefono, allow_nil: true, allow_blank: true, numericality: {
   only_integer: true, greater_than_or_equal_to: 0, less_than: 2147483648}
-    
-  
-  
+
+
+
   def self.search(search)
      if search.present?
       where(["LOWER(#{table_name}.nombre) LIKE :q",
@@ -30,27 +30,27 @@ class Cliente < ActiveRecord::Base
       scoped
     end
   end
-  
-  
+
+
   def camel
     self.nombre = self.nombre.split.map(&:camelize).join(' ')
     self.apellido = self.apellido.split.map(&:camelize).join(' ')
   end
-  
-  def to_s 
+
+  def to_s
 		self.nombre + ' ' + self.apellido + ' ' + self.documento
 	end
-  
+
   def verificar_documento
     self.documento = self.documento.split('.').join
   end
-  
+
   def asignar_recomendado
     if self.auto_recomendado.present?
       self.recomendado = self.auto_recomendado
     end
   end
-  
+
   def asignar_cantidadrecom
     if self.auto_recomendado.present?
       @cliente = Cliente.find_by_documento(self.auto_recomendado.split(' ').last)
@@ -58,7 +58,7 @@ class Cliente < ActiveRecord::Base
       @cliente.update_attributes(cantidadrecom: @cliente.cantidadrecom)
     end
   end
-  
+
   def self.happyverde
     @clientes = Cliente.all
     @clientes.each do |clien|
@@ -68,21 +68,30 @@ class Cliente < ActiveRecord::Base
         MyMailer.feliz_cumple(clien).deliver if (mes == Date.today.month && dia == Date.today.day)
     end
   end
-  
+
   def self.cumple
-      @cli = Cliente.all 
-      if @cli.present?
-        @cli.each_with_index do |clien, i| 
-          @clien = clien
-          mes = @clien.nacimiento.month.to_i
-          dia = @clien.nacimiento.day.to_i
-          @cumples = Array.new if i == 0
-          if (dia >= Date.today.day.to_i && dia <= 7.days.from_now.day.to_i) || (dia >= 23 && mes == (Date.today.month.to_i + 1))
-              @cumples << @clien 
-            end if mes == Date.today.month.to_i
-        end
-      end
-   @cumples.sort! { |a, b|  a.nacimiento.day <=> b.nacimiento.day } if @cumples  
+    clients    = []
+    today      = Date.today
+    next_week  = 7.days.from_now.to_date
+    today_year = today.year
+    next_year  = today_year + 1
+
+    all.each do |client|
+      mes  = client.nacimiento.month
+      dia  = client.nacimiento.day
+      year = mes == 12 && dia >= 24 ? today_year : next_year
+      date = Date.new(year, mes, dia)
+
+      clients << client if date >= today && date <= next_week
+    end
+
+    clients.sort do |a,b|
+      a_date = a.nacimiento
+      b_date = b.nacimiento
+      a_year = a_date.month == 12 && a_date.day >= 24 ? today_year : next_year
+      b_year = b_date.month == 12 && b_date.day >= 24 ? today_year : next_year
+
+      [a_year, a_date.month, a_date.day] <=> [b_year, b_date.month, b_date.day]
+    end
   end
-  
 end

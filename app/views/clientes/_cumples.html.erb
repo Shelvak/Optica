@@ -1,17 +1,16 @@
-
 <div id="cumples">
-  <h1>Cumples de la semana</h1>
+<h1>Cumples de la semana</h1>
 <table>
   <tr><th>Día</th><th>Cliente</th><th>Años</th></tr>
   <% @cumples.each do |cump| %>
-  <tr>
-    <td>
-    <%= l(cump.nacimiento, format: :short) if cump.nacimiento.day != Date.today.day%>
-    <%= raw '<b>HOY </b>' if cump.nacimiento.day == Date.today.day%>
-    </td>
-    <td><%= link_to (cump.nombre + ' ' + cump.apellido), cump%></td>
-    <td><%= edad(cump)%></td>
-  </tr>
-    <% end %>
+    <tr>
+      <td>
+        <%= l(cump.nacimiento, format: :short) if cump.nacimiento.day != Date.today.day%>
+        <%= raw '<b>HOY </b>' if cump.nacimiento.day == Date.today.day%>
+      </td>
+      <td><%= link_to (cump.nombre + ' ' + cump.apellido), cump%></td>
+      <td><%= edad(cump)%></td>
+    </tr>
+  <% end %>
 </table>
 </div>
