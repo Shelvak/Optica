@@ -1,22 +1,22 @@
 # encoding: UTF-8
 
 class ClientesController < ApplicationController
-  
+
   before_filter :requerir_user
   before_filter :requerir_admin, only: :destroy
-  
+
   # GET /clientes
   # GET /clientes.json
   def index
     @clientes = Cliente.order('apellido DESC', 'nombre DESC').paginate(page: params[:page], per_page: 15 )
     (@cumples = Cliente.cumple ) if Cliente.cumple
     @clientes = Cliente.search(params[:s_cliente]).paginate(page: params[:page], per_page: 15 )
-   
-    
+
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @clientes }
-      format.js 
+      format.js
     end
   end
 
@@ -92,16 +92,16 @@ class ClientesController < ApplicationController
       format.json { head :ok }
     end
   end
-  
-  
+
+
   def autocompletar
-    @clientes = Cliente.buscar(params[:term]).limit(5) 
-    
+    @clientes = Cliente.buscar(params[:term]).limit(5)
+
     respond_to do |format|
       format.js { render text: @clientes.map(&:to_s) }
     end
   end
-  
+
   def send_mail
     Emailer::deliver_contact_email(params[:email])
   end

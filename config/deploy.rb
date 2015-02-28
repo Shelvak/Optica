@@ -6,14 +6,14 @@ require 'bundler/capistrano'
 
 set :application, "optica"
 default_run_options[:pty] = true
-set :repository,  "git@github.com:Shelvak/Optica.git"
+set :repository,  "https://github.com/Shelvak/Optica.git"
 set :deploy_to, '/var/www/optica/'
 #set :deploy_to, '/home/rotsen/ruby/www/optica/'
 set :scm, :git
 set :user, 'marcela'
 #set :user, 'rotsen'
 set :deploy_via, :remote_cache
-#set :port, 26
+set :port, 12452
 #set :rails_env, :production
 set :use_sudo, false
 
@@ -31,7 +31,7 @@ role :db,  "optica-palpa.no-ip.org", :primary => true # This is where Rails migr
 # these http://github.com/rails/irs_process_scripts
 
 # Callbacks
-before 'deploy:finalize_update', 'deploy:create_shared_symlinks' 
+before 'deploy:finalize_update', 'deploy:create_shared_symlinks'
 
 namespace :deploy do
   task :start do ; end
@@ -40,15 +40,15 @@ namespace :deploy do
     run "touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 
-  desc 'Creates the symlinks for the shared folders'                            
-  task :create_shared_symlinks, roles: :app, except: { no_release: true } do    
-    shared_paths = [['config', 'app_config.yml']]                  
-                                                                                
-    shared_paths.each do |path|                                                 
-      shared_files_path = File.join(shared_path, *path)                         
-      release_files_path = File.join(release_path, *path)                       
-                                                                                
-      run "ln -s #{shared_files_path} #{release_files_path}"                    
-    end                                                                         
+  desc 'Creates the symlinks for the shared folders'
+  task :create_shared_symlinks, roles: :app, except: { no_release: true } do
+    shared_paths = [['config', 'app_config.yml']]
+
+    shared_paths.each do |path|
+      shared_files_path = File.join(shared_path, *path)
+      release_files_path = File.join(release_path, *path)
+
+      run "ln -s #{shared_files_path} #{release_files_path}"
+    end
   end
 end

@@ -70,28 +70,11 @@ class Cliente < ActiveRecord::Base
   end
 
   def self.cumple
-    clients    = []
-    today      = Date.today
-    next_week  = 7.days.from_now.to_date
-    today_year = today.year
-    next_year  = today_year + 1
+    today = Time.now.yday
+    in_a_week = today + 7
+    #clients = all.map {|c| c if (today..in_a_week).include?(c.nacimiento.yday) }.compact
+    clients = where('DAYOFYEAR(nacimiento) in :days', days: today..in_a_week.to_a)
 
-    all.each do |client|
-      mes  = client.nacimiento.month
-      dia  = client.nacimiento.day
-      year = mes == 12 && dia >= 24 ? today_year : next_year
-      date = Date.new(year, mes, dia)
-
-      clients << client if date >= today && date <= next_week
-    end
-
-    clients.sort do |a,b|
-      a_date = a.nacimiento
-      b_date = b.nacimiento
-      a_year = a_date.month == 12 && a_date.day >= 24 ? today_year : next_year
-      b_year = b_date.month == 12 && b_date.day >= 24 ? today_year : next_year
-
-      [a_year, a_date.month, a_date.day] <=> [b_year, b_date.month, b_date.day]
-    end
+    clients.sort_by {|c| c.nacimiento.yday }
   end
 end
