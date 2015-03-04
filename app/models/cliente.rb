@@ -5,9 +5,7 @@ class Cliente < ActiveRecord::Base
   before_validation :asignar_recomendado, :verificar_documento
   has_many :historials
 
-
   attr_accessor :auto_recomendado
-
 
   scope :buscar, lambda { |nombre| where("LOWER(nombre)LIKE ? OR LOWER(apellido) LIKE ? OR documento LIKE ?",
       "#{nombre}%".downcase, "#{nombre}%".downcase, "#{nombre}%")}
@@ -70,10 +68,19 @@ class Cliente < ActiveRecord::Base
   end
 
   def self.cumple
-    today = Time.now.yday
-    in_a_week = today + 7
-    #clients = all.map {|c| c if (today..in_a_week).include?(c.nacimiento.yday) }.compact
-    clients = where('DAYOFYEAR(nacimiento) in :days', days: today..in_a_week.to_a)
+    today = Time.now
+    yday  = today.yday
+    in_a_week = yday + 7
+    last_day = today.at_end_of_year.yday
+
+    range = if in_a_week <= last_day
+              (yday..in_a_week).to_a
+            else
+              rest_of_days = (in_a_week - last_day) - 1
+
+              (yday..last_day).to_a + (1..rest_of_days).to_a
+            end
+    clients = where('DAYOFYEAR(nacimiento) in :days', days: range)
 
     clients.sort_by {|c| c.nacimiento.yday }
   end
