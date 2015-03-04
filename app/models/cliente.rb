@@ -68,7 +68,7 @@ class Cliente < ActiveRecord::Base
   end
 
   def self.cumple
-    today = Time.now
+    today = Time.zone.now
     yday  = today.yday
     in_a_week = yday + 7
     last_day = today.at_end_of_year.yday
@@ -80,7 +80,7 @@ class Cliente < ActiveRecord::Base
 
               (yday..last_day).to_a + (1..rest_of_days).to_a
             end
-    clients = where('DAYOFYEAR(nacimiento) in :days', days: range)
+    clients = where('DAYOFYEAR(nacimiento) in (:days)', days: range)
 
     clients.sort_by {|c| c.nacimiento.yday }
   end
