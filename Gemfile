@@ -13,6 +13,7 @@ gem 'passenger'
 gem 'whenever'
 gem 'authlogic'
 gem 'validates_timeliness'
+gem 'sidekiq', '3.0.2'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -37,6 +38,4 @@ group :test do
   gem 'turn', :require => false
 end
 
-group :production do
-	gem 'mysql2'
-end
+gem 'mysql2'
