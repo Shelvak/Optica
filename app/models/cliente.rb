@@ -84,7 +84,9 @@ class Cliente < ActiveRecord::Base
 
               (yday..last_day).to_a + (1..rest_of_days).to_a
             end
-    clients = where('DAYOFYEAR(nacimiento) in (:days)', days: range)
+    clients = where(
+      'DAYOFYEAR(nacimiento) in (:days)', days: range
+    ).where('YEAR(nacimiento) != 1920') # bug in form
 
     clients.sort_by {|c| c.nacimiento.yday }
   end
