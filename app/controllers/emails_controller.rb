@@ -2,11 +2,21 @@ class EmailsController < ApplicationController
 
   before_filter :requerir_user
 
+  def index
+    @client = Cliente.find(params[:id]) if params[:id]
+  end
+
   def sendemail
     to = params[:to]
-    emails = (
-      to == 'todos' ? Cliente.all : Cliente.where(lente: to)
-    ).map(&:email).uniq.compact
+    emails = case
+      when to.match(/\d+/)
+        Cliente.where(id: to)
+      when to == 'todos'
+        Cliente.all
+      else
+        Cliente.where(lente: to)
+    end
+    emails = emails.map(&:email).uniq.compact
     emails.delete('')
     emails.delete(' ')
 

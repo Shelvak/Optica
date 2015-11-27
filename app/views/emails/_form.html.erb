@@ -1,16 +1,21 @@
 <div id="email-form">
   <br />
   <%= form_tag '/emails/sendemail', html: { multipart: true} do |f| %>
-    <%= label_tag "destino:" %>
-    <%= select_tag :to, "<option>todos</option><option>flotantes</option><option>contacto</option>".html_safe %>
+    <% if @client %>
+      <h2><%= @client.to_name %></h2>
+      <%= text_field_tag :to, @client.id, hidden: true %>
+    <% else %>
+      <%= label_tag "destino:" %>
+      <%= select_tag :to, "<option>todos</option><option>flotantes</option><option>contacto</option>".html_safe %>
+    <% end %>
     <%= label_tag "asunto:" %>
     <%= text_field_tag :subject %><br /><br />
-    
+
   <br />
   <div id="div-mensaje">
     <%= text_area_tag :body, nil, class: 'nicEditor' %>
   </div>
-    <br /> 
+    <br />
   <%= submit_tag "Enviar", id: 'email_send', disabled: true %>
   <% end %>
 </div>

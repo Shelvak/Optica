@@ -39,6 +39,10 @@ class Cliente < ActiveRecord::Base
 		self.nombre + ' ' + self.apellido + ' ' + self.documento
 	end
 
+  def to_name
+    [self.nombre, self.apellido].join(' ')
+  end
+
   def verificar_documento
     self.documento = self.documento.split('.').join
   end

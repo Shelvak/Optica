@@ -1,5 +1,3 @@
-
-
 <p>
   <b>Nombre y apellido :</b>
   <%= @cliente.nombre %>
@@ -9,7 +7,7 @@
   <%= raw "<b>Ambos lentes</b>" if @cliente.lente == 'ambos'%>
   <%= raw "<b>Lentes flotantes</b>" if @cliente.lente == 'flotantes'%>
   <%= raw "<b>Lentes de contacto</b>" if @cliente.lente == 'contacto'%>
-  
+
 </p>
 
 <p>
@@ -25,11 +23,11 @@
 </p>
 
 <p>
-  
+
   <%= raw '<b>Actividad: </b>' + @cliente.actividad if @cliente.actividad.present? %>
 </p>
 
-<p> <%= raw '<b>Recomendado por: </b>' + @cliente.recomendado if @cliente.recomendado.present? %> 
+<p> <%= raw '<b>Recomendado por: </b>' + @cliente.recomendado if @cliente.recomendado.present? %>
 
     <%= raw "<b>Cantidad de recomendaciones: </b>" + @cliente.cantidadrecom.to_s if @cliente.cantidadrecom != 0 %>
 
@@ -39,10 +37,11 @@
 <div id="historialescliente">
       <%= render 'historialescliente'  %>
 </div>
- 
+
 <% end %>
 
 <br />
 <%= link_to 'Editar', edit_cliente_path(@cliente) %> |
 <%= link_to 'Borrar', @cliente, confirm: 'Seguro quiere eliminar?', method: :delete %> |
-<%= link_to 'Volver', clientes_path %>
+<%= link_to 'Volver', clientes_path %> |
+<%= link_to 'Enviar email', emails_index_path(id: @cliente.id) %>
