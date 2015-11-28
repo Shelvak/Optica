@@ -1,47 +1,50 @@
-<p>
-  <b>Nombre y apellido :</b>
-  <%= @cliente.nombre %>
-  <%= @cliente.apellido %>
-  <%= raw "<b>Documento: </b>" + @cliente.documento if @cliente.documento.present? %>
-  <%= raw "<b>Dirección: </b>" + @cliente.direccion if @cliente.direccion.present? %>
-  <%= raw "<b>Ambos lentes</b>" if @cliente.lente == 'ambos'%>
-  <%= raw "<b>Lentes flotantes</b>" if @cliente.lente == 'flotantes'%>
-  <%= raw "<b>Lentes de contacto</b>" if @cliente.lente == 'contacto'%>
+<div class="readonly-data">
+  <h2><%= @cliente.to_name %></h2>
+  <p>
+    <%= raw "<b>Documento: </b>" + @cliente.documento if @cliente.documento.present? %>
+    <%= raw "<b>Dirección: </b>" + @cliente.direccion if @cliente.direccion.present? %>
+    <%= raw "<b>Ambos lentes</b>" if @cliente.lente == 'ambos'%>
+    <%= raw "<b>Lentes flotantes</b>" if @cliente.lente == 'flotantes'%>
+    <%= raw "<b>Lentes de contacto</b>" if @cliente.lente == 'contacto'%>
 
-</p>
+  </p>
 
-<p>
-  <%= raw "<b>Teléfono: </b>" + @cliente.telefono.to_s if @cliente.telefono.present? %>
-  <%= raw "<b>Celular: </b>" + @cliente.celular if @cliente.celular.present? %>
-  <%= raw "<b>Email: </b>" + @cliente.email if @cliente.email.present?%>
-  <b>Nacimiento: </b>    <%= l @cliente.nacimiento %>
-  <b>Edad: </b>  <%= edad_show(@cliente) %>
-</p>
+  <p>
+    <%= raw "<b>Teléfono: </b>" + @cliente.telefono.to_s if @cliente.telefono.present? %>
+    <%= raw "<b>Celular: </b>" + @cliente.celular if @cliente.celular.present? %>
+    <%= raw "<b>Email: </b>" + @cliente.email if @cliente.email.present?%>
+    <b>Nacimiento: </b>    <%= l @cliente.nacimiento %>
+    <b>Edad: </b>  <%= edad_show(@cliente) %>
+  </p>
 
-<p>
-  <%= raw '<b>Ocupación: </b>' + @cliente.ocupacion if @cliente.ocupacion.present? %>
-</p>
+  <p>
+    <%= raw '<b>Ocupación: </b>' + @cliente.ocupacion if @cliente.ocupacion.present? %>
+  </p>
 
-<p>
+  <p>
+    <%= raw '<b>Actividad: </b>' + @cliente.actividad if @cliente.actividad.present? %>
+  </p>
 
-  <%= raw '<b>Actividad: </b>' + @cliente.actividad if @cliente.actividad.present? %>
-</p>
-
-<p> <%= raw '<b>Recomendado por: </b>' + @cliente.recomendado if @cliente.recomendado.present? %>
+  <p>
+    <%= raw '<b>Recomendado por: </b>' + @cliente.recomendado if @cliente.recomendado.present? %>
 
     <%= raw "<b>Cantidad de recomendaciones: </b>" + @cliente.cantidadrecom.to_s if @cliente.cantidadrecom != 0 %>
 
-   <%= raw '<b>Total gastado: </b>' + number_to_currency(@cliente.gastado) if @cliente.gastado != 0 %>
-</p> <% unless @historiales.empty? %>
+    <%= raw '<b>Total gastado: </b>' + number_to_currency(@cliente.gastado) if @cliente.gastado != 0 %>
+  </p>
 
-<div id="historialescliente">
+  <% unless @historiales.empty? %>
+    <br /> <br/>
+    <div id="historialescliente">
       <%= render 'historialescliente'  %>
+    </div>
+  <% end %>
 </div>
 
-<% end %>
 
-<br />
-<%= link_to 'Editar', edit_cliente_path(@cliente) %> |
-<%= link_to 'Borrar', @cliente, confirm: 'Seguro quiere eliminar?', method: :delete %> |
-<%= link_to 'Volver', clientes_path %> |
-<%= link_to 'Enviar email', emails_index_path(id: @cliente.id) %>
+<div class="form-actions">
+  <%= link_to 'Editar', edit_cliente_path(@cliente) %> |
+  <%= link_to 'Borrar', @cliente, confirm: 'Seguro quiere eliminar?', method: :delete %> |
+  <%= link_to 'Volver', clientes_path %> |
+  <%= link_to 'Enviar email', emails_index_path(id: @cliente.id) %>
+</div>

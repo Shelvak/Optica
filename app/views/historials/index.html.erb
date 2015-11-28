@@ -1,12 +1,21 @@
 <h1>Historiales</h1>
-<div id="lentescontacto"><%= render 'contacto' %></div>
 
-<div id="lentesflotantes"><%= render 'flotante' %> 
-<br /><br />
+<%= link_to 'Nuevo Historial', new_historial_path, class: 'btn btn-primary' %>
+<br \><br \>
 
+<% flotante_activo = params[:p_f].to_i != 0 || params[:s_f].present? %>
 
+<ul class="nav nav-tabs">
+  <li class="<%= 'active' unless flotante_activo %>"><a href="#contacto" data-toggle="tab">Contacto</a></li>
+  <li class="<%= 'active' if flotante_activo %>"><a href="#flotante" data-toggle="tab">Flotante</a></li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane <%= 'active' unless flotante_activo %>" id="contacto">
+    <%= render 'contacto' %>
+  </div>
+
+  <div class="tab-pane <%= 'active' if flotante_activo %>" id="flotante">
+    <%= render 'flotante' %>
+  </div>
 </div>
-
-
-
-

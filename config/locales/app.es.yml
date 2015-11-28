@@ -2,7 +2,8 @@ es:
   activerecord:
   will_paginate:
     previous_label: '&laquo; Anterior'
-    next_label: 'Siguiente &raquo'    
+    next_label: 'Siguiente &raquo'
+    page_gap: '...'
   authlogic:
     error_messages:
       login_blank: 'no puede estar en blanco'

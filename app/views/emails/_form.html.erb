@@ -1,21 +1,32 @@
-<div id="email-form">
-  <br />
-  <%= form_tag '/emails/sendemail', html: { multipart: true} do |f| %>
-    <% if @client %>
-      <h2><%= @client.to_name %></h2>
-      <%= text_field_tag :to, @client.id, hidden: true %>
-    <% else %>
-      <%= label_tag "destino:" %>
-      <%= select_tag :to, "<option>todos</option><option>flotantes</option><option>contacto</option>".html_safe %>
-    <% end %>
-    <%= label_tag "asunto:" %>
-    <%= text_field_tag :subject %><br /><br />
+<%= form_tag '/emails/sendemail', html: { multipart: true} do |f| %>
+  <div class="form-inputs">
+    <div class="row-fluid">
+      <% title = 'Enviar email' %>
+      <% if @client %>
+        <h2><%= title + ' a ' + @client.to_name %></h2>
+        <%= hidden_field_tag :to, @client.id %>
+      <% else %>
+        <h2><%= title + 's' %></h2>
+        <div class="span1">
+          Destino:
+        </div>
+        <div class="span3">
+          <%= select_tag :to, "<option>todos</option><option>flotantes</option><option>contacto</option>".html_safe %>
+        </div>
+      <% end %>
+      <div class="span1">
+        Asunto:
+      </div>
+      <div class="span4">
+        <%= text_field_tag :subject %>
+      </div>
+    </div>
 
-  <br />
-  <div id="div-mensaje">
-    <%= text_area_tag :body, nil, class: 'nicEditor' %>
+    <div id="email_box">
+      <%= text_area_tag :body, nil, class: 'nicEditor', rows: 10, cols: 50 , style: "width: 100%;" %>
+    </div>
   </div>
-    <br />
-  <%= submit_tag "Enviar", id: 'email_send', disabled: true %>
-  <% end %>
-</div>
+  <div class="form-actions">
+    <%= submit_tag "Enviar", id: 'email_send', disabled: true, class: 'btn btn-info' %>
+  </div>
+<% end %>

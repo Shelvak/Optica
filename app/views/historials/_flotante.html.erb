@@ -1,11 +1,11 @@
 <h1> Lentes Flotantes </h1>
 
 <%= form_tag historials_path, method: :get do %>
-    <%= text_field_tag :s_f, params[:s_f], placeholder: 'Nº de orden....' %>
-    <%= submit_tag "Buscar Flotante" %>
-  <% end %> <br />
+  <%= text_field_tag :s_f, params[:s_f], placeholder: 'Nº de orden....', class: 'no-autowidth'%>
+  <%= submit_tag "Buscar Flotante", class: 'btn' %>
+<% end %>
 
-<table id="tablaflotantes">
+<table class="table table-striped">
   <tr>
     <th>Cliente</th>
     <th>Armazon</th>
@@ -30,5 +30,3 @@
 </table>
 
 <%= will_paginate @flotante, :param_name => :p_f %>
-<br />
-<%= link_to 'Nuevo Historial', new_historial_path %> 

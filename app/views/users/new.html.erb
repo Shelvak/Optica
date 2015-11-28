@@ -1,6 +1,7 @@
 <h1>Nuevo Usuario</h1>
 
+<% content_for :form_actions do %>
+  <%= link_to 'Volver', users_path %>
+<% end %>
+
 <%= render 'form' %>
-<div>
-<%= link_to 'Volver', users_path %>
-</div>

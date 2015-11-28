@@ -1,12 +1,6 @@
 <h1>Usuarios</h1>
 
-<table>
-  <tr>
-    <th>Login</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<table class="table table-striped">
 
 <% @users.each do |user| %>
   <tr>
@@ -18,7 +12,6 @@
 <% end %>
 </table>
 
-<br />
-<div>
-<%= link_to 'Nuevo Usuario', new_user_path %>
+<div class="form-actions">
+  <%= link_to 'Nuevo Usuario', new_user_path, class: 'btn btn-primary' %>
 </div>

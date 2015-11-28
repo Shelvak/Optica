@@ -1,97 +1,116 @@
+<div class="readonly-data">
+  <h2> <%= link_to @historial.cliente, @historial.cliente %></h2>
 
-<p>
-<%= link_to @historial.cliente, @historial.cliente %></p>
   <b>Lente:</b>
-  <%= @historial.tipolente ? 'de Contacto' : 'Flotante' %> 
-<br />
+  <%= @historial.tipolente ? 'de Contacto' : 'Flotante' %>
+  <br />
   <% if @historial.tipolente == true %>
-  <%= raw '<b>  Desc. lente:  </b>' + @historial.lente if @historial.lente.present? %> 
+    <%= raw '<b>  Desc. lente:  </b>' + @historial.lente if @historial.lente.present? %>
 
-  
-    <%= raw '<b>  Color : </b>' + @historial.colorlente if @historial.colorlente.present? %> 
+
+    <%= raw '<b>  Color : </b>' + @historial.colorlente if @historial.colorlente.present? %>
   <% end %>
-</p> 
+  </p>
 
-<p>
-  
-  <%= raw '<b>Doctor: </b>' + @historial.doctor if @historial.doctor.present? %> 
+  <p>
 
-  
+  <%= raw '<b>Doctor: </b>' + @historial.doctor if @historial.doctor.present? %>
+
+
   <%= raw '<b>  Distancia Intrapupilar: </b>' + @historial.dist_intra if @historial.dist_intra.present? %>
   <%= raw '<b>  Altura: </b>' + @historial.altura if @historial.altura.present? && @historial.tipolente == false %>
-</p>
-<% if @historial.tipolente == false %>
-<p>
-  <%= raw '<b> Armazon: </b>' + @historial.armazon if @historial.armazon.present? %>
+  </p>
+  <% if @historial.tipolente == false %>
+    <p>
+    <%= raw '<b> Armazon: </b>' + @historial.armazon if @historial.armazon.present? %>
 
-  <%= raw '<b>  Cristales: </b>' +  @historial.cristales if @historial.cristales.present? %>
-</p>
-<% end %>
-<p>
+    <%= raw '<b>  Cristales: </b>' +  @historial.cristales if @historial.cristales.present? %>
+    </p>
+  <% end %>
+  <p>
   <%= raw '<b>Observaciones: </b>' + @historial.observaciones if @historial.observaciones.present? %>
-</p>
+  </p>
 
-<p>
+  <p>
   <%= raw '<b>Uso: </b>' + @historial.uso if @historial.uso.present?%>
-</p>
+  </p>
 
-<p>
+  <p>
   <%= raw '<b>Seguimiento: </b>' + @historial.seguimiento if @historial.seguimiento.present? %>
-</p>
+  </p>
 
-<p>
-  <%= raw '<b>Pago en: </b>' + @historial.formapago if @historial.formapago.present? %>
-  <%= raw '<b>Precio: </b>' + number_to_currency(@historial.precio) if @historial.precio != 0 %>
-  <%= raw '<b>Orden: </b>' + @historial.orden.to_s if @historial.orden.present? %>
-  <%= raw '<b>Factura: </b>' + @historial.factura.to_s if @historial.factura.present? %>
-</p>
-<p>
-  <%= raw '<b>Fecha entrega: ' + l(@historial.entrega) if @historial.entrega.present? %>
-</p>
+  <div class="row-fluid">
+    <div class="span3">
+      <h4>
+        <%= raw '<b>Pago en: </b>' + @historial.formapago if @historial.formapago.present? %>
+      </h4>
+    </div>
+    <div class="span3">
+      <h4>
+        <%= raw '<b>Precio: </b>' + number_to_currency(@historial.precio) if @historial.precio != 0 %>
+      </h4>
+    </div>
+    <div class="span3">
+      <h4>
+        <%= raw '<b>Orden: </b>' + @historial.orden.to_s if @historial.orden.present? %>
+      </h4>
+    </div>
+    <div class="span3">
+      <h2>
+        <%= raw '<b>Factura: </b>' + @historial.factura.to_s if @historial.factura.present? %>
+      </h4>
+    </div>
+  </div>
+  <p>
+    <%= raw '<b>Fecha entrega: ' + l(@historial.entrega) if @historial.entrega.present? %>
+  </p>
 
 
 
-<% @receta.each_with_index do |r,i| %>
-  
+  <% @receta.each_with_index do |r,i| %>
+
     <% if i % 2 == 0 %>
-      <table>
-      <tr> <th colspan="10"> <b><%= r.receta ? 'Receta' : 'Corrección LC'  %> </b> </td></tr>
+      <h2><%= r.receta ? 'Receta' : 'Corrección LC' %></h2>
+      <table class="table table-striped">
         <% if r.receta == false %><tr>
-        <th>Ojo</th>   <th>Esfe</th>   <th>Cilin</th>
-        <th>Eje</th>   <th>Diam</th>   <th>Adic</th>  <th>Av</th>
-        <th>CB</th>  <th>Quera</th>  <th>Uso</th>
-        <% end %> 
-     <% end %>
-  
-  
-<% if @historial.tipolente == true && r.receta == true && i == 0 %>
-  <th>Ojo</th>   <th>Esfe</th>   <th>Cilin</th> <th>Eje</th>  <th>Adic</th> <th>AV</th><th>Uso</th>
-  <% end %>
-<% if @historial.tipolente == false && r.receta == true && i == 0 %>
-  <th>Ojo</th>   <th>Esfe</th>   <th>Cilin</th> <th>Eje</th> <th>Diam</th> <th>Adic</th> <th>AV</th><th>Uso</th>
-  <% end %>
-  
-  
-  </tr>
-    <tr>
-      <td><%= r.ojo ? 'Derecho' : 'Izquierda' %> </td>
-      <td><%= r.esferico %> </td>
-      <td><%= r.cilindrico %> </td>
-      <td><%= r.eje %> </td>
-      <% if (@historial.tipolente == false && r.receta == true) || (@historial.tipolente == true && r.receta == false)  %>
-        <td><%= r.diametro %> </td> 
-      <% end %>
-      <td><%= r.adicion %> </td>
-      <td><%= r.av %> </td>
-      <% if @historial.tipolente == true && r.receta == false %>
-        <td><%= r.cb %> </td>
-        <td><%= r.quera %> </td>
-      <% end %>
-      <td><%= r.distancia %></td>
-  </tr>
-  <%= raw "</table> " if i == 1 || i == 3 %>
-  <% end %>
+            <th>Ojo</th>   <th>Esfe</th>   <th>Cilin</th>
+            <th>Eje</th>   <th>Diam</th>   <th>Adic</th>  <th>Av</th>
+            <th>CB</th>  <th>Quera</th>  <th>Uso</th>
+          <% end %>
+        <% end %>
 
-<%= link_to 'Editar', edit_historial_path(@historial) %> |
-<%= link_to 'Borrar', @historial, confirm: 'Seguro??', method: :delete %> |
-<%= link_to 'Volver', historials_path %>
+
+        <% if @historial.tipolente == true && r.receta == true && i == 0 %>
+          <th>Ojo</th>   <th>Esfe</th>   <th>Cilin</th> <th>Eje</th>  <th>Adic</th> <th>AV</th><th>Uso</th>
+        <% end %>
+        <% if @historial.tipolente == false && r.receta == true && i == 0 %>
+          <th>Ojo</th>   <th>Esfe</th>   <th>Cilin</th> <th>Eje</th> <th>Diam</th> <th>Adic</th> <th>AV</th><th>Uso</th>
+        <% end %>
+
+
+        </tr>
+        <tr>
+          <td><%= r.ojo ? 'Derecho' : 'Izquierda' %> </td>
+          <td><%= r.esferico %> </td>
+          <td><%= r.cilindrico %> </td>
+          <td><%= r.eje %> </td>
+          <% if (@historial.tipolente == false && r.receta == true) || (@historial.tipolente == true && r.receta == false)  %>
+            <td><%= r.diametro %> </td>
+          <% end %>
+          <td><%= r.adicion %> </td>
+          <td><%= r.av %> </td>
+          <% if @historial.tipolente == true && r.receta == false %>
+            <td><%= r.cb %> </td>
+            <td><%= r.quera %> </td>
+          <% end %>
+          <td><%= r.distancia %></td>
+        </tr>
+        <%= raw "</table> " if i == 1 || i == 3 %>
+    <% end %>
+
+</div>
+<div class="form-actions">
+  <%= link_to 'Editar', edit_historial_path(@historial) %> |
+  <%= link_to 'Borrar', @historial, confirm: 'Seguro??', method: :delete %> |
+  <%= link_to 'Volver', historials_path %>
+</div>

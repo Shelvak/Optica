@@ -1,7 +1,12 @@
-<div id="clientes">
- <%= render 'clientes' %>
+<div class="readonly-data">
+  <div class="row-fluid">
+    <div class="span6">
+      <div id="clientes">
+        <%= render 'clientes' %>
+      </div>
+    </div>
+    <div class="span6">
+      <%= render 'cumples' if @cumples.present? %>
+    </div>
+  </div>
 </div>
-
-
-<%= render 'cumples' if @cumples.present? %>
-

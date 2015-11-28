@@ -1,6 +1,8 @@
-<h1>Editando...</h1>
+<h1>Editando <%= @cliente.to_name %></h1>
+
+<% content_for :form_actions do %>
+  <%= link_to 'Mostrar', @cliente %> |
+  <%= link_to 'Volver', clientes_path %>
+<% end %>
 
 <%= render 'form' %>
-
-<%= link_to 'Mostrar', @cliente %> |
-<%= link_to 'Volver', clientes_path %>

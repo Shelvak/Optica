@@ -1,12 +1,11 @@
 <h1>Lentes de Contacto</h1>
 
 <%= form_tag historials_path, method: :get do %>
-    <%= text_field_tag :s_c, params[:s_c], placeholder: 'Nº de orden....' %>
-    <%= submit_tag "Buscar de Contacto"  %>
-  <% end %> <br />
+  <%= text_field_tag :s_c, params[:s_c], placeholder: 'Nº de orden....', class: 'no-autowidth' %>
+  <%= submit_tag "Buscar de Contacto", class: 'btn' %>
+<% end %>
 
-
-<table id="tablacontato">
+<table class="table table-striped">
   <tr>
     <th>Cliente</th>
     <th>Lente</th>
@@ -17,19 +16,23 @@
     <th>Retirado??</th>
   </tr>
 
-<% @contactos.each do |historial| %>
-  
-  <tr> 
-    <td><%= link_to (historial.cliente.nombre.split.first + ' ' + historial.cliente.apellido.split.first), historial %></td>
-    <td><%= truncate historial.lente, length: 20 %></td>
-    <td><%= historial.colorlente %></td>
-    <td><%= number_to_currency(historial.precio) %></td>
-    <td><%= historial.orden %></td>
-    <td><%= l(historial.entrega, format: :little ) if historial.entrega %></td>
-    <td><%= historial.retirado ? 'retirado' : link_to("Retirar?", retirar_contacto_historial_path(historial), remote: true, class: 'retirado','data-type' => 'html') %></td>
-  </tr>
-  
-<% end %>
-</table>
-<%= will_paginate @contactos, :param_name => :p_c %>
+  <% @contactos.each do |historial| %>
 
+    <tr>
+      <td><%= link_to (historial.cliente.nombre.split.first + ' ' + historial.cliente.apellido.split.first), historial %></td>
+      <td><%= truncate historial.lente, length: 20 %></td>
+      <td><%= historial.colorlente %></td>
+      <td><%= number_to_currency(historial.precio) %></td>
+      <td><%= historial.orden %></td>
+      <td><%= l(historial.entrega, format: :little ) if historial.entrega %></td>
+      <td><%= historial.retirado ? 'retirado' : link_to(
+        "Retirar?",
+        retirar_contacto_historial_path(historial),
+        remote: true, class: 'retirado','data-type' => 'html'
+      ) %></td>
+    </tr>
+
+  <% end %>
+</table>
+
+<%= will_paginate @contactos, :param_name => :p_c %>

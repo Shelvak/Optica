@@ -1,7 +1,8 @@
-<h1>Editando...</h1>
+<h1>Editando <%= @user.login %></h1>
+
+<% content_for :form_actions do %>
+  <%= link_to 'Mostrar', @user %> |
+  <%= link_to 'Volver', users_path %>
+<% end %>
 
 <%= render 'form' %>
-<div>
-<%= link_to 'Mostrar', @user %> |
-<%= link_to 'Volver', users_path %>
-</div>

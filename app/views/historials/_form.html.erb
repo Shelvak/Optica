@@ -1,40 +1,51 @@
 <%= form_for(@historial) do |f| %>
-  <% if @historial.errors.any? %>
-    <div id="error_explanation">
-      <h2>Han ocurrido <%= pluralize(@historial.errors.count, 'error', 'errores' )%>: </h2>
+  <div class="form-inputs">
+    <% if @historial.errors.any? %>
+      <div id="error_explanation">
+        <h2>Han ocurrido <%= pluralize(@historial.errors.count, 'error', 'errores' )%>: </h2>
 
-      <ul>
-      <% @historial.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+        <div class="alert alert-error">
+          <ul>
+            <% @historial.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+  <div id="mostrar_cliente" hidden="hidden">
+  </div>
+  <div class="row-fluid">
+    <div class="span3">
+      <b>Asignar cliente: </b>
+      <%= link_to 'X', '#', id: 'borrar_autocliente', hidden: true %>
+      <br />
+      <%= f.text_field :auto_cliente, value: @historial.cliente.try(:documento),
+        placeholder: 'DNI del cliente...' %>
     </div>
-  <% end %> 
-<div id="mostrar_cliente" hidden="hidden">
+    <div class="span3">
+      <b>Lente </b> <br \>
+      <%= f.select :tipolente, tipo_lente %>
+    </div>
+    <div class="contacto">
+      <div class="span3">
+        <b>Lente</b> <br />
+        <%= f.text_field :lente, placeholder: 'Descripción del lente:' %>
+      </div>
+      <div class="span3">
+        <b>Color</b> <br />
+        <%= f.text_field :colorlente, placeholder: 'Color del lente:' %>
+      </div>
+    </div>
   </div>
-<div class="field">
-  <b>Asignar cliente: </b><br />
-  <%= f.text_field :auto_cliente, value: @historial.cliente.try(:documento), 
-      placeholder: 'DNI del cliente...' %> <%= link_to 'X', '#', id: 'borrar_autocliente', hidden: true %>
-  <b>Lente </b><%= f.select :tipolente, tipo_lente %> 
-</div>
-  <div id="info_cliente">
-  </div>
-  <div class="contacto">
-    <b>Lente | Color </b> <br />
-    <%= f.text_field :lente, placeholder: 'Descripción del lente:' %> 
-    <%= f.text_field :colorlente, placeholder: 'Color del lente:' %>
-  </div> <br />
-  
-<div class="field">
-  
-  <%= f.fields_for :recetes do |f_r| %>
-    
-    <% if f_r.object.ojo %>
-      <% if f_r.object.receta %>
-         <b> Receta: </b>
-         <div>
-            <table>
+
+  <div class="row-fluid">
+
+    <%= f.fields_for :recetes do |f_r| %>
+      <% if f_r.object.ojo %>
+        <% if f_r.object.receta %>
+          <h3> Receta: </h3>
+          <table class="table table-striped">
             <tr class="contacto">
               <th>Ojo</th>
               <th>Esf</th>
@@ -54,75 +65,112 @@
               <th>AV</th>
               <th>Uso</th>
             </tr>
-       <% else %>
-          
-          <div class="contacto">
-          <b> Corrección LC:</b>
-       
-  <table>
-    <tr><th>Ojo</th><th>Esf</th><th>Cil</th><th>Eje</th><th>Diam</th>
-      <th>Adici</th><th>AV</th><th>CB</th><th>Quera</th><th>Distancia</th></tr>
-        <% end %>
-    <% end %>
-    <tr>
-      <td><%= f_r.hidden_field :ojo %> <%= f_r.object.ojo ? 'Derecho' : 'Izquierdo' %></td>
-      <td><%= f_r.text_field :esferico, size: 3 %></td>
-      <td><%= f_r.text_field :cilindrico, size: 3 %></td>
-      <td><%= f_r.text_field :eje, size: 3 %></td>
-      <% if f_r.object.receta == true %>
-        <td class="flotante" hidden="hidden"><%= f_r.text_field :diametro, size: 3 %></td>
-      <% else %>
-        <td><%= f_r.text_field :diametro, size: 3 %></td>
-      <% end %>
-      <td><%= f_r.text_field :adicion, size: 3 %></td>
-      <td><%= f_r.text_field :av, size: 3 %></td>
-      <% if f_r.object.receta == false %>
-        <td><%= f_r.text_field :cb, size: 3 %></td>
-        <td><%= f_r.text_field :quera, size: 3 %></td>
-      <% end %>
-      <td><%= f_r.select :distancia, tipo_distancia %></td>
-      <%= f_r.hidden_field :receta %>
-    </tr>
-    <% unless f_r.object.ojo %>
-     </table>
-         </div><br />
-    <% end %>
-   <% end %>
-  
-</div>
-<div>
-  <b> Doctor prescriptor: </b>  <%= f.text_field :doctor, size: 10 %>
-  <b> Distancia Intrapupilar: </b>  <%= f.text_field :dist_intra, size: 3  %> 
-  <span class="flotante" hidden="hidden">
-    <b> Altura:</b> <%= f.text_field :altura, size: 3 %>
-  </span><br /><br />
-</div>
-<div class="flotante" hidden="true" >
-    <b>  Armazon | Cristales</b> <br />
+          <% else # receta%>
+
+            <div class="contacto">
+              <h3> Corrección LC:</h3>
+
+              <table class="table table-striped">
+                <tr>
+                  <th>Ojo</th><th>Esf</th><th>Cil</th><th>Eje</th><th>Diam</th>
+                  <th>Adici</th><th>AV</th><th>CB</th><th>Quera</th><th>Distancia</th>
+                </tr>
+              <% end # receta%>
+            <% end #ojo %>
+            <tr>
+              <td><%= f_r.hidden_field :ojo %> <%= f_r.object.ojo ? 'Derecho' : 'Izquierdo' %></td>
+              <td><%= f_r.text_field :esferico, size: 3 %></td>
+              <td><%= f_r.text_field :cilindrico, size: 3 %></td>
+              <td><%= f_r.text_field :eje, size: 3 %></td>
+              <% if f_r.object.receta %>
+                <td class="flotante" hidden="hidden"><%= f_r.text_field :diametro, size: 3 %></td>
+              <% else %>
+                <td><%= f_r.text_field :diametro, size: 3 %></td>
+              <% end %>
+              <td><%= f_r.text_field :adicion, size: 3 %></td>
+              <td><%= f_r.text_field :av, size: 3 %></td>
+              <% unless f_r.object.receta %>
+                <td><%= f_r.text_field :cb, size: 3 %></td>
+                <td><%= f_r.text_field :quera, size: 3 %></td>
+              <% end %>
+              <td><%= f_r.select :distancia, tipo_distancia %></td>
+              <%= f_r.hidden_field :receta %>
+            </tr>
+            <% unless f_r.object.ojo %>
+              </table>
+            <% end %>
+          <% end %>
+
+            </div>
+  <div class="row-fluid">
+    <div class="span4">
+      <b> Doctor prescriptor:</b> <%= f.text_field :doctor, size: 10 %>
+    </div>
+    <div class="span4">
+      <b> Distancia Intrapupilar: </b>  <%= f.text_field :dist_intra, size: 3  %>
+    </div>
+    <div class="span4">
+      <span class="flotante" hidden="hidden">
+        <b> Altura:</b><br />
+        <%= f.text_field :altura, size: 3 %>
+      </span>
+    </div>
+  </div>
+
+  <div class="row-fluid flotante" hidden="true" >
+    <div class="span4">
+      <b>Armazon:</b> <br />
       <%= f.text_field :armazon, size: 40, placeholder: 'Descripción del armazón: ' %>
+    </div>
+    <div class="span4">
+      <b>Cristales:</b> <br />
       <%= f.text_field :cristales, size: 40, placeholder: 'Descripción de los cristales: ' %>
+    </div>
   </div>
 
-  <div class="field">
-        <b><xmp>Observaciones                         Uso                            Seguimiento</xmp></b>
-    <%= f.text_area :observaciones, placeholder: 'Observaciones que se han hecho...' %> 
-    <%= f.text_area :uso, placeholder: 'Como los debe usar...' %> 
-     <%= f.text_area :seguimiento, placeholder: 'Seguimiento...' %>
+  <div class="row-fluid">
+    <div class="span4">
+      <b>Observaciones:</b> <br \>
+      <%= f.text_area :observaciones, placeholder: 'Observaciones que se han hecho...' %>
+    </div>
+    <div class="span4">
+      <b>Uso:</b> <br \>
+      <%= f.text_area :uso, placeholder: 'Como los debe usar...' %>
+    </div>
+    <div class="span4">
+      <b>Seguimiento:</b> <br \>
+      <%= f.text_area :seguimiento, placeholder: 'Seguimiento...' %>
+    </div>
   </div>
-  
-  <div class="field">
-    <b> <xmp>Pago      Precio         Nº Orden        Nº Factura     Fecha Entrega      </xmp></b>
-    $<%= f.select :formapago, formapago %> 
-    $<%= f.text_field :precio, size: 10, placeholder: '125.50' %> 
-    <%= f.text_field :orden, size: 10, placeholder: 'Nº orden' %>
-    <%= f.text_field :factura, size: 10, placeholder: 'Nº factura' %>
-     <%= f.date_select :entrega, end_year: Time.now.year, start_year: 2000 %>
-  </div><br />
-  <div class="actions">
-    <%= f.submit id: "submit_historial" %>
+  <br />
+
+  <div class="row-fluid">
+    <div class="span2">
+      <b>Pago: $</b> <br \>
+      <%= f.select :formapago, formapago %>
+    </div>
+    <div class="span2">
+      <b>Precio: $</b> <br \>
+      <%= f.text_field :precio, size: 10, placeholder: '125.50' %>
+    </div>
+    <div class="span2">
+      <b>Nº de Orden:</b> <br \>
+      <%= f.text_field :orden, size: 10, placeholder: 'Nº orden' %>
+    </div>
+    <div class="span2">
+      <b>Nº Factura:</b> <br \>
+      <%= f.text_field :factura, size: 10, placeholder: 'Nº factura' %>
+    </div>
+    <div class="span2">
+      <b>Fecha Entrega:</b> <br \>
+      <%= f.text_field :entrega, type: :date %>
+    </div>
   </div>
-
-
-  
-  
-  <% end %>
+  </div>
+  <div class="form-actions">
+    <div class="pull-right">
+      <%= yield :form_actions %>
+    </div>
+    <%= f.submit class: 'btn btn-primary' %>
+  </div>
+<% end %>

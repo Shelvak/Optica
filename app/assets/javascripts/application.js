@@ -11,3 +11,4 @@
 //= require clientes
 //= require nicEdit
 //= require generals
+//= require bootstrap

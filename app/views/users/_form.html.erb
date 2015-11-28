@@ -1,30 +1,37 @@
 <%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2>Han ocurrido <%= pluralize(@user.errors.count, 'error', 'errores' )%>: </h2>
+  <div class="form-inputs">
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2>Han ocurrido <%= pluralize(@user.errors.count, 'error', 'errores' )%>: </h2>
 
-      <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+        <div class="alert alert-error">
+          <ul>
+            <% @user.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :login %><br />
+      <%= f.text_field :login %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :login %><br />
-    <%= f.text_field :login %>
-  </div>
- <div>
-   <%= f.label :password, 'Clave' %><br />
-   <%= f.password_field :password, :size => 40 %>
-  </div>
-  <div>
-   <%= f.label :password_confirmation, 'Respetir Clave' %><br />
-   <%= f.password_field :password_confirmation, :size => 40 %>
+    <div>
+      <%= f.label :password, 'Clave' %><br />
+      <%= f.password_field :password, :size => 40 %>
+    </div>
+    <div>
+      <%= f.label :password_confirmation, 'Repetir Clave' %><br />
+      <%= f.password_field :password_confirmation, :size => 40 %>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Crear" %>
+  <div class="form-actions">
+    <div class="pull-right">
+      <%= yield :form_actions %>
+    </div>
+    <%= f.submit "Crear", class: 'btn btn-primary' %>
   </div>
 <% end %>

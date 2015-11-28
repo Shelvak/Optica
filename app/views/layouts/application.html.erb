@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Optica</title>
-  <%= stylesheet_link_tag    'application' %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-  <%= render 'menus/topmenu' %>
+<% main_class = "logged-in action-#{action_name}" %>
 
-  <%= yield %>
+<html class="<%= main_class %>">
+  <head>
+    <title>Optica</title>
+    <%= stylesheet_link_tag    'application' %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body class="<%= main_class %>">
+    <%= render 'menus/topmenu' %>
 
-  <%= javascript_include_tag 'application' %>
-  <%= render 'menus/notifier' if flash.notice || flash.alert%>
-</body>
+    <div class="container">
+      <div class="content"><%= yield %></div>
+    </div>
 
+    <%= javascript_include_tag 'application' %>
+    <%= render 'menus/notifier' if flash.notice %>
+    <%= render 'menus/alert' if flash.alert%>
+  </body>
 </html>

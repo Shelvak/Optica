@@ -1,31 +1,128 @@
-div#notice {
+@import "mixins";
+
+a.show {
+  display: inline;
+}
+
+footer.alert {
   position: fixed;
-  bottom: .5em;
-  left: 0px;
-  right: 0px;
-  font-weight: bold;
-  font-size: 1.4em;
+  bottom: 0em;
+  left: 4em;
+  right: 4em;
+}
+
+html, body {
+  background-color: #eee;
+}
+
+#loading_caption {
+  position: fixed;
+  top: 0%;
+  left: 50%;
+  width: 10em;
+  margin: 0em 0em 0em -5em;
+  padding: .25em 1em;
   text-align: center;
-  padding: .75em 1em;
-  text-shadow: 0px 0px 1px #ccc;
-  opacity: .5;
-  background-color: #feb968;
-  
-  .close {
-    position: absolute;
-    top: .5em;
-    right: 1em;
-    font-size: .6em;
-    font-weight: normal;
-    border: 2px solid #464646;
-    
-    a {
-      background: inherit;
-      color: #464646;
-      text-decoration: none;
-      font-size: 1.2em;
-      font-weight: 600;
-      padding: 1px 5px;
-    }
+  line-height: 30px;
+  z-index: 1100;
+}
+
+.iconic {
+  font-family: "IconicStroke";
+  display: inline-block;
+  text-decoration: none !important;
+  font-size: 1.5em;
+}
+
+.iconic.btn-mini {
+  font-size: 1.25em;
+}
+
+.iconic.large {
+  font-size: 36px;
+}
+
+.logged-in {
+  .container > .content {
+    background-color: #fff;
+    padding-top: 20px;
+    @include border-radius(0 0 6px 6px);
+    @include box-shadow(0, 1px, 2px, rgba(0,0,0,.15));
   }
+
+  .feedback {
+    padding: 0px 20px 18px 20px;
+    margin-top: 18px;
+    margin-bottom: 18px;
+  }
+
+  .form-inputs {
+    padding: 6px 20px 18px;
+  }
+}
+
+.logged-in.action-index {
+  .pagination, .page-entries {
+    margin-right: 20px;
+  }
+
+  .page-entries {
+    font-size: .8em;
+    margin-top: -18px;
+  }
+}
+
+.logged-in.action-index, .logged-in.action-show {
+  .form-actions {
+    padding-left: 20px;
+  }
+}
+
+.navbar {
+  .search-query + .btn {
+    margin: -7px 5px 0px 5px;
+  }
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.readonly-data {
+  margin: 0px 20px;
+}
+
+.ui-autocomplete {
+  small {
+    display: block;
+    font-size: .75em;
+    color: #999999;
+  }
+}
+
+.ui-datepicker-trigger {
+  display: none;
+}
+
+.disabled {
+  color: #bebebe;
+  font-style: italic;
+}
+
+body {
+  /* 40px to make the container go all the way to the bottom of the navbar */
+  padding-top: 50px;
+}
+
+input:not(.no-autowidth):not(.btn), select:not(.no-autowidth) {
+  display: block;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#email_box{
+  margin: 0em 0em 0em 0em;
+  background-color: #fff;
+  color: #000;
 }

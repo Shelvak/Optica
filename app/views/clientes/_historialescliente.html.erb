@@ -1,4 +1,4 @@
-<table>
+<table class="table table-striped">
   <tr><th>Fecha</th><th>Lentes</th><th>Color</th><th>Observaciones</th><th>Nº de orden</th> <th>Retirado?</th></tr>
 
 <% @historiales.each do |h| %>
@@ -14,5 +14,5 @@
 </table>
 
 <div class="will_paginate">
-<%= will_paginate @historiales %>
+  <%= will_paginate @historiales %>
 </div>

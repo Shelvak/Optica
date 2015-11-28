@@ -1,12 +1,11 @@
+<h1>Clientes</h1>
 
-  <h1>Clientes</h1>
+<%= form_tag clientes_path, method: :get do %>
+  <%= text_field_tag :s_cliente, params[:s_cliente], class: 'no-autowidth' %>
+  <%= submit_tag "Buscar", class: 'btn' %>
+<% end %>
 
-    <%= form_tag clientes_path, method: :get do %>
-    <%= text_field_tag :s_cliente, params[:s_cliente] %>
-    <%= submit_tag "Buscar"  %>
-  <% end %> <br />
-  
-<table>
+<table class="table table-striped">
   <tr>
     <th>Cliente</th>
     <th>Documento</th>
@@ -27,4 +26,4 @@
 
 <%= will_paginate @clients %> <br />
 
-<%= link_to 'Nuevo Cliente', new_cliente_path %>
+<%= link_to 'Nuevo Cliente', new_cliente_path, class: 'btn btn-primary' %>

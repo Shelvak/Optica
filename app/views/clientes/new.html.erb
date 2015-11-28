@@ -1,5 +1,7 @@
 <h1>Nuevo Cliente</h1>
 
-<%= render 'form' %>
+<% content_for :form_actions do %>
+  <%= link_to 'Volver', clientes_path %>
+<% end %>
 
-<%= link_to 'Volver', clientes_path %>
+<%= render 'form' %>

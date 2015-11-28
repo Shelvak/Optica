@@ -1,34 +1,34 @@
 <%= form_for(@user_session) do |f| %>
   <% if @user_session.errors.any? %>
     <div id="error_explanation">
-       <h2> 
-<%= raw 'Ha ocurrido 1 error en: ' if @user_session.errors.count == 1 %> </h2>
-
-
+      <h2> <%= raw 'Ha ocurrido 1 error en: ' if @user_session.errors.count == 1 %> </h2>
       <ul>
-      <% @user_session.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <% @user_session.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
 
-
-<br /><br /><br /><br />
-
- <div class="field">
-    <%= f.label :login %><br />
-    <%= f.text_field :login %>
-  </div>
- <div>
-   <%= f.label :password, 'Clave' %><br />
-   <%= f.password_field :password, :size => 40 %>
-  </div>
-<div class="field">
-<%= f.check_box :remember_me %><%= f.label :remember_me, "Recordar?" %>
-</div>
-<br />
-  <div class="actions">
-    <%= f.submit "Entrar" %>
+  <div class="form-inputs">
+    <div class="row-fluid">
+      <div class="span3"> </div>
+      <div class="span6">
+        <div>
+          <%= f.label :login %><br />
+          <%= f.text_field :login %>
+        </div>
+        <div>
+          <%= f.label :password, 'Clave' %><br />
+          <%= f.password_field :password, :size => 40 %>
+        </div>
+        <div>
+          <%= f.check_box :remember_me %><%= f.label :remember_me, "Recordar?" %>
+        </div>
+      </div>
+    </div>
+    <div class="form-actions">
+      <%= f.submit "Entrar", class: 'btn btn-primary' %>
+    </div>
   </div>
 <% end %>

@@ -1,6 +1,8 @@
-<h1>Editando...</h1>
+<h1>Editando historial de <%= @historial.cliente.to_name %></h1>
+
+<% content_for :form_actions do %>
+  <%= link_to 'Mostrar', @historial %> |
+  <%= link_to 'Volver', historials_path %>
+<% end %>
 
 <%= render 'form' %>
-
-<%= link_to 'Mostrar', @historial %> |
-<%= link_to 'Volver', historials_path %>
