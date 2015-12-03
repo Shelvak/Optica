@@ -25,5 +25,6 @@ group :development do
   gem 'pry-nav'
 end
 
+gem 'bugsnag'
 gem 'thin'
 gem 'mysql2'

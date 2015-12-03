@@ -62,12 +62,13 @@ class Cliente < ActiveRecord::Base
   end
 
   def self.happyverde
-    @clientes = Cliente.all
-    @clientes.each do |clien|
-      @cliente = clien
-      mes = @cliente.nacimiento.month.to_i
-      dia = @cliente.nacimiento.day.to_i
-        MyMailer.feliz_cumple(clien).deliver if (mes == Date.today.month && dia == Date.today.day)
+    t_year, t_month, t_day = Time.zone.now.to_date.to_s.split('-').map(&:to_i)
+    Cliente.all.each do |cliente|
+      c_year, c_month, c_day = cliente.nacimiento.to_s.split('-').map(&:to_i)
+
+      if c_year != 1920 && c_month == t_month && c_day == t_day
+        MyMailer.delay.feliz_cumple(cliente)
+      end
     end
   end
 
@@ -84,9 +85,14 @@ class Cliente < ActiveRecord::Base
 
               (yday..last_day).to_a + (1..rest_of_days).to_a
             end
+
     clients = where(
       'DAYOFYEAR(nacimiento) in (:days)', days: range
-    ).where('YEAR(nacimiento) != 1920') # bug in form
+    ).where([
+      'YEAR(nacimiento) != 1920',
+      'DAYOFMONTH(nacimiento) = :day',
+      'MONTH(nacimiento) = :month'
+    ].join(' AND '), day: today.day, month: today.month)
 
     clients.sort_by {|c| c.nacimiento.yday }
   end

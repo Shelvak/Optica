@@ -15,10 +15,12 @@ class MyMailer < ActionMailer::Base
     )
   end
 
-  def feliz_cumple(clien)
-    @cliente = clien
+  def feliz_cumple(cliente)
     attachments.inline['cumple.jpg'] = File.read("#{Rails.root}/public/cumple.jpg")
-    mail(to: @cliente.email, subject: "Optica Palpacelli te desea un feliz cumple #{@cliente.nombre.camelize}" )
+    mail(
+      to: cliente.email,
+      subject: "Optica Palpacelli te desea un feliz cumple #{cliente.nombre.camelize}"
+    )
   end
 
   def felices_fiestas(cliente)
