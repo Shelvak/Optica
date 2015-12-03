@@ -86,13 +86,12 @@ class Cliente < ActiveRecord::Base
               (yday..last_day).to_a + (1..rest_of_days).to_a
             end
 
-    clients = where(
-      'DAYOFYEAR(nacimiento) in (:days)', days: range
-    ).where([
-      'YEAR(nacimiento) != 1920',
-      'DAYOFMONTH(nacimiento) = :day',
-      'MONTH(nacimiento) = :month'
-    ].join(' AND '), day: today.day, month: today.month)
+    clients = where([
+      '(DAYOFYEAR(nacimiento) in (:days) OR ',
+      '(DAYOFMONTH(nacimiento) = :day AND ',
+      'MONTH(nacimiento) = :month)) AND ',
+      'YEAR(nacimiento) != 1920'
+    ].join, day: today.day, month: today.month, days: range)
 
     clients.sort_by {|c| c.nacimiento.yday }
   end
