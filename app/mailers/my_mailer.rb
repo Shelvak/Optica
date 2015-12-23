@@ -7,7 +7,6 @@ class MyMailer < ActionMailer::Base
   def enviar(destinatarios, subject, body)
     @body = body
     @destinatarios = destinatarios
-    %x{echo "#{Time.now} => #{@destinatarios.size}" >> log/destinatarios.log}
     mail(
       :bcc => @destinatarios,
       :subject => subject,
