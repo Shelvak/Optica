@@ -1,4 +1,7 @@
 Optica::Application.routes.draw do
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+
   match 'emails/index' => 'emails#index', :via => 'get'
   match 'emails/sendemail' => 'emails#sendemail', :via => 'post'
 

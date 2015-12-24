@@ -28,3 +28,5 @@ end
 gem 'bugsnag'
 gem 'thin'
 gem 'mysql2'
+
+gem 'sinatra', require: nil

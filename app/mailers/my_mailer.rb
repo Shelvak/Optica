@@ -7,11 +7,13 @@ class MyMailer < ActionMailer::Base
   def enviar(destinatarios, subject, body)
     @body = body
     @destinatarios = destinatarios
-    mail(
-      :bcc => @destinatarios,
-      :subject => subject,
-      :body => @body
-    )
+    if destinatarios && destinatarios.size > 0
+      mail(
+        :bcc => @destinatarios,
+        :subject => subject,
+        :body => @body
+      )
+    end
   end
 
   def feliz_cumple(cliente)
