@@ -16,7 +16,8 @@ class MyMailer < ActionMailer::Base
     end
   end
 
-  def feliz_cumple(cliente)
+  def feliz_cumple(client_id)
+    cliente = Client.find(client_id)
     attachments.inline['cumple.jpg'] = File.read("#{Rails.root}/public/cumple.jpg")
     mail(
       to: cliente.email,
@@ -25,15 +26,15 @@ class MyMailer < ActionMailer::Base
   end
 
   def felices_fiestas(cliente)
-    attachments.inline['fiestas.jpg'] = File.read("#{Rails.root}/public/fiestas.jpg")
-      mail(to: cliente.email, subject: "Optica Palpacelli les desea muy felices fiestas #{cliente.nombre.camelize}!!! " )
+    #attachments.inline['fiestas.jpg'] = File.read("#{Rails.root}/public/fiestas.jpg")
+    #  mail(to: cliente.email, subject: "Optica Palpacelli les desea muy felices fiestas #{cliente.nombre.camelize}!!! " )
   end
 
 
   def fiestas
-    @clientes = Cliente.all
-    @clientes.each do |cliente|
-      MyMailer.felices_fiestas(cliente).deliver if (Date.today.day == 24 && Date.today.month == 12)
-    end
+    #@clientes = Cliente.all
+    #@clientes.each do |cliente|
+    #  MyMailer.felices_fiestas(cliente).deliver if (Date.today.day == 24 && Date.today.month == 12)
+    #end
   end
 end

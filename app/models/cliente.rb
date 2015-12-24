@@ -9,6 +9,7 @@ class Cliente < ActiveRecord::Base
 
   scope :buscar, lambda { |nombre| where("LOWER(nombre)LIKE ? OR LOWER(apellido) LIKE ? OR documento LIKE ?",
       "#{nombre}%".downcase, "#{nombre}%".downcase, "#{nombre}%")}
+  scope :with_email, where("email IS NOT NULL or email != ''")
 
 
   validates :nombre, :apellido, :documento, presence: true
@@ -62,14 +63,14 @@ class Cliente < ActiveRecord::Base
   end
 
   def self.happyverde
-    t_year, t_month, t_day = Time.zone.now.to_date.to_s.split('-').map(&:to_i)
-    Cliente.all.each do |cliente|
-      c_year, c_month, c_day = cliente.nacimiento.to_s.split('-').map(&:to_i)
+    #t_year, t_month, t_day = Time.zone.now.to_date.to_s.split('-').map(&:to_i)
+    #Cliente.with_email.each do |cliente|
+    #  c_year, c_month, c_day = cliente.nacimiento.to_s.split('-').map(&:to_i)
 
-      if c_year != 1920 && c_month == t_month && c_day == t_day
-        MyMailer.delay.feliz_cumple(cliente)
-      end
-    end
+    #  if c_year != 1920 && c_month == t_month && c_day == t_day
+    #    MyMailer.delay.feliz_cumple(cliente.id)
+    #  end
+    #end
   end
 
   def self.cumple
