@@ -32,6 +32,6 @@ class EmailsController < ApplicationController
       i += 1
     end
 
-    redirect_to '/emails/index', :notice => 'Enviando emails'
+    redirect_to '/emails/index', notice: 'Enviando emails'
   end
 end

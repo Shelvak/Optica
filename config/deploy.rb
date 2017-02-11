@@ -21,10 +21,10 @@ set :use_sudo, false
 set :branch, 'master'
 role :web, "optica-palpa.no-ip.org"                          # Your HTTP server, Apache/etc
 role :app, "optica-palpa.no-ip.org"                          # This may be the same as your `Web` server
-role :db,  "optica-palpa.no-ip.org", :primary => true # This is where Rails migrations will run
+role :db,  "optica-palpa.no-ip.org", primary: true # This is where Rails migrations will run
 #role :web, "rotsenweb.no-ip.org"                          # Your HTTP server, Apache/etc
 #role :app, "rotsenweb.no-ip.org"                          # This may be the same as your `Web` server
-#role :db,  "rotsenweb.no-ip.org", :primary => true # This is where Rails migrations will run
+#role :db,  "rotsenweb.no-ip.org", primary: true # This is where Rails migrations will run
 #role :db,  "your slave db-server here"
 
 # if you're still using the script/reaper helper you will need
@@ -36,7 +36,7 @@ before 'deploy:finalize_update', 'deploy:create_shared_symlinks'
 namespace :deploy do
   task :start do ; end
   task :stop do ; end
-  task :restart, :roles => :app, :except => { :no_release => true } do
+  task :restart, roles: :app, except: { no_release: true } do
     run "touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 

@@ -1,12 +1,12 @@
-Optica::Application.routes.draw do
+Rails.application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 
-  match 'emails/index' => 'emails#index', :via => 'get'
-  match 'emails/sendemail' => 'emails#sendemail', :via => 'post'
+  get 'emails/index' => 'emails#index'
+  post 'emails/sendemail' => 'emails#sendemail'
 
-  resources :venta,:users
-  resources :user_sessions, :only => [:new, :create, :destroy]
+  resources :venta, :users
+  resources :user_sessions, only: [:new, :create, :destroy]
 
 
   resources :clientes do
@@ -14,9 +14,11 @@ Optica::Application.routes.draw do
   end
 
   resources :historials do
-    get :retirar_contacto, on: :member
-    get :retirar_flotante, on: :member
+    member do
+      get :retirar_contacto
+      get :retirar_flotante
+    end
   end
 
-  root :to => 'clientes#index'
+  root to: 'clientes#index'
 end

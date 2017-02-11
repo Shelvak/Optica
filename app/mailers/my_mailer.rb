@@ -1,7 +1,7 @@
 class MyMailer < ActionMailer::Base
   default from: "Optica Palpacelli <info@opticapalpacelli.com.ar>",
-  :charset => "UTF-8",
-  :content_type => "text/html"
+  charset: "UTF-8",
+  content_type: "text/html"
 
 
   def enviar(destinatarios, subject, body)
@@ -9,9 +9,9 @@ class MyMailer < ActionMailer::Base
     @destinatarios = destinatarios
     if destinatarios && destinatarios.size > 0
       mail(
-        :bcc => @destinatarios,
-        :subject => subject,
-        :body => @body
+        bcc: @destinatarios,
+        subject: subject,
+        body: @body
       )
     end
   end

@@ -1,8 +1,8 @@
 # encoding: UTF-8
 class UserSessionsController < ApplicationController
  
-  before_filter :no_requerir_user, :only => [:new, :create]
-  before_filter :requerir_user, :only => [:destroy]
+  before_filter :no_requerir_user, only: [:new, :create]
+  before_filter :requerir_user, only: [:destroy]
   
   
   def new
@@ -15,7 +15,7 @@ class UserSessionsController < ApplicationController
       flash[:notice] = "Bienvenido =)"
       redirect_back_or_default clientes_path
     else
-      render :action => :new
+      render action: :new
     end
   end
   

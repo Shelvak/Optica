@@ -11,9 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130716203026) do
+ActiveRecord::Schema.define(version: 20130716203026) do
 
-  create_table "clientes", :force => true do |t|
+  create_table "clientes", force: true do |t|
     t.string   "nombre"
     t.string   "apellido"
     t.string   "documento"
@@ -28,15 +28,15 @@ ActiveRecord::Schema.define(:version => 20130716203026) do
     t.text     "salud"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "cantidadrecom",                                :default => 0
-    t.decimal  "gastado",       :precision => 15, :scale => 2, :default => 0.0
+    t.integer  "cantidadrecom",                                default: 0
+    t.decimal  "gastado",       precision: 15, scale: 2, default: 0.0
     t.string   "lente"
   end
 
-  add_index "clientes", ["documento"], :name => "index_clientes_on_documento", :unique => true
+  add_index "clientes", ["documento"], name: "index_clientes_on_documento", unique: true
 
-  create_table "historials", :force => true do |t|
-    t.boolean  "tipolente",                                    :default => false
+  create_table "historials", force: true do |t|
+    t.boolean  "tipolente",                                    default: false
     t.string   "lente"
     t.string   "colorlente"
     t.string   "armazon"
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(:version => 20130716203026) do
     t.text     "observaciones"
     t.text     "uso"
     t.text     "seguimiento"
-    t.decimal  "precio",        :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "precio",        precision: 15, scale: 2, default: 0.0
     t.integer  "orden"
     t.integer  "cliente_id"
     t.datetime "created_at"
@@ -53,12 +53,12 @@ ActiveRecord::Schema.define(:version => 20130716203026) do
     t.string   "dist_intra"
     t.date     "entrega"
     t.string   "factura"
-    t.boolean  "retirado",                                     :default => false
+    t.boolean  "retirado",                                     default: false
     t.string   "altura"
     t.string   "formapago"
   end
 
-  create_table "recetes", :force => true do |t|
+  create_table "recetes", force: true do |t|
     t.boolean  "ojo"
     t.decimal  "esferico"
     t.decimal  "cilindrico"
@@ -75,12 +75,12 @@ ActiveRecord::Schema.define(:version => 20130716203026) do
     t.string   "quera"
   end
 
-  create_table "user_sessions", :force => true do |t|
+  create_table "user_sessions", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "users", :force => true do |t|
+  create_table "users", force: true do |t|
     t.string   "login"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -90,19 +90,19 @@ ActiveRecord::Schema.define(:version => 20130716203026) do
     t.boolean  "admin"
   end
 
-  add_index "users", ["login"], :name => "index_users_on_login", :unique => true
+  add_index "users", ["login"], name: "index_users_on_login", unique: true
 
-  create_table "venta", :force => true do |t|
+  create_table "venta", force: true do |t|
     t.integer  "mes"
     t.integer  "anio"
-    t.decimal  "vendido",        :default => 0.0
+    t.decimal  "vendido",        default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "cantvendida",    :default => 0
-    t.integer  "cant_contacto",  :default => 0
-    t.integer  "cant_flotante",  :default => 0
-    t.decimal  "venta_contacto", :default => 0.0
-    t.decimal  "venta_flotante", :default => 0.0
+    t.integer  "cantvendida",    default: 0
+    t.integer  "cant_contacto",  default: 0
+    t.integer  "cant_flotante",  default: 0
+    t.decimal  "venta_contacto", default: 0.0
+    t.decimal  "venta_flotante", default: 0.0
   end
 
 end
