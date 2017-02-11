@@ -1,12 +1,16 @@
-# encoding: UTF-8
-
 class ApplicationController < ActionController::Base
   helper_method :current_user
   helper :all
   protect_from_forgery
   config.filter_parameters :password, :password_confirmation
 
+  before_action :permit_all
+
   private
+
+  def permit_all
+    params.permit!
+  end
   def current_user_session
     @current_user_session ||= UserSession.find
   end

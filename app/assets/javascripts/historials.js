@@ -38,7 +38,7 @@ jQuery(function($){
       });
       $('#borrar_autocliente').on('click', enableAutoClient);
 
-      $('.retirado').live('ajax:success',function(xhr,data){
+      $(document).on('ajax:success', '.retirado', function(xhr,data){
           $(this).parents('tr:first').replaceWith(data);
       });
 });

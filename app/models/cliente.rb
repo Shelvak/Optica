@@ -7,15 +7,16 @@ class Cliente < ActiveRecord::Base
 
   attr_accessor :auto_recomendado
 
-  scope :buscar, lambda { |nombre| where("LOWER(nombre)LIKE ? OR LOWER(apellido) LIKE ? OR documento LIKE ?",
-      "#{nombre}%".downcase, "#{nombre}%".downcase, "#{nombre}%")}
-  scope :with_email, where("email IS NOT NULL or email != ''")
+  scope :buscar, -> (name) { where("LOWER(nombre)LIKE ? OR LOWER(apellido) LIKE ? OR documento LIKE ?",
+      "#{name}%".downcase, "#{name}%".downcase, "#{name}%")}
+  scope :with_email, -> { where("email IS NOT NULL or email != ''") }
 
 
   validates :nombre, :apellido, :documento, presence: true
   validates :documento, uniqueness: true
   validates :telefono, allow_nil: true, allow_blank: true, numericality: {
-  only_integer: true, greater_than_or_equal_to: 0, less_than: 2147483648}
+    only_integer: true, greater_than_or_equal_to: 0, less_than: 2147483648
+  }
 
 
 
@@ -26,7 +27,7 @@ class Cliente < ActiveRecord::Base
              "#{table_name}.documento LIKE :q"].join(' OR '),
               q: "%#{search}%".downcase)
     else
-      scoped
+      all
     end
   end
 

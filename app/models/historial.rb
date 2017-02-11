@@ -11,6 +11,9 @@ class Historial < ActiveRecord::Base
   before_save :eliminar_vacio, :asignar_retirado
 
   scope :asociado, lambda { |cliente| where('cliente_id LIKE ?', "#{cliente}") }
+  scope :contactos, -> { where(tipolente: true) }
+  scope :flotantes, -> { where(tipolente: false) }
+  scope :asociado, lambda { |cliente| where('cliente_id LIKE ?', "#{cliente}") }
 
   validates :auto_cliente, presence: true
   validates :entrega, presence: true
@@ -20,8 +23,8 @@ class Historial < ActiveRecord::Base
           less_than: 2147483648 }, allow_nil: true, allow_blank: true
 
 
-  def initialize(attributes = nil, options = {})
-    super(attributes, options)
+  def initialize(attributes = {})
+    super(attributes)
 
       if self.recetes.empty?
         [true, false].each do |recete|
@@ -46,7 +49,7 @@ class Historial < ActiveRecord::Base
         q: "#{search}%".downcase
       )
     else
-      scoped
+      all
     end
 
   end
@@ -61,23 +64,31 @@ class Historial < ActiveRecord::Base
     end
   end
 
+  def flotante?
+    !self.tipolente?
+  end
+
+  def contacto?
+    self.tipolente?
+  end
+
   def asignar_total
-    if self.created_at == self.updated_at && self.entrega > Date.today
-      cliente = self.cliente
-      venta = Venta.find_or_create_by_mes_and_anio(Date.today.month, Date.today.year)
-      venta.vendido += self.precio
-      venta.cantvendida += 1
-      if self.tipolente == false
-        venta.cant_flotante += 1
-        venta.venta_flotante += self.precio
-      elsif self.tipolente == true
-        venta.cant_contacto += 1
-        venta.venta_contacto += self.precio
-      end
-      venta.save
-      cliente.gastado += self.precio
-      cliente.save
-    end
+    #if self.created_at == self.updated_at && self.entrega > Date.today
+      #cliente = self.cliente
+      #venta = Venta.find_or_create_by_mes_and_anio(Date.today.month, Date.today.year)
+      #venta.vendido += self.precio
+      #venta.cantvendida += 1
+      #if self.tipolente == false
+      #  venta.cant_flotante += 1
+      #  venta.venta_flotante += self.precio
+      #elsif self.tipolente == true
+      #  venta.cant_contacto += 1
+      #  venta.venta_contacto += self.precio
+      #end
+      #venta.save
+    self.cliente.gastado += self.precio
+    self.cliente.save
+    #end
   end
 
   def asignar_lente

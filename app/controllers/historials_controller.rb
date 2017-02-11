@@ -4,18 +4,18 @@ class HistorialsController < ApplicationController
 
   before_filter :requerir_user
   before_filter :requerir_admin, only: :destroy
-  
+
   proc { |c| c.request.xhr? ? false : 'application'}
-  
+
   # GET /historials
   # GET /historials.json
   def index
     @historials = Historial.order('created_at DESC')
-    @contactos = Historial.where(tipolente: true).order('entrega DESC').paginate(page: params[:p_c], per_page: 14)
-    @flotante = Historial.where(tipolente: false).order('entrega DESC').paginate(page: params[:p_f], per_page: 14)
-    @contactos = Historial.search(params[:s_c]).paginate(page: params[:p_c], per_page: 14) if params[:s_c]
-    @flotante = Historial.search(params[:s_f]).paginate(page: params[:p_f], per_page: 14) if params[:s_f]
-    
+    @contactos = Historial.where(tipolente: true).order('entrega DESC').page(params[:p_c])
+    @flotante = Historial.where(tipolente: false).order('entrega DESC').page(params[:p_f])
+    @contactos = Historial.search(params[:s_c]).page(params[:p_c]) if params[:s_c]
+    @flotante = Historial.search(params[:s_f]).page(params[:p_f]) if params[:s_f]
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @historials }
@@ -28,7 +28,7 @@ class HistorialsController < ApplicationController
   def show
     @historial = Historial.find(params[:id])
     @receta = Recete.histori(@historial.id)
-     
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @historial }
@@ -94,11 +94,11 @@ class HistorialsController < ApplicationController
       format.json { head :ok }
     end
   end
-  
+
   def retirar_contacto
     @historial = Historial.find(params[:id])
     @historial.update_attribute :retirado, true
-    
+
     if request.xhr?
       render partial: 'contactos', locals: { historial: @historial }
     else
@@ -108,11 +108,11 @@ class HistorialsController < ApplicationController
         end
     end
   end
-  
+
   def retirar_flotante
     @historial = Historial.find(params[:id])
     @historial.update_attribute :retirado, true
-    
+
     if request.xhr?
       render partial: 'flotantes', locals: { historial: @historial }
     else
@@ -122,6 +122,6 @@ class HistorialsController < ApplicationController
         end
     end
   end
-  
-  
+
+
 end

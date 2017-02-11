@@ -8,9 +8,10 @@ class ClientesController < ApplicationController
   # GET /clientes
   # GET /clientes.json
   def index
-    @clientes = Cliente.order('apellido DESC', 'nombre DESC').paginate(page: params[:page], per_page: 15 )
     (@cumples = Cliente.cumple ) if Cliente.cumple
-    @clientes = Cliente.search(params[:s_cliente]).paginate(page: params[:page], per_page: 15 )
+    @clientes = Cliente.order(
+      apellido: :desc, nombre: :desc
+    ).search(params[:s_cliente]).page(params[:page])
 
 
     respond_to do |format|
@@ -25,7 +26,7 @@ class ClientesController < ApplicationController
   def show
     @cliente = Cliente.find(params[:id])
     @historiales = Historial.where('cliente_id = ?', "#{@cliente.id}").order(
-      'orden DESC, entrega DESC').paginate(page: params[:page], per_page: 10)
+      'orden DESC, entrega DESC').page(params[:page])
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @cliente }

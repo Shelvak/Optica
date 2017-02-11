@@ -5,12 +5,11 @@ default: &default
   database: optica
   host: localhost
 
-
 test:
-  adapter: sqlite3
-  database: db/test.sqlite3
-  pool: 5
-  timeout: 5000
+  <<: *default
+  database: optica_test
+  username: root
+  password: '12452'
 
 development:
   <<: *default

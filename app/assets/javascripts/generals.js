@@ -8,7 +8,7 @@ jQuery(function(){
   });
 
   //paginar
-  $('.pagination a').live("click", function() {
+  $(document).on('click', '.pagination a', function() {
     $.get(this.href, null, null, 'script');
     return false;
   });

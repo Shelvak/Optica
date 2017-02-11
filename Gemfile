@@ -3,9 +3,8 @@ source 'http://rubygems.org'
 gem 'rails', '~> 5.0'
 
 gem 'kaminari'
-#gem 'whenever'
 gem 'authlogic'
-# gem 'validates_timeliness'
+gem 'validates_timeliness'
 gem 'sidekiq'
 gem 'unicorn'
 
@@ -33,3 +32,4 @@ gem 'sinatra', require: nil
 gem 'interactive_editor'
 gem 'awesome_print'
 gem 'byebug'
+gem 'whenever', require: nil
