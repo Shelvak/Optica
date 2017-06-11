@@ -1,5 +1,14 @@
 <div class="readonly-data">
-  <h2><%= @cliente.to_name %></h2>
+  <h2>
+    <div class="row-fluid">
+      <div class="span9">
+        <%= @cliente.to_name %>
+      </div>
+      <div class="span3">
+        <%= link_to 'Facturar', '#', class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </h2>
   <p>
     <%= raw "<b>Documento: </b>" + @cliente.documento if @cliente.documento.present? %>
     <%= raw "<b>Dirección: </b>" + @cliente.direccion if @cliente.direccion.present? %>
