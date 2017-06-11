@@ -1,10 +1,16 @@
-class Bill
+class Bill < ActiveRecord::Base
   require 'snoopy_afip'
   Snoopy.auth_url    = "https://wsaa.afip.gov.ar/ws/services/LoginCms"
   Snoopy.service_url =  './prod.wsdl' #lib_path + '/files/prod.wsdl'
   Snoopy.default_moneda    = :peso
   Snoopy.default_concepto  = 'Servicios'
   Snoopy.default_documento = 'CUIT'
+
+
+  belongs_to :client
+  belongs_to :historial
+
+  has_many :bill_items
 
   data = {}
   data[:concepto] = 'Productos y Servicios'

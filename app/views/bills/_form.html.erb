@@ -1,0 +1,72 @@
+<%= form_for(bill) do |f| %>
+  <% if bill.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(bill.errors.count, "error") %> prohibited this bill from being saved:</h2>
+
+      <ul>
+      <% bill.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :client_id %>
+    <%= f.number_field :client_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :historial_id %>
+    <%= f.number_field :historial_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :number %>
+    <%= f.number_field :number %>
+  </div>
+
+  <div class="field">
+    <%= f.label :cae %>
+    <%= f.text_field :cae %>
+  </div>
+
+  <div class="field">
+    <%= f.label :sale_point %>
+    <%= f.text_field :sale_point %>
+  </div>
+
+  <div class="field">
+    <%= f.label :billed_date %>
+    <%= f.date_select :billed_date %>
+  </div>
+
+  <div class="field">
+    <%= f.label :cae_due_date %>
+    <%= f.date_select :cae_due_date %>
+  </div>
+
+  <div class="field">
+    <%= f.label :afip_response %>
+    <%= f.text_field :afip_response %>
+  </div>
+
+  <div class="field">
+    <%= f.label :amount %>
+    <%= f.text_field :amount %>
+  </div>
+
+  <div class="field">
+    <%= f.label :vat_amount %>
+    <%= f.text_field :vat_amount %>
+  </div>
+
+  <div class="field">
+    <%= f.label :vat %>
+    <%= f.text_field :vat %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

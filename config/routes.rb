@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :bills
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 
