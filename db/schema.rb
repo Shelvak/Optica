@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170611173008) do
+ActiveRecord::Schema.define(version: 20170611222909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,23 +43,26 @@ ActiveRecord::Schema.define(version: 20170611173008) do
   end
 
   create_table "clientes", id: :bigserial, force: :cascade do |t|
-    t.string   "nombre",        limit: 255
-    t.string   "apellido",      limit: 255
-    t.string   "documento",     limit: 255
-    t.string   "direccion",     limit: 255
+    t.string   "nombre",          limit: 255
+    t.string   "apellido",        limit: 255
+    t.string   "documento",       limit: 255
+    t.string   "direccion",       limit: 255
     t.bigint   "telefono"
-    t.string   "celular",       limit: 255
-    t.string   "email",         limit: 255
+    t.string   "celular",         limit: 255
+    t.string   "email",           limit: 255
     t.date     "nacimiento"
-    t.string   "ocupacion",     limit: 255
+    t.string   "ocupacion",       limit: 255
     t.text     "actividad"
-    t.string   "recomendado",   limit: 255
+    t.string   "recomendado",     limit: 255
     t.text     "salud"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.bigint   "cantidadrecom",                                      default: 0
-    t.decimal  "gastado",                   precision: 15, scale: 2, default: "0.0"
-    t.string   "lente",         limit: 255
+    t.bigint   "cantidadrecom",                                        default: 0
+    t.decimal  "gastado",                     precision: 15, scale: 2, default: "0.0"
+    t.string   "lente",           limit: 255
+    t.string   "document_number", limit: 15
+    t.string   "document_type",   limit: 5
+    t.string   "bill_type",       limit: 1
     t.index ["documento"], name: "idx_17585_index_clientes_on_documento", unique: true, using: :btree
   end
 

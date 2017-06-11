@@ -118,4 +118,15 @@ class Historial < ActiveRecord::Base
     end
   end
 
+  def build_bill
+    bill = self.bills.build_from_historial
+  end
+
+  def description
+    if flotante?
+      "Lente flotante - #{self.armazon}"
+    else
+      "Lente de contacto - #{self.lente}"
+    end
+  end
 end

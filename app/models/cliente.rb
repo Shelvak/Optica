@@ -1,6 +1,5 @@
 class Cliente < ActiveRecord::Base
 
-
   before_save :camel, :asignar_cantidadrecom
   before_validation :asignar_recomendado, :verificar_documento
   has_many :historials
