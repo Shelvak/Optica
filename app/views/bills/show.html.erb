@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Client:</strong>
+  <%= @bill.client_id %>
+</p>
+
+<p>
+  <strong>Historial:</strong>
+  <%= @bill.historial_id %>
+</p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @bill.number %>
+</p>
+
+<p>
+  <strong>Cae:</strong>
+  <%= @bill.cae %>
+</p>
+
+<p>
+  <strong>Sale point:</strong>
+  <%= @bill.sale_point %>
+</p>
+
+<p>
+  <strong>Billed date:</strong>
+  <%= @bill.billed_date %>
+</p>
+
+<p>
+  <strong>Cae due date:</strong>
+  <%= @bill.cae_due_date %>
+</p>
+
+<p>
+  <strong>Afip response:</strong>
+  <%= @bill.afip_response %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @bill.amount %>
+</p>
+
+<p>
+  <strong>Vat amount:</strong>
+  <%= @bill.vat_amount %>
+</p>
+
+<p>
+  <strong>Vat:</strong>
+  <%= @bill.vat %>
+</p>
+
+<%= link_to 'Edit', edit_bill_path(@bill) %> |
+<%= link_to 'Back', bills_path %>
