@@ -1,23 +1,18 @@
 default: &default
-  adapter: mysql2
+  adapter: postgresql
   encoding: utf8
-  reconnect: false
-  database: optica
-  host: localhost
+  pool: 5
+  username: optica
+  password: optica
 
 test:
   <<: *default
   database: optica_test
-  username: root
-  password: '12452'
 
 development:
   <<: *default
-  username: root
-  password: '12452'
+  database: optica_development
 
 production:
   <<: *default
-  username: optica
-  password: '123546'
-
+  database: optica_production

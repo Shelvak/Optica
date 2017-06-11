@@ -24,7 +24,7 @@ group :development do
 end
 
 gem 'bugsnag'
-gem 'mysql2'
+gem 'pg'
 
 gem 'sinatra', require: nil
 
