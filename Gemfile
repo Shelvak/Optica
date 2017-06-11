@@ -7,7 +7,7 @@ gem 'authlogic'
 gem 'validates_timeliness'
 gem 'sidekiq'
 gem 'unicorn'
-gem 'snoopy_afip'#, path: '~/rails/snoopy_afip'
+gem 'snoopy_afip', github: 'gedera/snoopy_afip', branch: :rails5
 
 gem 'underscore-rails'
 gem 'sass-rails'
