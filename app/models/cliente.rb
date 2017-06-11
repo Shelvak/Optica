@@ -89,11 +89,11 @@ class Cliente < ActiveRecord::Base
             end
 
     clients = where([
-      '(DAYOFYEAR(nacimiento) in (:days) OR ',
-      '(DAYOFMONTH(nacimiento) = :day AND ',
-      'MONTH(nacimiento) = :month)) AND ',
-      'YEAR(nacimiento) != 1920'
-    ].join, day: today.day, month: today.month, days: range)
+      'EXTRACT(DOY FROM nacimiento::timestamp) in (:days) OR',
+      'EXTRACT(DAY FROM nacimiento::timestamp) = :day OR',
+      'EXTRACT(MONTH FROM nacimiento::timestamp) = :month AND',
+      'EXTRACT(YEAR FROM nacimiento::timestamp) != 1920'
+    ].join(' '), day: today.day, month: today.month, days: range)
 
     clients.sort_by {|c| c.nacimiento.yday }
   end
