@@ -1,0 +1,11 @@
+<fieldset class="row-fluid bill_item">
+  <div class="span4">
+    <%= f.text_field :description %>
+  </div>
+  <div class="span3">
+    <%= f.number_field :amount %>
+  </div>
+  <div class="span1">
+    <%= link_to_remove_nested_item(f) %>
+  </div>
+</fieldset>

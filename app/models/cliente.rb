@@ -3,7 +3,7 @@ class Cliente < ActiveRecord::Base
   before_save :camel, :asignar_cantidadrecom
   before_validation :asignar_recomendado, :verificar_documento
   has_many :historials
-  has_many :bills
+  has_many :bills, foreign_key: :client_id
 
   attr_accessor :auto_recomendado
 

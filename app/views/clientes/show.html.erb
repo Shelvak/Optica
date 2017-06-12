@@ -5,7 +5,7 @@
         <%= @cliente.to_name %>
       </div>
       <div class="span3">
-        <%= link_to 'Facturar', '#', class: 'btn btn-primary' %>
+        <%= link_to 'Facturar', new_bill_path(client_id: @cliente.id), class: 'btn btn-primary' %>
       </div>
     </div>
   </h2>
