@@ -12,7 +12,13 @@ class BillsController < ApplicationController
 
   # GET /bills/new
   def new
-    @bill = Bill.new
+    @client = Cliente.find(params[:client_id])
+    if params[:historial_id]
+      @historial = @client.historials.find(params[:historial_id])
+      @bill = @historial.build_bill
+    else
+      @bill = @client.bills.new
+    end
   end
 
   # GET /bills/1/edit
@@ -53,6 +59,6 @@ class BillsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def bill_params
-      params.require(:bill).permit(:client_id, :historial_id, :number, :cae, :sale_point, :billed_date, :cae_due_date, :afip_response, :amount, :vat_amount, :vat)
+      params.require(:bill).permit(:client_id, :historial_id, :number, :cae, :sale_point, :billed_date, :cae_due_date, :afip_response, :amount, :vat_amount, :vat, bill_items_attributes: [:description, :amount])
     end
 end

@@ -12,31 +12,32 @@ class Bill < ActiveRecord::Base
     'C' => :factura_c
   }
 
+  before_create :authorize_against_afip
 
-  belongs_to :client
+  belongs_to :client, class_name: Cliente
   belongs_to :historial
 
   has_many :bill_items
 
-  def self.send_milonga(attrs)
-    data = { pkey: './NUEVA-optica-private.key', cert: './NUEVO-optica.crt', cuit: '27125786524', sale_point: '0004', own_iva_cond: :responsable_inscripto }
-    bill = Snoopy::Bill.new(data.merge(attrs))
-    bill.cae_request
-    bill
+  accepts_nested_attributes_for :bill_items
+
+  def initialize(attrs={})
+    super(attrs)
+
+    self.number ||= 1
+    self.cae ||= 1
   end
 
-  def self.build_from_historial
+  def build_from_historial
     h = self.historial
-    bill = new(
-      client_id: h.cliente_id,
-      historical_id: h.id,
-      amount: h.precio
-    )
-    bill.bill_items.build(
+    self.client_id = h.cliente_id
+    self.historial_id = h.id
+    self.amount = h.precio
+    self.bill_items.build(
       description: h.description,
       amount: h.precio
     )
-    bill
+    self
   end
 
   def data_for_afip
@@ -55,5 +56,29 @@ class Bill < ActiveRecord::Base
     ]
     data[:net] = self.amount
     data[:net] -= data[:imp_iva] if self.client.bill_type == 'A'
+    data
+  end
+
+  def authorize_against_afip
+    data = self.data_for_afip.merge(SECRETS[:AFIP_DATA]).with_indifferent_access
+
+    bill = Snoopy::Bill.new(data)
+    bill.cae_request
+    if bill.aprobada?
+      self.assign_from_afip_response(bill)
+    else
+      self.errors.add(:base, "Hubo un error")
+      self.errors.add(:afip_error, bill.errors.join("\n"))
+      self.errors.add(:afip_observations, bill.observaciones)
+      false
+    end
+  end
+
+  def assign_from_afip_response(snoopy_bill)
+    self.cae = bill.cae
+    self.number = bill.numero
+    self.afip_response = bill.response
+    self.sale_point = bill.punto_venta
+    self.billed_date = bill.fecha_comprobante
   end
 end

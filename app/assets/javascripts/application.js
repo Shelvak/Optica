@@ -12,3 +12,5 @@
 //= require nicEdit
 //= require generals
 //= require bootstrap
+//= require helpers
+//= require dynamic_forms
