@@ -48,14 +48,13 @@ class Bill < ActiveRecord::Base
     # Opcional
     #data[:fch_serv_desde] = data[:fch_serv_hasta] = Date.today.strftime('%Y%m%d')
 
-    data[:imp_iva] = (self.amount/1.21).round(2)
+    data[:imp_iva] = (self.amount*0.21).round(2)
+    data[:net] = (self.amount - data[:imp_iva]).round(2)
     data[:alicivas] = [
       {
-        id: 0.21,  importe: self.amount,  base_imp: data[:imp_iva]
+        id: 0.21,  importe: data[:net], base_imp: data[:imp_iva]
       }
     ]
-    data[:net] = self.amount
-    data[:net] -= data[:imp_iva] if self.client.bill_type == 'A'
     data
   end
 
