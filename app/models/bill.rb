@@ -53,12 +53,13 @@ class Bill < ActiveRecord::Base
     # Opcional
     #data[:fch_serv_desde] = data[:fch_serv_hasta] = Date.today.strftime('%Y%m%d')
 
-    data[:imp_iva] = (self.total_amount*0.21).round(2)
-    data[:net] = (self.total_amount).round(2) # - data[:imp_iva]).round(2)
+    data[:net] = (self.total_amount/1.21).round(2) # - data[:imp_iva]).round(2)
+    # data[:imp_iva] = (self.total_amount*0.21).round(2)
+    importe = (self.total_amount - data[:net]).round(2)
 
     data[:alicivas] = [
       {
-        id: 0.21,  importe: data[:imp_iva], base_imp: data[:net]
+        id: 0.21,  importe: importe, base_imp: data[:net]
       }
     ]
     p "ROck"
