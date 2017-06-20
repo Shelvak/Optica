@@ -1,7 +1,7 @@
 class Bill < ActiveRecord::Base
   require 'snoopy_afip'
-  Snoopy.auth_url    = "https://wsaa.afip.gov.ar/ws/services/LoginCms"
-  Snoopy.service_url =  './prod.wsdl' #lib_path + '/files/prod.wsdl'
+  Snoopy.auth_url    = "https://wsaahomo.afip.gov.ar/ws/services/LoginCms"
+  Snoopy.service_url =  './testing.wsdl' #lib_path + '/files/prod.wsdl'
   Snoopy.default_moneda    = :peso
   Snoopy.default_concepto  = 'Productos y Servicios'
   Snoopy.default_documento = 'CUIT'
@@ -30,6 +30,7 @@ class Bill < ActiveRecord::Base
     self.number ||= 1
     self.cae ||= 1
     self.vat ||= 21.0
+    self.bill_type ||= self.client.try(:bill_type) || 'B'
   end
 
   def build_from_historial
@@ -48,13 +49,12 @@ class Bill < ActiveRecord::Base
     data = {}
     data[:doc_num] = self.client.document_number
     data[:documento] = self.client.document_type
-    data[:iva_cond] = BILL_TYPES[self.client.bill_type]
+    data[:iva_cond] = BILL_TYPES[self.bill_type]
     # Opcional
     #data[:fch_serv_desde] = data[:fch_serv_hasta] = Date.today.strftime('%Y%m%d')
 
-    data[:imp_iva] = (self.amount*0.21).round(2)
-    data[:net] = self.amount
-    data[:net] -= data[:imp_iva] if self.client.bill_type != 'B'
+    data[:imp_iva] = (self.total_amount*0.21).round(2)
+    data[:net] = (self.total_amount).round(2) # - data[:imp_iva]).round(2)
 
     data[:alicivas] = [
       {
@@ -62,12 +62,11 @@ class Bill < ActiveRecord::Base
       }
     ]
     p "ROck"
-    p data
+    ap data
     data
   end
 
   def authorize_against_afip
-    return
     data = self.data_for_afip.merge(SECRETS[:AFIP_DATA]).with_indifferent_access
 
     bill = Snoopy::Bill.new(data)
@@ -75,7 +74,6 @@ class Bill < ActiveRecord::Base
     if bill.aprobada?
       self.assign_from_afip_response(bill)
     else
-      snoopy_bill.response
       self.errors.add(:base, "Hubo un error")
       self.errors.add(:afip_error, bill.errors.join("\n"))
       self.errors.add(:afip_observations, bill.observaciones)
@@ -88,6 +86,7 @@ class Bill < ActiveRecord::Base
     self.number = snoopy_bill.numero
     self.sale_point = snoopy_bill.punto_venta
     self.billed_date = snoopy_bill.fecha_comprobante
+    self.afip_response = snoopy_bill.response
   end
 
   def total_amount
