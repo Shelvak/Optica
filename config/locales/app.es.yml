@@ -32,3 +32,5 @@ es:
         remember_me: 'Recordarme'
   label:
     delete: 'Eliminar'
+    back: 'Volver'
+    edit: 'Editar'

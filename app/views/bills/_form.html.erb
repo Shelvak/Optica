@@ -23,10 +23,13 @@
       <div class="span4">
         Descripción
       </div>
-      <div class="span3">
+      <div class="span1">
+        Cantidad
+      </div>
+      <div class="span2">
         Precio
       </div>
-      <div class="span1">
+      <div class="span2">
       </div>
     </div>
 
@@ -44,28 +47,35 @@
         Total:
       </div>
       <div class="span2">
-        Total IVA:
+        IVA:
       </div>
       <div class="span2">
-        IVA:
+        Total IVA:
       </div>
     </div>
     <div class="row-fluid">
       <div class="span2">
       </div>
       <div class="span2">
-      <%= f.text_field :amount %>
+      <%= f.text_field :amount, class: 'js-bill-total-amount' %>
       </div>
       <div class="span2">
-      <%= f.text_field :vat_amount %>
+      <%= f.select :vat, [21, 10.5], class: 'js-bill-vat' %>
       </div>
       <div class="span2">
-      <%= f.text_field :vat %>
+      <%= f.text_field :vat_amount, class: 'js-bill-total-vat' %>
       </div>
     </div>
   </div>
 
   <div class="form-actions">
-    <%= f.submit %>
+    <div class="row-fluid">
+      <div class="span3">
+        <%= f.submit nil, class: 'btn btn-primary' %>
+      </div>
+      <div class="span3 pull-right">
+        <%= yield :form_actions %>
+      </div>
+    </div>
   </div>
 <% end %>

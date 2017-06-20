@@ -7,6 +7,8 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+//= require underscore
+//
 //= require historials
 //= require clientes
 //= require nicEdit
@@ -14,3 +16,4 @@
 //= require bootstrap
 //= require helpers
 //= require dynamic_forms
+//= require bills

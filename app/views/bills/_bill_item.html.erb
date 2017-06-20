@@ -1,11 +1,15 @@
-<fieldset class="row-fluid bill_item">
+<fieldset class="row-fluid bill_item" id="<%= f.options[:child_index] || f.object_id %>">
   <div class="span4">
     <%= f.text_field :description %>
   </div>
-  <div class="span3">
-    <%= f.number_field :amount %>
-  </div>
   <div class="span1">
+    <%= f.text_field :quantity, class: 'js-bill-item-quantity' %>
+  </div>
+  <div class="span2">
+    <%= f.text_field :amount, class: 'js-bill-item-amount' %>
+  </div>
+  <div class="span2">
+    <span class="label label-info js-bill-item-total">$ <%= f.object.try(:total_amount) %></span>
     <%= link_to_remove_nested_item(f) %>
   </div>
 </fieldset>

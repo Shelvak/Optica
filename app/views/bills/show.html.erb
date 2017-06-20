@@ -1,59 +1,79 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Client:</strong>
-  <%= @bill.client_id %>
-</p>
+<div class="readonly-data">
+  <p>
+    <strong>Cliente:</strong>
+    <%= @bill.client %>
+  </p>
 
-<p>
-  <strong>Historial:</strong>
-  <%= @bill.historial_id %>
-</p>
+  <% if @bill.historial %>
+    <p>
+      <strong>Historial:</strong>
+      <%= link_to 'historial', historial_path(@bill.historial_id) %>
+    </p>
+  <% end %>
 
-<p>
-  <strong>Number:</strong>
-  <%= @bill.number %>
-</p>
+  <p>
+    <strong>Número de factura:</strong>
+    <%= @bill.number %>
+  </p>
 
-<p>
-  <strong>Cae:</strong>
-  <%= @bill.cae %>
-</p>
+  <p>
+    <strong>CAE:</strong>
+    <%= @bill.cae %>
+  </p>
 
-<p>
-  <strong>Sale point:</strong>
-  <%= @bill.sale_point %>
-</p>
+  <p>
+    <strong>Fecha:</strong>
+    <%= l(@bill.billed_date || @bill.created_at.to_date) %>
+  </p>
 
-<p>
-  <strong>Billed date:</strong>
-  <%= @bill.billed_date %>
-</p>
 
-<p>
-  <strong>Cae due date:</strong>
-  <%= @bill.cae_due_date %>
-</p>
+  <table class="table">
+    <thead>
+      <th>Descripción</th>
+      <th>Cantidad</th>
+      <th>Precio Unitario</th>
+      <th>Precio</th>
+    </thead>
+    <tbody>
+      <% @bill.bill_items.each do |bi| %>
+        <tr>
+          <td><%= bi.description %></td>
+          <td><%= bi.quantity %></td>
+          <td><%= number_to_currency bi.amount %></td>
+          <td><%= number_to_currency bi.total_amount %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<p>
-  <strong>Afip response:</strong>
-  <%= @bill.afip_response %>
-</p>
+  <div class="row-fluid">
+    <div class="span4">
+      <p>
+        <strong>Monto:</strong>
+        <%= number_to_currency @bill.amount %>
+      </p>
+    </div>
+    <div class="span4">
+      <p>
+        <strong>IVA:</strong>
+        <%= @bill.vat %>%
+      </p>
+    </div>
+    <div class="span4">
+      <p>
+        <strong>Monto IVA:</strong>
+        <%= number_to_currency @bill.vat_amount %>
+      </p>
+    </div>
+  </div>
 
-<p>
-  <strong>Amount:</strong>
-  <%= @bill.amount %>
-</p>
 
-<p>
-  <strong>Vat amount:</strong>
-  <%= @bill.vat_amount %>
-</p>
 
-<p>
-  <strong>Vat:</strong>
-  <%= @bill.vat %>
-</p>
+</div>
 
-<%= link_to 'Edit', edit_bill_path(@bill) %> |
-<%= link_to 'Back', bills_path %>
+<div class="form-actions">
+  <%= link_to t('label.edit'), edit_bill_path(@bill) %> |
+  <%= link_to t('label.back'), bills_path %>
+</div>
