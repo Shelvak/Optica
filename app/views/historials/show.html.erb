@@ -65,6 +65,9 @@
     <%= raw '<b>Fecha entrega: ' + l(@historial.entrega) if @historial.entrega.present? %>
   </p>
 
+  <% if @historial.bill %>
+    <h3><%= link_to 'Factura electronica', @historial.bill %></h3>
+  <% end %>
 
 
   <% @receta.each_with_index do |r,i| %>

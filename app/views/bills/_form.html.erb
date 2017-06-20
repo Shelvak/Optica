@@ -13,6 +13,12 @@
     <% end %>
 
     <h3>Factura para <%= @client %></h3>
+
+    <% if @client.billing_info_incomplete? %>
+      <div class="alert alert-error">
+        <h3>El cliente no tiene datos de facturación. LINK</h3>
+      </div>
+    <% end %>
     <div class="field">
       <%#= f.label :client_id %>
       <%= f.hidden_field :client_id %>
@@ -42,6 +48,7 @@
     <hr />
     <div class="row-fluid">
       <div class="span2">
+        Factura:
       </div>
       <div class="span2">
         Total:
@@ -55,6 +62,7 @@
     </div>
     <div class="row-fluid">
       <div class="span2">
+        <%= f.select :bill_type, ['A', 'B', 'C'], class: 'js-bill-vat' %>
       </div>
       <div class="span2">
       <%= f.text_field :amount, class: 'js-bill-total-amount' %>
@@ -71,7 +79,7 @@
   <div class="form-actions">
     <div class="row-fluid">
       <div class="span3">
-        <%= f.submit nil, class: 'btn btn-primary' %>
+        <%= f.submit 'Crear Factura', class: 'btn btn-primary' %>
       </div>
       <div class="span3 pull-right">
         <%= yield :form_actions %>

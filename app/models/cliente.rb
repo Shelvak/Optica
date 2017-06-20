@@ -97,4 +97,9 @@ class Cliente < ActiveRecord::Base
 
     clients.sort_by {|c| c.nacimiento.yday }
   end
+
+  def billing_info_incomplete?
+    self.document_number.blank? || self.document_type.blank? ||
+      self.bill_type.blank?
+  end
 end

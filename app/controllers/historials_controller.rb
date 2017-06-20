@@ -54,11 +54,20 @@ class HistorialsController < ApplicationController
   # POST /historials
   # POST /historials.json
   def create
-    @historial = Historial.new(params[:historial])
+    historial_params = params[:historial]
+    with_bill = historial_params.delete(:with_bill)
+    @historial = Historial.new(historial_params)
 
     respond_to do |format|
       if @historial.save
-        format.html { redirect_to @historial, notice: 'Historial ha sido creado.' }
+        if with_bill.present?
+          format.html { redirect_to new_bill_path(
+            client_id: @historial.cliente_id,
+            historial_id: @historial.id
+          ), notice: 'Historial ha sido creado.' }
+        else
+          format.html { redirect_to @historial, notice: 'Historial ha sido creado.' }
+        end
         format.json { render json: @historial, status: :created, location: @historial }
       else
         format.html { render action: "new" }
@@ -70,11 +79,20 @@ class HistorialsController < ApplicationController
   # PUT /historials/1
   # PUT /historials/1.json
   def update
+    historial_params = params[:historial]
+    with_bill = historial_params.delete(:with_bill)
     @historial = Historial.find(params[:id])
 
     respond_to do |format|
-      if @historial.update_attributes(params[:historial])
-        format.html { redirect_to @historial, notice: 'Historial actualizado =)' }
+      if @historial.update_attributes(historial_params)
+        if with_bill.present?
+          format.html { redirect_to new_bill_path(
+            client_id: @historial.cliente_id,
+            historial_id: @historial.id
+          ), notice: 'Historial actualizado =)'}
+        else
+          format.html { redirect_to @historial, notice: 'Historial actualizado =)' }
+        end
         format.json { head :ok }
       else
         format.html { render action: "edit" }

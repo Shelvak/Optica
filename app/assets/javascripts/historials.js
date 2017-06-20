@@ -42,3 +42,11 @@ jQuery(function($){
           $(this).parents('tr:first').replaceWith(data);
       });
 });
+
+$(document).on('click', '.js-create-with-bill', function(e) {
+    e.preventDefault()
+
+    $('input.js-with-bill').val(true);
+
+    $(e.currentTarget).parents('form:first').submit();
+});
