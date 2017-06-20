@@ -4,6 +4,10 @@ class BillsController < ApplicationController
   # GET /bills
   def index
     @bills = Bill.all
+    if params[:client_id].present?
+      @bills = @bills.where(client_id: params[:client_id].to_i)
+    end
+    @bills = @bills.page(params[:page])
   end
 
   # GET /bills/1
