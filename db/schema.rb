@@ -10,16 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170611222909) do
+ActiveRecord::Schema.define(version: 20170619231136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "bill_items", force: :cascade do |t|
-    t.integer  "bill_id",     null: false
-    t.string   "description", null: false
-    t.decimal  "amount",      null: false
+    t.integer  "bill_id",                 null: false
+    t.string   "description",             null: false
+    t.decimal  "amount",                  null: false
     t.datetime "created_at"
+    t.integer  "quantity",    default: 1
     t.index ["bill_id"], name: "index_bill_items_on_bill_id", using: :btree
   end
 
