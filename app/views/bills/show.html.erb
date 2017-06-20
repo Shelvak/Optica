@@ -1,7 +1,7 @@
 <div class="readonly-data">
   <p>
     <strong>Cliente:</strong>
-    <%= @bill.client %>
+    <%= link_to @bill.client, @bill.client %>
   </p>
 
   <% if @bill.historial %>

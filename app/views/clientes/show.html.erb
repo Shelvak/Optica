@@ -42,6 +42,10 @@
     <%= raw '<b>Total gastado: </b>' + number_to_currency(@cliente.gastado) if @cliente.gastado != 0 %>
   </p>
 
+  <% if @cliente.bills.any? %>
+    <h3><%= link_to 'Facturas', bills_path(client_id: @cliente.id) %></h3>
+  <% end %>
+
   <% unless @historiales.empty? %>
     <br /> <br/>
     <div id="historialescliente">
