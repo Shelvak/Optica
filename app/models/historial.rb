@@ -3,6 +3,7 @@ class Historial < ActiveRecord::Base
   belongs_to :cliente
   has_many :recetes
   has_many :bills
+  has_one :bill
   accepts_nested_attributes_for :recetes, allow_destroy: true
 
   attr_accessor :auto_cliente

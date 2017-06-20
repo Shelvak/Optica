@@ -158,10 +158,6 @@
       <%= f.text_field :orden, size: 10, placeholder: 'Nº orden' %>
     </div>
     <div class="span2">
-      <b>Nº Factura:</b> <br \>
-      <%= f.text_field :factura, size: 10, placeholder: 'Nº factura' %>
-    </div>
-    <div class="span2">
       <b>Fecha Entrega:</b> <br \>
       <%= f.text_field :entrega, type: :date %>
     </div>
@@ -171,6 +167,8 @@
     <div class="pull-right">
       <%= yield :form_actions %>
     </div>
-    <%= f.submit class: 'btn btn-primary' %>
+    <%= f.hidden_field :with_bill, value: nil, class: 'js-with-bill' %>
+    <%= f.submit class: 'btn btn-primary' %> |
+    <%= link_to 'Crear y facturar', '#', class: 'js-create-with-bill' %>
   </div>
 <% end %>
