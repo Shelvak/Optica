@@ -55,7 +55,7 @@ class BillsController < ApplicationController
       )
     )
 
-    send_data file, filename: 'rock.pdf', type: 'application/pdf'
+    send_data file, filename: "#{@bill.client.to_s.gsub(' ', '_')}.pdf", type: 'application/pdf'
   end
 
   private
