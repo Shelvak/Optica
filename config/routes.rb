@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  resources :bills
+  resources :bills do
+    get :invoice, on: :member
+  end
+
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 

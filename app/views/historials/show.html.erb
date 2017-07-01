@@ -113,7 +113,9 @@
 
 </div>
 <div class="form-actions">
-  <%= link_to 'Facturar', new_bill_path(client_id: @historial.cliente_id, historial_id: @historial.id) %> |
+  <% unless @historial.bill %>
+    <%= link_to 'Facturar', new_bill_path(client_id: @historial.cliente_id, historial_id: @historial.id) %> |
+  <% end %>
   <%= link_to 'Editar', edit_historial_path(@historial) %> |
   <%= link_to 'Borrar', @historial, confirm: 'Seguro??', method: :delete %> |
   <%= link_to 'Volver', historials_path %>

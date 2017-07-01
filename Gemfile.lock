@@ -236,6 +236,7 @@ GEM
     websocket-extensions (0.1.2)
     whenever (0.9.7)
       chronic (>= 0.6.3)
+    wicked_pdf (1.1.0)
 
 PLATFORMS
   ruby
@@ -266,6 +267,7 @@ DEPENDENCIES
   unicorn
   validates_timeliness
   whenever
+  wicked_pdf
 
 BUNDLED WITH
    1.15.1

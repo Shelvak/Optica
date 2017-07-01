@@ -100,6 +100,14 @@ class Cliente < ActiveRecord::Base
 
   def billing_info_incomplete?
     self.document_number.blank? || self.document_type.blank? ||
-      self.bill_type.blank?
+      self.bill_type.blank? || self.vat_condition.blank?
+  end
+
+  def document_type_and_number
+    [document_type, document_number].join(': ').upcase
+  end
+
+  def address
+    direccion
   end
 end

@@ -1,5 +1,5 @@
 class BillsController < ApplicationController
-  before_action :set_bill, only: :show
+  before_action :set_bill, only: [:show, :invoice]
 
   # GET /bills
   def index
@@ -17,21 +17,25 @@ class BillsController < ApplicationController
   # GET /bills/new
   def new
     @client = Cliente.find(params[:client_id])
-    if params[:historial_id]
-      @historial = @client.historials.find(params[:historial_id])
-      @bill = @historial.build_bill
+    if @client.billing_info_incomplete?
+      template = 'bills/incomplete_client'
     else
-      @bill = @client.bills.new
+      template = 'new'
+      if params[:historial_id]
+        @historial = @client.historials.find(params[:historial_id])
+        @bill = @historial.build_bill
+      else
+        @bill = @client.bills.new
+      end
     end
-  end
 
-  # GET /bills/1/edit
-  # def edit
-  # end
+    render template: template
+  end
 
   # POST /bills
   def create
     @bill = Bill.new(bill_params)
+    @client = @bill.client
 
     if @bill.save
       redirect_to @bill, notice: 'Factura creada'
@@ -40,20 +44,17 @@ class BillsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /bills/1
-  # def update
-  #   if @bill.update(bill_params)
-  #     redirect_to @bill, notice: 'Bill was successfully updated.'
-  #   else
-  #     render :edit
-  #   end
-  # end
+  def invoice
+    file = WickedPdf.new.pdf_from_string(
+      ApplicationController.new.render_to_string(
+        'bills/invoice',
+        layout: false,
+        locals: { bill: @bill }
+      )
+    )
 
-  # DELETE /bills/1
-  # def destroy
-  #   @bill.destroy
-  #   redirect_to bills_url, notice: 'Bill was successfully destroyed.'
-  # end
+    send_data file, filename: 'rock.pdf', type: 'application/pdf'
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
