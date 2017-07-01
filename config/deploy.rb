@@ -4,7 +4,7 @@ set :application, "optica"
 set :repo_url, "https://github.com/Shelvak/Optica.git"
 
 
-set :branch, 'new_version'
+set :branch, 'master'
 
 set :deploy_to, "/var/rails/optica"
 

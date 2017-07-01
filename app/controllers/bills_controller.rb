@@ -1,4 +1,6 @@
 class BillsController < ApplicationController
+  before_action :requerir_user
+  before_action :requerir_admin, only: :destroy
   before_action :set_bill, only: [:show, :invoice]
 
   # GET /bills
