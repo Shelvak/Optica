@@ -22,8 +22,10 @@ window.Bill =
 
     vat = parseFloat($('.js-bill-vat').val()) || 21.0
 
+    gross = total / (1+(vat/100))  # total/1.21
+
     $('.js-bill-total-amount').val(total.toFixed(2))
-    $('.js-bill-total-vat').val((total * (vat / 100)).toFixed(2))
+    $('.js-bill-total-vat').val((total - gross).toFixed(2))
 
   recalcEverything: () ->
     Bill.calcAllRowsAmount()

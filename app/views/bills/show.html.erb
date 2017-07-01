@@ -26,6 +26,8 @@
     <%= l(@bill.billed_date || @bill.created_at.to_date) %>
   </p>
 
+  <%= link_to 'Imprimir Factura', invoice_bill_path(@bill.id), class: 'btn btn-primary' %>
+
 
   <table class="table">
     <thead>
@@ -66,12 +68,8 @@
       </p>
     </div>
   </div>
-
-
-
 </div>
 
 <div class="form-actions">
-  <%= link_to t('label.edit'), edit_bill_path(@bill) %> |
   <%= link_to t('label.back'), bills_path %>
 </div>

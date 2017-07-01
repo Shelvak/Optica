@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <head>
+    <style>
+      body { font-family: "Arial", sans-serif; font-size: 11pt;}
+      p { margin: -1px;}
+      .bill_type { font-size: 50pt; margin-bottom: 25px; margin-right: 30px;}
+      .bill_type { font-size: 30pt; margin-bottom: 15px;}
+      .grande { font-size: 20pt; margin-bottom: 15px;margin-top: 15px;}
+      .text1 { font-size: 14pt; margin-bottom: 15px;}
+      .factura {width: 100%; border: 1px solid black;}
+      .header { padding: 3px; background: #d9d9d9;}
+      .div60 { width: 60px; padding: 3px; float: left;}
+      .div120 { width: 120px; padding: 3px; float: left;}
+      .div150 { width: 150px; padding: 3px; float: left;}
+      .div160 { width: 160px; padding: 3px; float: left;}
+      .div300 { width: 300px; padding: 3px; float: left;}
+      .div400 { width: 400px; padding: 3px; float: left;}
+      .div480 { width: 480px; padding: 3px; float: left;}
+      .div610 { width: 610px; padding: 3px; float: left;}
+      .border-bottom { border-bottom: 1px solid black;}
+      .border-left {border-left: 1px solid black;}
+      .detalle { background: #d9d9d9; margin-bottom: 10px;}
+      .empty_item {height: 130px;}
+      .totales {text-align: center; height: 50px;}
+      .title { font-weight: bold; margin-bottom: 5px;}
+      .clear { clear: both;}
+      .center {text-align: center;}
+      .derechaso {text-align: right;}
+    </style>
+  </head>
+  <body>
+    <div class='factura'>
+      <div class='border-bottom'>
+        <div class="center grande">
+          <strong >ORIGINAL</strong>
+        </div>
+      </div>
+      <div class='border-bottom'>
+        <div class='div300'>
+          <p class='text1 margin5'></p>
+          <p class='text1'><strong>Óptica Marcela Palpacelli</strong></p>
+          <p>Perito Moreno 1667 Dpto 2</p>
+          <p>Godoy Cruz (5501) Mendoza</p>
+          <p>Tel +54 (11) 4390602</p>
+          <p>IVA Responsable Inscripto</p>
+        </div>
+        <div class='div160'>
+          <p class='bill_type'>
+            <strong>
+				      <%= bill.bill_type %>
+            </strong>
+          </p>
+        </div>
+        <div class='div300'>
+          <div class="center">
+            <strong >Factura Electrónica</strong>
+          </div>
+
+          <p class='bill_number center'>
+            <strong>
+              Nº  <%= bill.number_with_sale_point %>
+            </strong>
+          </p>
+          <br />
+          <p>Fecha de emisión: <%= l(bill.created_at.to_date) %></p>
+          <br />
+          <p>CUIT: 27-12578652-4</p>
+          <p>Ingresos Brutos: 0486404</p>
+          <p>Inicio Actividades: 10/04/2003</p>
+        </div>
+        <div class='clear'></div>
+      </div>
+      <div class='border-bottom'>
+        <br />
+        <div class='div480'>
+          <strong>Apellido y Nombre / Razón Social:</strong>
+            <%= bill.client.to_name %>
+          <p><strong>Dirección:</strong> <%= bill.client.address %></p>
+        </div>
+        <div class='div300'>
+          <p>
+            <strong><%= bill.client.document_type %>:</strong> <%= bill.client.document_number %></p>
+          <p>
+            <strong>Cond. IVA:</strong> <%= bill.client_vat_condition %>
+          </p>
+        </div>
+        <div class='clear'></div>
+        <br>
+      </div>
+      <div class='detalle'>
+        <div class='div400'>
+          <p>DETALLE</p>
+        </div>
+        <div class='div150 derechaso'>
+          <p>Precio Unitario</p>
+        </div>
+        <div class='div150 derechaso'>
+          <p>IMPORTE</p>
+        </div>
+        <div class='clear'></div>
+      </div>
+      <% bill.bill_items.each do |bi| %>
+        <div class='item'>
+          <div class='div400'>
+            <p><%= "(x#{bi.quantity}) #{bi.description}" %></p>
+          </div>
+          <div class='div150 derechaso'>
+            <p><%= number_to_currency bi.amount %></p>
+          </div>
+          <div class='div150 derechaso'>
+            <p><%= number_to_currency bi.total_amount %></p>
+          </div>
+          <div class='clear'></div>
+        </div>
+      <% end %>
+      <div class='empty_item border-bottom'></div>
+      <div class='totales border-bottom'>
+        <div class="div120">
+          <p><strong>IVA:</strong> <%= number_to_currency bill.vat_amount %></p>
+        </div>
+        <div class="div120">
+          <p><strong>Neto:</strong> <%= number_to_currency bill.gross %></p>
+        </div>
+        <div class='div400 border-right derechaso'>
+          <p><strong>TOTAL:</strong> <%= number_to_currency bill.total_amount %></p>
+        </div>
+        <div class='clear'></div>
+      </div>
+      <br>
+      <div>
+        <div class='div610'>
+          <p>
+            CAE:         <%= bill.cae %>
+          </p>
+          <p>
+            Fecha Vto.:  <%= l(bill.billed_date) %>
+          </p>
+        </div>
+        <div class='clear'></div>
+      </div>
+    </div>
+    <br>
+    <br>
+  </body>
+</html>

@@ -11,9 +11,21 @@ class Bill < ActiveRecord::Base
     'B' => :factura_b,
     'C' => :factura_c
   }
+  VAT_CONDITIONS = [
+    'CONSUMIDOR FINAL',
+    'IVA RESPONSABLE INSCRIPTO',
+    'IVA RESPONSABLE NO INSCRIPTO',
+    'NO RESPONSABLE',
+    'IVA EXENTO',
+    'RESPONSABLE MONOTRIBUTO',
+    'SUJETO NO CATEGORIZADO',
+    'MONOTRIBUTISTA SOCIAL',
+    'PEQUEÑO CONTRIBUYENTE EVENTUAL',
+    'PEQUEÑO CONTRIBUYENTE EVENTUAL SOCIAL',
+  ]
 
   before_save :recalc_vat_values
-  #before_create :authorize_against_afip
+  before_create :authorize_against_afip
 
   belongs_to :client, class_name: Cliente
   belongs_to :historial
@@ -29,8 +41,9 @@ class Bill < ActiveRecord::Base
 
     self.number ||= 1
     self.cae ||= 1
-    self.vat ||= 21.0
+    self.vat = 21.0
     self.bill_type ||= self.client.try(:bill_type) || 'B'
+    self.client_vat_condition = self.client.vat_condition
   end
 
   def build_from_historial
@@ -50,11 +63,8 @@ class Bill < ActiveRecord::Base
     data[:doc_num] = self.client.document_number
     data[:documento] = self.client.document_type
     data[:iva_cond] = BILL_TYPES[self.bill_type]
-    # Opcional
-    #data[:fch_serv_desde] = data[:fch_serv_hasta] = Date.today.strftime('%Y%m%d')
 
     data[:net] = (self.total_amount/1.21).round(2) # - data[:imp_iva]).round(2)
-    # data[:imp_iva] = (self.total_amount*0.21).round(2)
     importe = (self.total_amount - data[:net]).round(2)
 
     data[:alicivas] = [
@@ -62,8 +72,6 @@ class Bill < ActiveRecord::Base
         id: 0.21,  importe: importe, base_imp: data[:net]
       }
     ]
-    p "ROck"
-    ap data
     data
   end
 
@@ -87,6 +95,7 @@ class Bill < ActiveRecord::Base
     self.number = snoopy_bill.numero
     self.sale_point = snoopy_bill.punto_venta
     self.billed_date = snoopy_bill.fecha_comprobante
+    self.cae_due_date = snoopy_bill.vencimiento_cae
     self.afip_response = snoopy_bill.response
   end
 
@@ -94,9 +103,19 @@ class Bill < ActiveRecord::Base
     self.bill_items.to_a.map(&:total_amount).sum
   end
 
+  def gross
+    self.total_amount / 1.21
+  end
+
   def recalc_vat_values
-    amount = self.total_amount
-    self.vat_amount = (amount * (self.vat/100))
+    self.vat_amount = total_amount - gross
+  end
+
+  def number_with_sale_point
+    [
+      sale_point.to_s.ljust(4, '0'),
+      number.to_s.rjust(8, '0')
+    ].join('-')
   end
 end
 

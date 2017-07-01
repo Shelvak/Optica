@@ -14,11 +14,6 @@
 
     <h3>Factura para <%= @client %></h3>
 
-    <% if @client.billing_info_incomplete? %>
-      <div class="alert alert-error">
-        <h3>El cliente no tiene datos de facturación. LINK</h3>
-      </div>
-    <% end %>
     <div class="field">
       <%#= f.label :client_id %>
       <%= f.hidden_field :client_id %>
@@ -65,13 +60,13 @@
         <%= f.select :bill_type, ['A', 'B', 'C'], class: 'js-bill-vat' %>
       </div>
       <div class="span2">
-      <%= f.text_field :amount, class: 'js-bill-total-amount' %>
+      <%= f.text_field :amount, class: 'js-bill-total-amount', disabled: true %>
       </div>
       <div class="span2">
-      <%= f.select :vat, [21, 10.5], class: 'js-bill-vat' %>
+        <%= f.select :vat, [21], {}, class: 'js-bill-vat', disabled: true %>
       </div>
       <div class="span2">
-      <%= f.text_field :vat_amount, class: 'js-bill-total-vat' %>
+      <%= f.text_field :vat_amount, class: 'js-bill-total-vat', disabled: true %>
       </div>
     </div>
   </div>

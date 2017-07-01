@@ -91,6 +91,10 @@
         Tipo de factura <br />
         <%= f.select :bill_type, ['A', 'B', 'C'] %>
       </div>
+      <div class="span3">
+        Condición frente al IVA <br />
+        <%= f.select :vat_condition, Bill::VAT_CONDITIONS, include_blank: true %>
+      </div>
     </div>
     <div class="form-actions">
       <div class="pull-right">

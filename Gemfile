@@ -16,6 +16,8 @@ gem 'uglifier'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
+gem 'wicked_pdf' ## Use with wkhtmltox 0.12.4 bin
+
 group :development do
   gem 'capistrano'
   gem 'thin'

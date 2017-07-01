@@ -120,7 +120,7 @@ class Historial < ActiveRecord::Base
   end
 
   def build_bill
-    bill = self.bills.new.build_from_historial
+    bill = self.bills.new(client_id: self.cliente_id).build_from_historial
   end
 
   def description
