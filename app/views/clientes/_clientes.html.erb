@@ -14,7 +14,7 @@
   </tr>
 
 <% @clientes.each do |cliente| %>
-  <tr>
+  <tr class="<%= 'error' if cliente.billing_info_incomplete? %>">
     <td><%= link_to (cliente.nombre.split[0] + ' ' + cliente.apellido.split[0]), cliente %></td>
     <td><%= cliente.documento %></td>
     <td><%= cliente.telefono %></td>

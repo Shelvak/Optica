@@ -1,7 +1,5 @@
-GIT
-  remote: git://github.com/gedera/snoopy_afip.git
-  revision: f684c74cde8c5c4b0beead765d6c4adf029af660
-  branch: rails5
+PATH
+  remote: ../snoopy_afip
   specs:
     snoopy_afip (2.1.1)
       nokogiri (~> 1.6)

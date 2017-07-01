@@ -1,10 +1,4 @@
 class Bill < ActiveRecord::Base
-  require 'snoopy_afip'
-  Snoopy.auth_url    = "https://wsaahomo.afip.gov.ar/ws/services/LoginCms"
-  Snoopy.service_url =  './testing.wsdl' #lib_path + '/files/prod.wsdl'
-  Snoopy.default_moneda    = :peso
-  Snoopy.default_concepto  = 'Productos y Servicios'
-  Snoopy.default_documento = 'CUIT'
 
   BILL_TYPES = {
     'A' => :factura_a,
@@ -78,13 +72,14 @@ class Bill < ActiveRecord::Base
   def authorize_against_afip
     data = self.data_for_afip.merge(SECRETS[:AFIP_DATA]).with_indifferent_access
 
+    p "Autorizando con ", data
     bill = Snoopy::Bill.new(data)
     bill.cae_request
     if bill.aprobada?
       self.assign_from_afip_response(bill)
     else
       self.errors.add(:base, "Hubo un error")
-      self.errors.add(:afip_error, bill.errors.join("\n"))
+      self.errors.add(:afip_error, bill.errors)
       self.errors.add(:afip_observations, bill.observaciones)
       false
     end

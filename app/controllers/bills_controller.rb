@@ -20,7 +20,7 @@ class BillsController < ApplicationController
     if @client.billing_info_incomplete?
       template = 'bills/incomplete_client'
     else
-      template = 'new'
+      template = 'bills/new'
       if params[:historial_id]
         @historial = @client.historials.find(params[:historial_id])
         @bill = @historial.build_bill
