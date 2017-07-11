@@ -95,7 +95,7 @@ class Cliente < ActiveRecord::Base
       'EXTRACT(YEAR FROM nacimiento::timestamp) != 1920'
     ].join(' '), day: today.day, month: today.month, days: range)
 
-    clients.sort_by {|c| c.nacimiento.yday }
+    clients.sort_by {|c| (Date.leap?(c.nacimiento.year) ? 0 : 1) + c.nacimiento.yday }
   end
 
   def billing_info_incomplete?
