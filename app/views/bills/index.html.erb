@@ -5,6 +5,7 @@
   <table class="table">
     <thead>
       <tr>
+        <th>Factura</th>
         <th>Cliente</th>
         <th>Número</th>
         <th>Fecha</th>
@@ -15,10 +16,11 @@
     <tbody>
       <% @bills.each do |bill| %>
         <tr>
+          <td><%= bill.bill_type %></td>
           <td><%= bill.client %></td>
           <td><%= link_to bill.number, bill %></td>
           <td><%= l(bill.billed_date || bill.created_at.to_date) %></td>
-          <td><%= number_to_currency bill.amount %></td>
+          <td><%= number_to_currency bill.total_amount %></td>
         </tr>
       <% end %>
     </tbody>
