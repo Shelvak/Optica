@@ -1,7 +1,7 @@
 class BillsController < ApplicationController
   before_action :requerir_user
   before_action :requerir_admin, only: :destroy
-  before_action :set_bill, only: [:show, :invoice]
+  before_action :set_bill, only: [:show, :invoice, :rollback]
 
   # GET /bills
   def index
@@ -49,19 +49,30 @@ class BillsController < ApplicationController
   def invoice
     file = WickedPdf.new.pdf_from_string(
       ApplicationController.new.render_to_string(
-        'bills/invoice',
+        (@bill.credit_note ? 'bills/credit_note' : 'bills/invoice'),
         layout: false,
-        locals: { bill: @bill }
+        locals: { bill: @bill, credit_note: @bill.credit_note }
       )
     )
 
     send_data file, filename: "#{@bill.client.to_s.gsub(' ', '_')}.pdf", type: 'application/pdf'
   end
 
+  def rollback
+    @bill.rollback
+
+    if @bill.credit_note.try(:persisted?)
+      redirect_to bill_path(@bill.id), notice: 'Nota de crédito creada'
+    else
+      render :show
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_bill
       @bill = Bill.find(params[:id])
+      @credit_note = @bill.credit_note
     end
 
     # Only allow a trusted parameter "white list" through.

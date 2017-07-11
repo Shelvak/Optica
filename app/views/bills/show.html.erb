@@ -1,8 +1,15 @@
 <div class="readonly-data">
-  <p>
-    <strong>Cliente:</strong>
+  <% if (@credit_note.try(:errors) || []).any? %>
+    <div class="alert alert-error">
+      <% @credit_note.errors.each do |_k, value| %>
+        <%=  simple_format value.to_s %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <h2>
     <%= link_to @bill.client, @bill.client %>
-  </p>
+  </h2>
 
   <% if @bill.historial %>
     <p>
@@ -11,22 +18,50 @@
     </p>
   <% end %>
 
-  <p>
-    <strong>Número de factura:</strong>
-    <%= @bill.number %>
-  </p>
+  <div class="row-fluid">
+    <div class="span6">
+      <h3>Factura</h3>
 
-  <p>
-    <strong>CAE:</strong>
-    <%= @bill.cae %>
-  </p>
+      <p>
+        <strong>Número de factura:</strong><%= @bill.number_with_sale_point %>
+      </p>
 
-  <p>
-    <strong>Fecha:</strong>
-    <%= l(@bill.billed_date || @bill.created_at.to_date) %>
-  </p>
+      <p>
+        <strong>CAE:</strong>
+        <%= @bill.cae %>
+      </p>
 
-  <%= link_to 'Imprimir Factura', invoice_bill_path(@bill.id), class: 'btn btn-primary' %>
+      <p>
+        <strong>Fecha:</strong>
+        <%= l(@bill.billed_date || @bill.created_at.to_date) %>
+      </p>
+
+
+      <% unless @credit_note.try(:persisted?) %>
+        <%= link_to 'Imprimir Factura', invoice_bill_path(@bill.id), class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+    <div class="span6">
+      <h3>Nota de crédito</h3>
+      <p>
+        <strong>Número:</strong> <%= @credit_note.number_with_sale_point if @credit_note %>
+      </p>
+      <p>
+        <strong>CAE:</strong> <%= @credit_note.cae if @credit_note %>
+      </p>
+      <p>
+        <strong>Fecha:</strong> <%= l(@credit_note.created_at.to_date) if @credit_note %>
+      </p>
+
+      <% if @credit_note.try(:persisted?) %>
+        <%= link_to 'Imprimir Nota de Crédito', invoice_bill_path(@bill.id), class: 'btn btn-primary' %>
+      <% else %>
+         <%= form_for @bill, method: :post, url: rollback_bill_path(@bill.id) do |f| %>
+           <%= f.submit 'Generar Nota de credito', class: 'btn btn-primary' %>
+         <% end %>
+      <% end %>
+    </div>
+  </div>
 
 
   <table class="table">

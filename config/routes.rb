@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   resources :bills do
-    get :invoice, on: :member
+    member do
+      get :invoice
+      post :rollback
+    end
   end
 
   require 'sidekiq/web'

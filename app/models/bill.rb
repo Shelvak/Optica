@@ -23,6 +23,7 @@ class Bill < ActiveRecord::Base
 
   belongs_to :client, class_name: Cliente
   belongs_to :historial
+  has_one :credit_note
 
   has_many :bill_items
 
@@ -50,6 +51,11 @@ class Bill < ActiveRecord::Base
       amount: h.precio
     )
     self
+  end
+
+  def rollback
+    cn = self.build_credit_note
+    cn.authorize_against_afip!
   end
 
   def data_for_afip

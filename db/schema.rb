@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170701003351) do
+ActiveRecord::Schema.define(version: 20170710235432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,18 @@ ActiveRecord::Schema.define(version: 20170701003351) do
     t.string   "bill_type",       limit: 1
     t.string   "vat_condition"
     t.index ["documento"], name: "idx_17585_index_clientes_on_documento", unique: true, using: :btree
+  end
+
+  create_table "credit_notes", force: :cascade do |t|
+    t.integer  "bill_id",                 null: false
+    t.string   "cae",                     null: false
+    t.integer  "number",                  null: false
+    t.date     "due_date"
+    t.json     "request",    default: {}
+    t.json     "response",   default: {}
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.index ["bill_id"], name: "index_credit_notes_on_bill_id", using: :btree
   end
 
   create_table "historials", id: :bigserial, force: :cascade do |t|
