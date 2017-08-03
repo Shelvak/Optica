@@ -1,9 +1,10 @@
 es:
-  activerecord:
-  will_paginate:
-    previous_label: '&laquo; Anterior'
-    next_label: 'Siguiente &raquo'
-    page_gap: '...'
+  views:
+    pagination:
+      first: 'Primero'
+      last: 'Ultimo'
+      next: 'Siguiente &raquo'
+      previous: '&laquo; Anterior'
   authlogic:
     error_messages:
       login_blank: 'no puede estar en blanco'

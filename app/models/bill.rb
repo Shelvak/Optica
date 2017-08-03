@@ -105,7 +105,7 @@ class Bill < ActiveRecord::Base
   end
 
   def gross
-    self.total_amount / 1.21
+    (self.total_amount / 1.21).round(2)
   end
 
   def recalc_vat_values
