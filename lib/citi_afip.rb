@@ -25,7 +25,7 @@ module CitiAfip
 
   def header(month)
     [
-      SECRETS[:AFIP_DATA][:cuit], # CUIT Informante
+      SECRETS[:AFIP_DATA]['cuit'], # CUIT Informante
       month.strftime('%Y%m'), # Período
       '00',  # Secuencia
       'N',   # Sin Movimiento
@@ -52,20 +52,20 @@ module CitiAfip
       full_name(bill),                                           # Apellido y nombre del comprador (30)
       d(bill.total_amount),                                      # Importe total de la operación (15)
       d(0),                                                      # Importe total de conceptos que no integran el precio neto gravado (15)
-			d(0),                                                      # Percepción a no categorizados (15)
-			d(0),                                                      # Importe operaciones exentas (15)
-			d(0),                                                      # Importe de percepciones o pagos a cuenta de impuestos nacionales (15)
-			d(0),                                                      # Importe de percepciones de ingresos brutos (15)
-			d(0),                                                      # Importe de percepciones impuestos municipales (15)
-			d(0),                                                      # Importe impuestos internos (15)
-			'PES',                                   # Código de Moneda (3)
-			'0001000000',                                              # Tipo de cambio (10) (4 enteros 6decimales)
-			1,                                                         # Cantidad de alícuotas de IVA (1)
-			' ',                                                       # Código de operación (1)
-			d(0),                                                      # Otros Tributos (15)
-			'        '                                                 # Fecha de vencimiento de pago (8)
+      d(0),                                                      # Percepción a no categorizados (15)
+      d(0),                                                      # Importe operaciones exentas (15)
+      d(0),                                                      # Importe de percepciones o pagos a cuenta de impuestos nacionales (15)
+      d(0),                                                      # Importe de percepciones de ingresos brutos (15)
+      d(0),                                                      # Importe de percepciones impuestos municipales (15)
+      d(0),                                                      # Importe impuestos internos (15)
+      'PES',                                   # Código de Moneda (3)
+      '0001000000',                                              # Tipo de cambio (10) (4 enteros 6decimales)
+      1,                                                         # Cantidad de alícuotas de IVA (1)
+      ' ',                                                       # Código de operación (1)
+      d(0),                                                      # Otros Tributos (15)
+      date(bill.billed_date)                                     # Fecha de vencimiento de pago (8)
     ].join
-	end
+  end
 
   def alicuota(bill)
     [
@@ -76,7 +76,7 @@ module CitiAfip
       r(Snoopy::ALIC_IVA[0.21], 4),                              # Alicuota de IVA
       d(bill.vat_amount)                                         # Impuesto Liquidado
     ].join
-	end
+  end
 
   ##### HELPERS  #####
   def date(_date)
