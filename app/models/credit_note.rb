@@ -11,6 +11,11 @@ class CreditNote < ApplicationRecord
   validates :cae, :bill_id, presence: true
 
   delegate :data_for_afip, to: :bill
+  delegate :gross, to: :bill
+  delegate :sale_point, to: :bill
+  delegate :total_amount, to: :bill
+  delegate :vat_amount, to: :bill
+  delegate :client, to: :bill
 
   def authorize_against_afip!
     data = self.data_for_afip.merge(SECRETS[:AFIP_DATA]).with_indifferent_access
