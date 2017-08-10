@@ -4,7 +4,7 @@
   <% @cumples.each do |cump| %>
     <tr>
       <td>
-        <%= l(cump.nacimiento, format: :short) if cump.nacimiento.day != Date.today.day%>
+        <%= l(cump.nacimiento, format: :short) if cump.nacimiento && cump.nacimiento.day != Date.today.day%>
         <%= raw '<b>HOY </b>' if cump.nacimiento.day == Date.today.day%>
       </td>
       <td><%= link_to (cump.nombre + ' ' + cump.apellido), cump%></td>

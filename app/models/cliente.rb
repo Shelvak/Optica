@@ -88,7 +88,7 @@ class Cliente < ActiveRecord::Base
               (yday..last_day).to_a + (1..rest_of_days).to_a
             end
 
-    clients = where([
+    clients = where('nacimiento IS NOT NULL').where([
       'EXTRACT(DOY FROM nacimiento::timestamp) in (:days) OR',
       'EXTRACT(DAY FROM nacimiento::timestamp) = :day AND',
       'EXTRACT(MONTH FROM nacimiento::timestamp) = :month AND',

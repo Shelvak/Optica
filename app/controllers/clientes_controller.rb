@@ -8,7 +8,7 @@ class ClientesController < ApplicationController
   # GET /clientes
   # GET /clientes.json
   def index
-    (@cumples = Cliente.cumple ) if Cliente.cumple
+    @cumples = Cliente.cumple
     @clientes = Cliente.order(
       apellido: :desc, nombre: :desc
     ).search(params[:s_cliente]).page(params[:page])
