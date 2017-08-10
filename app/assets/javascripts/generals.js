@@ -8,10 +8,10 @@ jQuery(function(){
   });
 
   //paginar
-  $(document).on('click', '.pagination a', function() {
-    $.get(this.href, null, null, 'script');
-    return false;
-  });
+  // $(document).on('click', '.pagination a', function() {
+  //   $.get(this.href, null, null, 'script');
+  //   return false;
+  // });
 
   // No enviar emails vacios
   $('#subject').on('change', function() {

@@ -59,6 +59,9 @@ GEM
       request_store (~> 1.0)
       scrypt (>= 1.2, < 4.0)
     awesome_print (1.7.0)
+    bootstrap-kaminari-views (0.0.5)
+      kaminari (>= 0.13)
+      rails (>= 3.1)
     bugsnag (5.2.0)
     builder (3.2.3)
     byebug (9.0.6)
@@ -244,6 +247,7 @@ PLATFORMS
 DEPENDENCIES
   authlogic
   awesome_print
+  bootstrap-kaminari-views
   bugsnag
   byebug
   capistrano

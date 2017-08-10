@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '~> 5.0'
 
 gem 'kaminari'
+gem 'bootstrap-kaminari-views'
 gem 'authlogic'
 gem 'validates_timeliness'
 gem 'sidekiq'
