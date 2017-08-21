@@ -8,13 +8,16 @@ env :PATH, '"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"'
 # set :output, "/path/to/my/cron_log.log"
 
 # Send Happy Birthday
-every 1.day do
-   runner "Cliente.happyverde"
- end
+# every 1.day do
+#  runner "Cliente.happyverde"
+# end
 
-#Send happy new year and crismas
 every '* * 24,31 12 *' do
   runner "MyMailer.fiestas"
+end
+
+every '* * 2 * *' do
+  runner "MyMailer.all_bills.deliver"
 end
 
 # Learn more: http://github.com/javan/whenever

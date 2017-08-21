@@ -38,11 +38,11 @@ class Cliente < ActiveRecord::Base
   end
 
   def to_s
-		self.nombre + ' ' + self.apellido + ' ' + self.documento
-	end
+    self.nombre + ' ' + self.apellido + ' ' + self.documento
+  end
 
   def to_name
-    [self.nombre, self.apellido].join(' ')
+    I18n.transliterate [self.nombre, self.apellido].join(' ')
   end
 
   def verificar_documento

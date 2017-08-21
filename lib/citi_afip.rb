@@ -13,7 +13,7 @@ module CitiAfip
     cbtes = bills.map { |b| cbte(b) }.join(EOL)
     alicuotas = bills.map { |b| alicuota(b) }.join(EOL)
 
-    random_number = Time.new.to_i
+    identifier = I18n.l(month.to_date, format: '%B-%Y')
     filenames = []
 
     {
@@ -21,7 +21,7 @@ module CitiAfip
       'REGINFO_CV_VENTAS_CBTE': cbtes,
       'REGINFO_CV_VENTAS_ALICUOTAS': alicuotas
     }.each do |file, body|
-      filepath = Rails.root.join("private/#{file}-#{random_number}.txt")
+      filepath = Rails.root.join("private/#{file}-#{identifier}.txt")
       filenames << filepath
       File.open(filepath, 'w') { |f| f.write(body) }
     end

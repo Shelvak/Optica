@@ -16,13 +16,14 @@ class CreditNote < ApplicationRecord
   delegate :total_amount, to: :bill
   delegate :vat_amount, to: :bill
   delegate :client, to: :bill
+  delegate :bill_type, to: :bill
 
   def authorize_against_afip!
     data = self.data_for_afip.merge(SECRETS[:AFIP_DATA]).with_indifferent_access
 
     data[:cbte_asoc_pto_venta] = bill.sale_point
     data[:cbte_asoc_num] = bill.number
-    data[:iva_cond] = CREDIT_NOTES[bill.bill_type]
+    data[:iva_cond] = CREDIT_NOTES[bill_type]
 
     snoopy_bill = Snoopy::Bill.new(data)
     snoopy_bill.cae_request
@@ -51,5 +52,25 @@ class CreditNote < ApplicationRecord
       bill.sale_point.to_s.ljust(4, '0'),
       number.to_s.rjust(8, '0')
     ].join('-')
+  end
+
+  def to_accountant
+    helper = ActionController::Base.helpers
+
+    [
+      self.created_at.strftime("%d-%m-%Y"),
+      self.client.id,
+      self.client.to_name,
+      self.client.vat_condition,
+      self.client.document_type,
+      self.client.document_number,
+      "NC #{self.bill_type}",
+      self.number_with_sale_point,
+      21,
+      0,
+      self.gross,
+      self.vat_amount,
+      self.total_amount
+    ].join(',')
   end
 end

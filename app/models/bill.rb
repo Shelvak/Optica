@@ -118,6 +118,26 @@ class Bill < ActiveRecord::Base
       number.to_s.rjust(8, '0')
     ].join('-')
   end
+
+  def to_accountant
+    helper = ActionController::Base.helpers
+
+    [
+      self.created_at.strftime("%d-%m-%Y"),
+      self.client.id,
+      self.client.to_name,
+      self.client.vat_condition,
+      self.client.document_type,
+      self.client.document_number,
+      "Fac #{self.bill_type}",
+      self.number_with_sale_point,
+      21,
+      0,
+      self.gross,
+      self.vat_amount,
+      self.total_amount
+    ].join(',')
+  end
 end
 
 #case kind_invoice

@@ -1,7 +1,7 @@
 class MyMailer < ActionMailer::Base
   default from: "Optica Palpacelli <info@opticapalpacelli.com.ar>",
-  charset: "UTF-8",
-  content_type: "text/html"
+    charset: "UTF-8",
+    content_type: "text/html"
 
 
   def enviar(destinatarios, subject, body)
@@ -36,5 +36,42 @@ class MyMailer < ActionMailer::Base
     #@clientes.each do |cliente|
     #  MyMailer.felices_fiestas(cliente).deliver if (Date.today.day == 24 && Date.today.month == 12)
     #end
+  end
+
+  def all_bills
+    require 'citi_afip'
+    date = Time.new.advance(months: -1)
+    @formatted_date = I18n.l(date.to_date, format: "%B-%Y")
+    filenames = CitiAfip.generate_files(date)
+
+    filenames.each do |file|
+      attachments[file.to_s.split('/').last] = File.read(file)
+    end
+    milonga = [[
+      'Fecha',
+      'Cod Cliente',
+      'Cliente',
+      'Cond Iva',
+      'Tipo Doc',
+      'Nro Doc',
+      'Tipo Compr',
+      'Nro Compr',
+      'Porc IVA',
+      'Imp Excento',
+      'Imp Neto',
+      'Imp IVA',
+      'TOTAL'
+    ].join(',')]
+
+    milonga += Bill.where(created_at: date.beginning_of_month..date.end_of_month).map(&:to_accountant)
+    milonga += CreditNote.where(created_at: date.beginning_of_month..date.end_of_month).map(&:to_accountant)
+
+    attachments["libro-#{@formatted_date}.xls"] = milonga.join("\r\n")
+
+    mail(
+      to: 'antonio@martinscordia.com.ar',
+      subject: "Optica Palpacelli - Archivos CITI - #{@formatted_date}",
+      body: "Optica Palpacelli - Archivos CITI - #{@formatted_date}"
+    )
   end
 end
