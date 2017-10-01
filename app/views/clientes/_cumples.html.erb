@@ -1,14 +1,17 @@
 <h1>Cumples de la semana</h1>
 <table class="table table-striped">
-  <tr><th>Día</th><th>Cliente</th><th>Años</th></tr>
+  <tr><th>Día</th><th>Cliente</th></tr>
   <% @cumples.each do |cump| %>
+    <% next unless cump.nacimiento %>
     <tr>
       <td>
-        <%= l(cump.nacimiento, format: :short) if cump.nacimiento && cump.nacimiento.day != Date.today.day%>
-        <%= raw '<b>HOY </b>' if cump.nacimiento.day == Date.today.day%>
+        <% if cump.nacimiento.try(:day) == Date.today.day %>
+          <%= raw '<b>HOY </b>' %>
+        <% else %>
+          <%= l(cump.nacimiento, format: :birthdate) %>
+        <% end %>
       </td>
       <td><%= link_to (cump.nombre + ' ' + cump.apellido), cump%></td>
-      <td><%= edad(cump)%></td>
     </tr>
   <% end %>
 </table>

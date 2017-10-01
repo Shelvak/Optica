@@ -1,11 +1,11 @@
 class Cliente < ActiveRecord::Base
 
   before_save :camel, :asignar_cantidadrecom
-  before_validation :asignar_recomendado, :verificar_documento
+  before_validation :asignar_recomendado, :verificar_documento, :join_birth_date
   has_many :historials
   has_many :bills, foreign_key: :client_id
 
-  attr_accessor :auto_recomendado
+  attr_accessor :auto_recomendado, :birth_day, :birth_month
 
   scope :buscar, -> (name) { where("LOWER(nombre)LIKE ? OR LOWER(apellido) LIKE ? OR documento LIKE ?",
       "#{name}%".downcase, "#{name}%".downcase, "#{name}%")}
@@ -91,11 +91,11 @@ class Cliente < ActiveRecord::Base
     clients = where('nacimiento IS NOT NULL').where([
       'EXTRACT(DOY FROM nacimiento::timestamp) in (:days) OR',
       'EXTRACT(DAY FROM nacimiento::timestamp) = :day AND',
-      'EXTRACT(MONTH FROM nacimiento::timestamp) = :month AND',
-      'EXTRACT(YEAR FROM nacimiento::timestamp) != 1920'
+      'EXTRACT(MONTH FROM nacimiento::timestamp) = :month'
+      # 'EXTRACT(YEAR FROM nacimiento::timestamp) != 1920'
     ].join(' '), day: today.day, month: today.month, days: range)
 
-    clients.sort_by {|c| (Date.leap?(c.nacimiento.year) ? 0 : 1) + c.nacimiento.yday }
+    clients.sort_by {|c| c.nacimiento.yday }
   end
 
   def billing_info_incomplete?
@@ -109,5 +109,9 @@ class Cliente < ActiveRecord::Base
 
   def address
     direccion
+  end
+
+  def join_birth_date
+    self.nacimiento = Date.new(1920, self.birth_month, self.birth_day) if self.birth_day.present? && self.birth_month.present?
   end
 end

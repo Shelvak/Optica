@@ -62,7 +62,8 @@
 
     <div class="row-fluid">
       Nacio el:<br \>
-      <%= f.text_field :nacimiento, type: :date %>
+      <%= f.select :birth_day, (1..31).to_a %>
+      <%= f.select :birth_month, I18n.t('date.month_names') %>
     </div>
 
     <div class="row-fluid">

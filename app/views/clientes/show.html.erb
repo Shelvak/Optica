@@ -22,7 +22,7 @@
     <%= raw "<b>Teléfono: </b>" + @cliente.telefono.to_s if @cliente.telefono.present? %>
     <%= raw "<b>Celular: </b>" + @cliente.celular if @cliente.celular.present? %>
     <%= raw "<b>Email: </b>" + @cliente.email if @cliente.email.present?%>
-    <b>Nacimiento: </b>    <%= l(@cliente.nacimiento) if @cliente.nacimiento %>
+    <b>Nacimiento: </b><%= l(@cliente.nacimiento, format: :birthdate) if @cliente.nacimiento %>
     <b>Edad: </b>  <%= edad(@cliente) %>
   </p>
 
