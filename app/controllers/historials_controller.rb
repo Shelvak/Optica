@@ -64,9 +64,9 @@ class HistorialsController < ApplicationController
           format.html { redirect_to new_bill_path(
             client_id: @historial.cliente_id,
             historial_id: @historial.id
-          ), notice: 'Historial ha sido creado.' }
+          ), notice: 'Presupuesto ha sido creado.' }
         else
-          format.html { redirect_to @historial, notice: 'Historial ha sido creado.' }
+          format.html { redirect_to @historial, notice: 'Presupuesto ha sido creado.' }
         end
         format.json { render json: @historial, status: :created, location: @historial }
       else
@@ -89,9 +89,9 @@ class HistorialsController < ApplicationController
           format.html { redirect_to new_bill_path(
             client_id: @historial.cliente_id,
             historial_id: @historial.id
-          ), notice: 'Historial actualizado =)'}
+          ), notice: 'Presupuesto actualizado =)'}
         else
-          format.html { redirect_to @historial, notice: 'Historial actualizado =)' }
+          format.html { redirect_to @historial, notice: 'Presupuesto actualizado =)' }
         end
         format.json { head :ok }
       else

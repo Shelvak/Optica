@@ -1,5 +1,7 @@
 <h1>Clientes</h1>
 
+<%= link_to 'Nuevo Cliente', new_cliente_path, class: 'btn btn-primary' %>
+
 <%= form_tag clientes_path, method: :get do %>
   <%= text_field_tag :s_cliente, params[:s_cliente], class: 'no-autowidth' %>
   <%= submit_tag "Buscar", class: 'btn' %>
@@ -25,5 +27,3 @@
 <br />
 
 <%= paginate @clientes %> <br />
-
-<%= link_to 'Nuevo Cliente', new_cliente_path, class: 'btn btn-primary' %>
