@@ -34,6 +34,10 @@ class Bill < ActiveRecord::Base
 
   delegate :tipolente, to: :historial
 
+  scope :between, ->(from, to) {
+    where(created_at: from.beginning_of_day..to.end_of_day)
+  }
+
   def initialize(attrs={})
     super(attrs)
 

@@ -58,4 +58,15 @@ class ApplicationController < ActionController::Base
       session[:return_to] = nil
     end
 
+    def make_date_range(parameters = nil)
+      if parameters
+        from_date = Date.parse(parameters[:from])
+        to_date = Date.parse(parameters[:to])
+      end
+
+      from_date ||= 1.day.ago.to_date
+      to_date ||= Date.today
+
+      [from_date, to_date].sort
+    end
 end

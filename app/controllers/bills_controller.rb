@@ -2,14 +2,17 @@ class BillsController < ApplicationController
   before_action :requerir_user
   before_action :requerir_admin, only: :destroy
   before_action :set_bill, only: [:show, :invoice, :rollback]
+  before_action :load_date_range, only: :index
 
   # GET /bills
   def index
     @bills = Bill.all
-    if params[:client_id].present?
-      @bills = @bills.where(client_id: params[:client_id].to_i)
-    end
-    @bills = @bills.order(id: :desc).page(params[:page])
+    @bills = @bills.where(client_id: params[:client_id].to_i) if params[:client_id].present?
+    @bills = @bills.where(bill_type: params[:bill_type]) if params[:bill_type]
+
+    @bills = @bills.between(
+      @from_date, @to_date
+    ).order(id: :desc).page(params[:page])
   end
 
   # GET /bills/1
@@ -78,5 +81,9 @@ class BillsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def bill_params
       params.require(:bill).permit(:client_id, :historial_id, :number, :cae, :sale_point, :billed_date, :cae_due_date, :afip_response, :amount, :vat_amount, :vat, :bill_type, bill_items_attributes: [:description, :amount, :quantity])
+    end
+
+    def load_date_range
+      @from_date, @to_date = *make_date_range(params[:interval])
     end
 end

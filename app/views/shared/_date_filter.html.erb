@@ -1,0 +1,21 @@
+<div class='well form-inputs'>
+  <%= form_for :interval, html: { method: :get } do |f| %>
+    <div class='row-fluid'>
+      <div class='span1'>
+        <%= t('view.commons.date_filter.start') %>
+      </div>
+      <div class='span3'>
+        <%= f.date_field :from, value: @from_date %>
+      </div>
+      <div class='span1'>
+        <%= t('view.commons.date_filter.end') %>
+      </div>
+      <div class='span3'>
+        <%= f.date_field :to, value: @to_date %>
+      </div>
+      <div class='span4'>
+        <%= f.submit t('view.commons.date_filter.apply'), class: 'btn btn-inverse' %>
+      </div>
+    </div>
+  <% end %>
+</div>

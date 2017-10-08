@@ -39,4 +39,9 @@ module ApplicationHelper
 
     super( objects, options )
   end
+
+  def params_with(new_params={})
+    _p = params.except(:controller, :action).to_h
+    _p.merge(new_params)
+  end
 end

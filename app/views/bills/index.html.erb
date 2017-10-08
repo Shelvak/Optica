@@ -1,6 +1,7 @@
 <h1>Facturas</h1>
 
 <div class="readonly-data">
+  <%= render 'shared/date_filter' %>
 
   <table class="table">
     <thead>
@@ -16,7 +17,8 @@
     <tbody>
       <% @bills.each do |bill| %>
         <tr>
-          <td><%= bill.bill_type %></td>
+          <td><%= link_to bill.bill_type,
+            bills_path(params_with(bill_type: bill.bill_type)) %></td>
           <td><%= bill.client %></td>
           <td><%= link_to bill.number, bill %></td>
           <td><%= l(bill.billed_date || bill.created_at.to_date) %></td>
