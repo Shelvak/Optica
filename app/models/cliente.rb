@@ -83,7 +83,7 @@ class Cliente < ActiveRecord::Base
 
     clients = where([
       'nacimiento IS NOT NULL',
-      'EXTRACT(YEAR FROM nacimiento::timestamp) NOT IN  (0010, 1920)'
+      'EXTRACT(YEAR FROM nacimiento::timestamp) != 1920'
     ].join(' AND ')).where([
       'EXTRACT(DOY FROM nacimiento::timestamp) in (:days) OR',
       'EXTRACT(DAY FROM nacimiento::timestamp) = :day AND',
