@@ -1,4 +1,12 @@
 class Bill < ActiveRecord::Base
+  include PgSearch
+  pg_search_scope :unicode_search,
+                  against: [:number, :client_vat_condition],
+                  ignoring: :accents,
+                  using: { tsearch: { prefix: true } },
+                  associated_against: {
+                    client: [:nombre, :apellido]
+                  }
 
   BILL_TYPES = {
     'A' => :factura_a,
@@ -161,6 +169,10 @@ class Bill < ActiveRecord::Base
 
   def sell_type
     self.historial.try(:sell_type) || :bill
+  end
+
+  def self.filtered_list(query)
+    query.present? ? unicode_search(query) : all
   end
 end
 

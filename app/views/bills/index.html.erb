@@ -3,6 +3,17 @@
 <div class="readonly-data">
   <%= render 'shared/date_filter' %>
 
+  <div class="row-fluid">
+    <%= form_tag bills_path, method: :get do %>
+      <div class="span4">
+        <%= text_field_tag :bill_number, params[:bill_number], class: 'span11' %>
+      </div>
+      <div class="span1">
+        <%= submit_tag "Buscar", class: 'btn' %>
+      </div>
+    <% end %>
+  </div>
+
   <table class="table">
     <thead>
       <tr>

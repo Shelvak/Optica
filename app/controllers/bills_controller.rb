@@ -7,12 +7,15 @@ class BillsController < ApplicationController
   # GET /bills
   def index
     @bills = Bill.all
-    @bills = @bills.where(client_id: params[:client_id].to_i) if params[:client_id].present?
-    @bills = @bills.where(bill_type: params[:bill_type]) if params[:bill_type]
+    if params[:bill_number].present?
+      @bills = @bills.filtered_list(params[:bill_number])
+    else
+      @bills = @bills.where(client_id: params[:client_id].to_i) if params[:client_id].present?
+      @bills = @bills.where(bill_type: params[:bill_type]) if params[:bill_type]
+      @bills = @bills.between(@from_date, @to_date)
+    end
 
-    @bills = @bills.between(
-      @from_date, @to_date
-    ).order(id: :desc).page(params[:page])
+    @bills = @bills.order(id: :desc).page(params[:page])
   end
 
   # GET /bills/1
