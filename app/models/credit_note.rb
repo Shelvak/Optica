@@ -31,7 +31,6 @@ class CreditNote < ApplicationRecord
     snoopy_bill = Snoopy::Bill.new(data)
     snoopy_bill.cae_request
     if snoopy_bill.aprobada?
-      byebug
       self.assign_from_afip_response(snoopy_bill)
     else
       self.errors.add(:base, "Hubo un error")
