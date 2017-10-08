@@ -140,6 +140,4 @@ class HistorialsController < ApplicationController
         end
     end
   end
-
-
 end

@@ -20,6 +20,7 @@ class Bill < ActiveRecord::Base
 
   before_save :recalc_vat_values
   before_create :authorize_against_afip
+  after_commit :assign_to_global_sales, on: :create
 
   belongs_to :client, class_name: Cliente
   belongs_to :historial
@@ -30,6 +31,8 @@ class Bill < ActiveRecord::Base
   accepts_nested_attributes_for :bill_items, reject_if: ->(attrs) {
     attrs['quantity'].to_i == 0 && attrs['amount'].to_f == 0.0
   }
+
+  delegate :tipolente, to: :historial
 
   def initialize(attrs={})
     super(attrs)
@@ -137,6 +140,23 @@ class Bill < ActiveRecord::Base
       self.vat_amount,
       self.total_amount
     ].join(',')
+  end
+
+  def assign_to_global_sales
+    return if self.credit_note.present?
+
+    venta = Venta.find_or_initialize_by(
+      month: created_at.month, year: created_at.year
+    )
+    venta.increase_by_type(sell_type, self.total_amount)
+    venta.save
+
+    self.client.gastado += self.total_amount
+    self.client.save
+  end
+
+  def sell_type
+    self.historial.try(:sell_type) || :bill
   end
 end
 

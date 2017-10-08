@@ -1,27 +1,47 @@
 class Venta < ActiveRecord::Base
 
-  def self.last_year_by_month
-    dates = Historial.where(created_at: 1.year.ago..Time.now).map do |historial|
-      [historial.created_at.year, historial.created_at.month].join('-')
-    end.uniq.sort
-
-
-    grouped.map do |date, historials|
-      byebug
-      glasses = historials.flotantes
-      contacts = historials.contactos
-
-      OpenStruct.new({
-        date: Date.new(*date.split('-')),
-        glasses: {
-          count: glasses.count,
-          amount: glasses.sum(:precio)
-        },
-        contacts: {
-          count: contacts.count,
-          amount: contacts.sum(:price)
-        }
-      })
+  def self.recalculate_all_history
+    Venta.transaction do
+      Cliente.all.update_all(gastado: 0.0)
+      Historial.all.map(&:assign_to_global_sales)
+      Bill.all.map(&:assign_to_global_sales)
+      # CreditNote.all.map(&:assign_to_global_sales)
     end
+  end
+
+  def increase_by_type(sell_type, amount)
+    case sell_type
+      when :contact
+        self.contact_quantity += 1
+        self.contact_amount += amount
+      when :floating
+        self.floating_quantity += 1
+        self.floating_amount += amount
+      else
+        self.others_quantity += 1
+        self.others_amount += amount
+    end
+  end
+
+  def decrease_by_type(sell_type, amount)
+    case sell_type
+      when :contact
+        self.contact_quantity -= 1
+        self.contact_amount -= amount
+      when :floating
+        self.floating_quantity -= 1
+        self.floating_amount -= amount
+      else
+        self.others_quantity -= 1
+        self.others_amount -= amount
+    end
+  end
+
+  def total_amount
+    [self.contact_amount, self.floating_amount, self.others_amount].sum
+  end
+
+  def total_quantity
+    [self.contact_quantity, self.floating_quantity, self.others_quantity].sum
   end
 end

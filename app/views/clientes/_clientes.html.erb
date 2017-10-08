@@ -1,26 +1,35 @@
 <h1>Clientes</h1>
 
-<%= link_to 'Nuevo Cliente', new_cliente_path, class: 'btn btn-primary' %>
+<div class="row-fluid">
 
+  <%= link_to 'Nuevo Cliente', new_cliente_path, class: 'btn btn-primary' %>
+  <br />
+  <br />
+</div>
+
+<div class="row-fluid">
 <%= form_tag clientes_path, method: :get do %>
-  <%= text_field_tag :s_cliente, params[:s_cliente], class: 'no-autowidth' %>
-  <%= submit_tag "Buscar", class: 'btn' %>
+  <div class="span9">
+    <%= text_field_tag :s_cliente, params[:s_cliente], class: 'span11' %>
+  </div>
+  <div class="span2">
+    <%= submit_tag "Buscar", class: 'btn' %>
+  </div>
 <% end %>
+  </div>
 
 <table class="table table-striped">
   <tr>
     <th>Cliente</th>
     <th>Documento</th>
     <th>Teléfono</th>
-    <th>Celular</th>
   </tr>
 
 <% @clientes.each do |cliente| %>
   <tr class="<%= 'error' if cliente.billing_info_incomplete? %>">
-    <td><%= link_to (cliente.nombre.split[0] + ' ' + cliente.apellido.split[0]), cliente %></td>
+    <td><%= link_to cliente.to_name, cliente %></td>
     <td><%= cliente.documento %></td>
-    <td><%= cliente.telefono %></td>
-    <td><%= cliente.celular %></td>
+    <td><%= cliente.celular.present? ? cliente.celular : cliente.telefono %></td>
   </tr>
 <% end %>
 </table>

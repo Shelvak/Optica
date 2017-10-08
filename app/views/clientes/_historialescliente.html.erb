@@ -1,9 +1,16 @@
 <table class="table table-striped">
-  <tr><th>Fecha</th><th>Lentes</th><th>Color</th><th>Observaciones</th><th>Nº de orden</th> <th>Retirado?</th></tr>
+  <tr>
+    <th>Fecha</th>
+    <th>Lentes</th>
+    <th>Color</th>
+    <th>Observaciones</th>
+    <th>Nº de orden</th>
+    <th>Retirado?</th>
+  </tr>
 
 <% @historiales.each do |h| %>
   <tr>
-    <td><%= link_to(l(h.entrega), controller: "historials", action: "show", id: h.id) if h.entrega %> </td>
+    <td><%= link_to l(h.created_at.to_date), h %> </td>
     <td><%= h.tipolente ? 'Contacto' : 'Flotante' %> </td>
     <td><%= h.colorlente %></td>
     <td><%= truncate h.observaciones, length: 30 %></td>

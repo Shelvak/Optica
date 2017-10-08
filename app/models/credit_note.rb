@@ -6,6 +6,8 @@ class CreditNote < ApplicationRecord
     'C' => :nota_credito_c
   }
 
+  after_commit :assign_to_global_sales, on: :create
+
   belongs_to :bill
 
   validates :cae, :bill_id, presence: true
@@ -17,6 +19,7 @@ class CreditNote < ApplicationRecord
   delegate :vat_amount, to: :bill
   delegate :client, to: :bill
   delegate :bill_type, to: :bill
+  delegate :sell_type, to: :bill
 
   def authorize_against_afip!
     data = self.data_for_afip.merge(SECRETS[:AFIP_DATA]).with_indifferent_access
@@ -72,5 +75,18 @@ class CreditNote < ApplicationRecord
       self.vat_amount,
       self.total_amount
     ].join(',')
+  end
+
+  def assign_to_global_sales
+    venta = Venta.find_by(
+      month: bill.created_at.month, year: bill.created_at.year
+    )
+    venta.decrease_by_type(sell_type, self.total_amount)
+    venta.save
+
+    self.client.gastado -= self.total_amount
+    self.client.save
+  rescue
+    nil
   end
 end

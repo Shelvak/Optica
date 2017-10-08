@@ -6,7 +6,7 @@ class VentaController < ApplicationController
   # GET /venta
   # GET /venta.json
   def index
-    @venta = #Venta.order('anio DESC', 'mes DESC').all
+    @venta = Venta.order(year: :desc, month: :desc).all
 
     respond_to do |format|
       format.html # index.html.erb

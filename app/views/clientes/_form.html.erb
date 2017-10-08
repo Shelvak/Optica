@@ -61,9 +61,20 @@
     </div>
 
     <div class="row-fluid">
-      Nacio el:<br \>
+      <div class="span1">
+        Nacio el:
+      </div>
+      <div class="span3">
       <%= f.select :birth_day, (1..31).to_a %>
-      <%= f.select :birth_month, I18n.t('date.month_names') %>
+      </div>
+      <div class="span1">
+        de
+      </div>
+      <div class="span3">
+        <% i=-1 %>
+      <% months = I18n.t('date.month_names').map {|m| [m, i+=1]} %>
+      <%= f.select :birth_month, months %>
+      </div>
     </div>
 
     <div class="row-fluid">

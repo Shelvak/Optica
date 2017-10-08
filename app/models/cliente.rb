@@ -1,14 +1,17 @@
 class Cliente < ActiveRecord::Base
+  include PgSearch
+  pg_search_scope :unicode_search,
+                  against: [:nombre, :apellido, :documento],
+                  ignoring: :accents,
+                  using: { tsearch: { prefix: true } }
 
   before_save :camel, :asignar_cantidadrecom
-  before_validation :asignar_recomendado, :verificar_documento, :join_birth_date
+  before_validation :verificar_documento, :join_birth_date
   has_many :historials
   has_many :bills, foreign_key: :client_id
 
   attr_accessor :auto_recomendado, :birth_day, :birth_month
 
-  scope :buscar, -> (name) { where("LOWER(nombre)LIKE ? OR LOWER(apellido) LIKE ? OR documento LIKE ?",
-      "#{name}%".downcase, "#{name}%".downcase, "#{name}%")}
   scope :with_email, -> { where("email IS NOT NULL or email != ''") }
 
 
@@ -18,19 +21,9 @@ class Cliente < ActiveRecord::Base
     only_integer: true, greater_than_or_equal_to: 0, less_than: 2147483648
   }
 
-
-
-  def self.search(search)
-     if search.present?
-      where(["LOWER(#{table_name}.nombre) LIKE :q",
-             "LOWER(#{table_name}.apellido) LIKE :q",
-             "#{table_name}.documento LIKE :q"].join(' OR '),
-              q: "%#{search}%".downcase)
-    else
-      all
-    end
+  def self.filtered_list(query)
+    query.present? ? unicode_search(query) : all
   end
-
 
   def camel
     self.nombre = self.nombre.split.map(&:camelize).join(' ')
@@ -38,7 +31,7 @@ class Cliente < ActiveRecord::Base
   end
 
   def to_s
-    self.nombre + ' ' + self.apellido + ' ' + self.documento
+    [self.nombre, self.apellido, self.documento].join(' ')
   end
 
   def to_name
@@ -74,7 +67,7 @@ class Cliente < ActiveRecord::Base
     #end
   end
 
-  def self.cumple
+  def self.week_birthdays
     today = Time.zone.now
     yday  = today.yday
     in_a_week = yday + 7
@@ -88,14 +81,24 @@ class Cliente < ActiveRecord::Base
               (yday..last_day).to_a + (1..rest_of_days).to_a
             end
 
-    clients = where('nacimiento IS NOT NULL').where([
+    clients = where([
+      'nacimiento IS NOT NULL',
+      'EXTRACT(YEAR FROM nacimiento::timestamp) NOT IN  (0010, 1920)'
+    ].join(' AND ')).where([
       'EXTRACT(DOY FROM nacimiento::timestamp) in (:days) OR',
       'EXTRACT(DAY FROM nacimiento::timestamp) = :day AND',
       'EXTRACT(MONTH FROM nacimiento::timestamp) = :month'
-      # 'EXTRACT(YEAR FROM nacimiento::timestamp) != 1920'
-    ].join(' '), day: today.day, month: today.month, days: range)
+    ].join(' '), day: today.day, month: today.month, days: range).order(
+      'EXTRACT(DOY FROM nacimiento::timestamp)',
+    ).limit(
+      20
+      # ::Kaminari.config[:default_per_page]
+    )
 
-    clients.sort_by {|c| c.nacimiento.yday }
+    clients.sort_by do |c|
+      _order = c.nacimiento.yday
+      c.nacimiento.leap? ? (_order - 1) : _order
+    end
   end
 
   def billing_info_incomplete?
@@ -112,6 +115,21 @@ class Cliente < ActiveRecord::Base
   end
 
   def join_birth_date
-    self.nacimiento = Date.new(1920, self.birth_month, self.birth_day) if self.birth_day.present? && self.birth_month.present?
+    if birth_day.present? && birth_month.present? &&
+        self.nacimiento.present? &&
+        birth_day.to_i != self.nacimiento.day &&
+        birth_month.to_i != self.nacimiento.month
+      self.nacimiento = Date.new(10, self.birth_month.to_i, self.birth_day.to_i)
+    end
+  rescue
+    nil
+  end
+
+  def birth_day
+    self.nacimiento.day if self.nacimiento
+  end
+
+  def birth_month
+    self.nacimiento.month if self.nacimiento
   end
 end

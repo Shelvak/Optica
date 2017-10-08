@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170710235432) do
+ActiveRecord::Schema.define(version: 20171008031059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "unaccent"
 
   create_table "bill_items", force: :cascade do |t|
     t.integer  "bill_id",                 null: false
@@ -138,16 +139,16 @@ ActiveRecord::Schema.define(version: 20170710235432) do
   end
 
   create_table "venta", id: :bigserial, force: :cascade do |t|
-    t.bigint   "mes"
-    t.bigint   "anio"
-    t.decimal  "vendido",        precision: 15, scale: 2, default: "0.0"
+    t.bigint   "month"
+    t.bigint   "year"
+    t.decimal  "others_amount",     precision: 15, scale: 2, default: "0.0"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.bigint   "cantvendida",                             default: 0
-    t.bigint   "cant_contacto",                           default: 0
-    t.bigint   "cant_flotante",                           default: 0
-    t.decimal  "venta_contacto", precision: 15, scale: 2, default: "0.0"
-    t.decimal  "venta_flotante", precision: 15, scale: 2, default: "0.0"
+    t.bigint   "others_quantity",                            default: 0
+    t.bigint   "contact_quantity",                           default: 0
+    t.bigint   "floating_quantity",                          default: 0
+    t.decimal  "contact_amount",    precision: 15, scale: 2, default: "0.0"
+    t.decimal  "floating_amount",   precision: 15, scale: 2, default: "0.0"
   end
 
 end

@@ -8,10 +8,10 @@ class ClientesController < ApplicationController
   # GET /clientes
   # GET /clientes.json
   def index
-    @cumples = Cliente.cumple
+    @cumples = Cliente.week_birthdays
     @clientes = Cliente.order(
       apellido: :desc, nombre: :desc
-    ).search(params[:s_cliente]).page(params[:page])
+    ).filtered_list(params[:s_cliente]).page(params[:page])
 
 
     respond_to do |format|
@@ -95,7 +95,7 @@ class ClientesController < ApplicationController
 
 
   def autocompletar
-    @clientes = Cliente.buscar(params[:term]).limit(5)
+    @clientes = Cliente.filtered_list(params[:term]).limit(5)
 
     respond_to do |format|
       format.js { render text: @clientes.map(&:to_s) }

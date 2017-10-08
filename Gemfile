@@ -29,6 +29,7 @@ end
 
 gem 'bugsnag'
 gem 'pg'
+gem 'pg_search'
 
 gem 'sinatra', require: nil
 

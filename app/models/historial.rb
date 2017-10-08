@@ -9,7 +9,8 @@ class Historial < ActiveRecord::Base
   attr_accessor :auto_cliente
 
   before_validation :asignar_cliente
-  after_save :asignar_total, :asignar_lente
+  after_save :asignar_lente
+  after_commit :assign_to_global_sales, on: :create
   before_save :eliminar_vacio, :asignar_retirado
 
   scope :asociado, lambda { |cliente| where('cliente_id LIKE ?', "#{cliente}") }
@@ -74,37 +75,32 @@ class Historial < ActiveRecord::Base
     self.tipolente?
   end
 
-  def asignar_total
-    #if self.created_at == self.updated_at && self.entrega > Date.today
-      #cliente = self.cliente
-      #venta = Venta.find_or_create_by_mes_and_anio(Date.today.month, Date.today.year)
-      #venta.vendido += self.precio
-      #venta.cantvendida += 1
-      #if self.tipolente == false
-      #  venta.cant_flotante += 1
-      #  venta.venta_flotante += self.precio
-      #elsif self.tipolente == true
-      #  venta.cant_contacto += 1
-      #  venta.venta_contacto += self.precio
-      #end
-      #venta.save
+  def sell_type
+    self.contacto? ? :contact : :floating
+  end
+
+  def assign_to_global_sales
+    if self.factura.present?
+      venta = Venta.find_or_initialize_by(
+        month: created_at.month, year: created_at.year
+      )
+      venta.increase_by_type(sell_type, self.precio)
+      venta.save
+    end
+
+    return unless self.cliente
+
     self.cliente.gastado += self.precio
     self.cliente.save
-    #end
   end
 
   def asignar_lente
-    @historial = Historial.order('created_at DESC').first
-    @cliente = Cliente.find(@historial.try(:cliente_id))
-    if @cliente.lente == nil
-      @cliente.lente = 'flotantes' if (@historial.tipolente == false)
-      @cliente.lente = 'contacto' if (@historial.tipolente == true)
-    end
+    return if self.cliente.lente == 'ambos'
 
-    (@cliente.lente = 'ambos' if (@historial.tipolente == false)) if @cliente.lente == 'contacto'
-    (@cliente.lente = 'ambos' if (@historial.tipolente == true)) if @cliente.lente == 'flotantes'
-    @cliente.update_attributes(lente: @cliente.lente)
-
+    tipo = self.tipolente? ? 'contacto' : 'flotantes'
+    cliente.lente = tipo if cliente.lente.blank?
+    cliente.lente = 'ambos' if cliente.lente != tipo
+    cliente.save
   end
 
 

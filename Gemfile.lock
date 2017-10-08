@@ -144,6 +144,10 @@ GEM
       mini_portile2 (~> 2.1.0)
     nori (2.6.0)
     pg (0.18.4)
+    pg_search (1.0.6)
+      activerecord (>= 3.1)
+      activesupport (>= 3.1)
+      arel
     rack (2.0.3)
     rack-protection (1.5.3)
       rack
@@ -260,6 +264,7 @@ DEPENDENCIES
   jquery-ui-rails
   kaminari
   pg
+  pg_search
   rails (~> 5.0)
   sass-rails
   sidekiq
@@ -274,4 +279,4 @@ DEPENDENCIES
   wicked_pdf
 
 BUNDLED WITH
-   1.15.1
+   1.15.4
