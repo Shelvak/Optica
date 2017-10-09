@@ -95,7 +95,7 @@ class Historial < ActiveRecord::Base
   end
 
   def asignar_lente
-    return if self.cliente.lente == 'ambos'
+    return if self.cliente.blank? || self.cliente.try(:lente) == 'ambos'
 
     tipo = self.tipolente? ? 'contacto' : 'flotantes'
     cliente.lente = tipo if cliente.lente.blank?
