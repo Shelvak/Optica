@@ -6,11 +6,11 @@ class Cliente < ActiveRecord::Base
                   using: { tsearch: { prefix: true } }
 
   before_save :camel, :asignar_cantidadrecom
-  before_validation :verificar_documento, :join_birth_date
+  before_validation :verificar_documento
   has_many :historials
   has_many :bills, foreign_key: :client_id
 
-  attr_accessor :auto_recomendado, :birth_day, :birth_month
+  attr_accessor :auto_recomendado
 
   scope :with_email, -> { where("email IS NOT NULL or email != ''") }
 
@@ -112,24 +112,5 @@ class Cliente < ActiveRecord::Base
 
   def address
     direccion
-  end
-
-  def join_birth_date
-    if birth_day.present? && birth_month.present? &&
-        self.nacimiento.present? &&
-        birth_day.to_i != self.nacimiento.day &&
-        birth_month.to_i != self.nacimiento.month
-      self.nacimiento = Date.new(10, self.birth_month.to_i, self.birth_day.to_i)
-    end
-  rescue
-    nil
-  end
-
-  def birth_day
-    self.nacimiento.day if self.nacimiento
-  end
-
-  def birth_month
-    self.nacimiento.month if self.nacimiento
   end
 end

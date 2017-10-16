@@ -1,6 +1,10 @@
 <h1>Cumples de la semana</h1>
 <table class="table table-striped">
-  <tr><th>Día</th><th>Cliente</th></tr>
+  <tr>
+    <th>Día</th>
+    <th>Cliente</th>
+    <th>Edad</th>
+  </tr>
   <% @cumples.each do |cump| %>
     <% next unless cump.nacimiento %>
     <tr>
@@ -12,6 +16,7 @@
         <% end %>
       </td>
       <td><%= link_to (cump.nombre + ' ' + cump.apellido), cump%></td>
+      <td><%= edad(cump)%></td>
     </tr>
   <% end %>
 </table>

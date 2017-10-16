@@ -10,7 +10,7 @@
 
 <% @historiales.each do |h| %>
   <tr>
-    <td><%= link_to l(h.created_at.to_date), h %> </td>
+    <td><%= link_to l(h.entrega), h %> </td>
     <td><%= h.tipolente ? 'Contacto' : 'Flotante' %> </td>
     <td><%= h.colorlente %></td>
     <td><%= truncate h.observaciones, length: 30 %></td>
