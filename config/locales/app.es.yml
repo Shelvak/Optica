@@ -10,3 +10,9 @@ es:
         apply: "Aplicar"
         end: "Fin"
         start: "Inicio"
+    bills:
+      paid_via:
+        cash: "Efectivo"
+        check: "Cheque"
+        credit_card: "Tarjeta de Crédito"
+        debit_card: "Tarjeta de Débito"

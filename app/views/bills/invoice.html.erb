@@ -50,7 +50,7 @@
         <div class='div160'>
           <p class='bill_type'>
             <strong>
-				      <%= bill.bill_type %>
+              <%= bill.bill_type %>
             </strong>
           </p>
         </div>
@@ -79,6 +79,9 @@
           <strong>Apellido y Nombre / Razón Social:</strong>
             <%= bill.client.to_name %>
           <p><strong>Dirección:</strong> <%= bill.client.address %></p>
+          <% if bill.paid_via %>
+            <p><strong>Forma de Pago:</strong> <%= I18n.t('view.bills.paid_via.' + bill.paid_via) %></p>
+          <% end %>
         </div>
         <div class='div300'>
           <p>

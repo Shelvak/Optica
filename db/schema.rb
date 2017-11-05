@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171008031059) do
+ActiveRecord::Schema.define(version: 20171105224802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,21 +26,22 @@ ActiveRecord::Schema.define(version: 20171008031059) do
   end
 
   create_table "bills", force: :cascade do |t|
-    t.integer  "client_id",                                     null: false
+    t.integer  "client_id",                                                null: false
     t.integer  "historial_id"
-    t.integer  "number",                                        null: false
-    t.string   "cae",                                           null: false
+    t.integer  "number",                                                   null: false
+    t.string   "cae",                                                      null: false
     t.string   "sale_point"
     t.date     "billed_date"
     t.date     "cae_due_date"
     t.json     "afip_response"
-    t.decimal  "amount",               precision: 15, scale: 2
-    t.decimal  "vat_amount",           precision: 15, scale: 2
-    t.decimal  "vat",                  precision: 5,  scale: 2
+    t.decimal  "amount",                          precision: 15, scale: 2
+    t.decimal  "vat_amount",                      precision: 15, scale: 2
+    t.decimal  "vat",                             precision: 5,  scale: 2
     t.string   "bill_type"
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
     t.string   "client_vat_condition"
+    t.string   "paid_via",             limit: 20
     t.index ["client_id"], name: "index_bills_on_client_id", using: :btree
     t.index ["historial_id"], name: "index_bills_on_historial_id", using: :btree
   end

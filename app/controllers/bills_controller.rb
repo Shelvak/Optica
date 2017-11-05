@@ -83,7 +83,11 @@ class BillsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def bill_params
-      params.require(:bill).permit(:client_id, :historial_id, :number, :cae, :sale_point, :billed_date, :cae_due_date, :afip_response, :amount, :vat_amount, :vat, :bill_type, bill_items_attributes: [:description, :amount, :quantity])
+      params.require(:bill).permit(
+        :client_id, :historial_id, :number, :cae, :sale_point, :billed_date,
+        :cae_due_date, :afip_response, :amount, :vat_amount, :vat, :bill_type,
+        :paid_via,
+        bill_items_attributes: [:description, :amount, :quantity])
     end
 
     def load_date_range

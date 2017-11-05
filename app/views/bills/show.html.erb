@@ -36,6 +36,11 @@
         <%= l(@bill.billed_date || @bill.created_at.to_date) %>
       </p>
 
+      <p>
+        <strong>Forma de pago:</strong>
+        <%= @bill.paid_via ? I18n.t('view.bills.paid_via.'+ @bill.paid_via) : '-----' %>
+      </p>
+
 
       <% unless @credit_note.try(:persisted?) %>
         <%= link_to 'Imprimir Factura', invoice_bill_path(@bill.id), class: 'btn btn-primary' %>

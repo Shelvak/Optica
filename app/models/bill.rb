@@ -7,6 +7,12 @@ class Bill < ActiveRecord::Base
                   associated_against: {
                     client: [:nombre, :apellido]
                   }
+  PAID_VIA = [
+    'cash',
+    'check',
+    'credit_card',
+    'debit_card'
+  ]
 
   BILL_TYPES = {
     'A' => :factura_a,
@@ -41,6 +47,8 @@ class Bill < ActiveRecord::Base
   }
 
   delegate :tipolente, to: :historial
+
+  validates :paid_via, presence: true
 
   scope :between, ->(from, to) {
     where(created_at: from.beginning_of_day..to.end_of_day)
