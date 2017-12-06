@@ -61,11 +61,11 @@ class CreditNote < ApplicationRecord
 
     [
       self.created_at.strftime("%d-%m-%Y"),
-      self.client.id,
-      self.client.to_name,
-      self.client.vat_condition,
-      self.client.document_type,
-      self.client.document_number,
+      self.client.try(:id),
+      self.client.try(:to_name),
+      self.client.try(:vat_condition),
+      self.client.try(:document_type),
+      self.client.try(:document_number),
       "NC #{self.bill_type}",
       self.number_with_sale_point,
       21,

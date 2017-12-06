@@ -6,6 +6,7 @@ class Cliente < ActiveRecord::Base
                   using: { tsearch: { prefix: true } }
 
   before_save :camel, :asignar_cantidadrecom
+  before_destroy :check_for_relations
   before_validation :verificar_documento
   has_many :historials
   has_many :bills, foreign_key: :client_id
@@ -112,5 +113,11 @@ class Cliente < ActiveRecord::Base
 
   def address
     direccion
+  end
+
+  def check_for_relations
+    if self.bills.any? || self.historials.any?
+      self.errors.add :base, "No se puede eliminar si tiene alguna factura o historial"
+    end
   end
 end
