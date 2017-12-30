@@ -99,10 +99,9 @@ class Cliente < ActiveRecord::Base
 
     clients.sort_by do |c|
       _order = c.nacimiento.yday
+      _order *= 200 if _order < 8
       c.nacimiento.leap? ? (_order - 1) : _order
-    end
-
-    clients.first(20)
+    end.first(20)
   end
 
   def billing_info_incomplete?
