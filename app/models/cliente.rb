@@ -91,15 +91,18 @@ class Cliente < ActiveRecord::Base
       'EXTRACT(MONTH FROM nacimiento::timestamp) = :month'
     ].join(' '), day: today.day, month: today.month, days: range).order(
       'EXTRACT(DOY FROM nacimiento::timestamp)',
-    ).limit(
-      20
-      # ::Kaminari.config[:default_per_page]
     )
+      #.limit(
+      # 20
+      # ::Kaminari.config[:default_per_page]
+    # )
 
     clients.sort_by do |c|
       _order = c.nacimiento.yday
       c.nacimiento.leap? ? (_order - 1) : _order
     end
+
+    clients.first(20)
   end
 
   def billing_info_incomplete?
