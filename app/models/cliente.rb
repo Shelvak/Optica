@@ -99,7 +99,7 @@ class Cliente < ActiveRecord::Base
 
     clients.sort_by do |c|
       _order = c.nacimiento.yday
-      _order *= 200 if _order < 8
+      _order *= 400 if _order < 8
       c.nacimiento.leap? ? (_order - 1) : _order
     end.first(20)
   end
