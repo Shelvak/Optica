@@ -12,11 +12,11 @@ env :PATH, '"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"'
 #  runner "Cliente.happyverde"
 # end
 
-every '* * 24,31 12 *' do
-  runner "MyMailer.fiestas"
-end
+# every '1 3 24,31 12 *' do
+#   runner "MyMailer.fiestas"
+# end
 
-every '* * 2 * *' do
+every '1 5 2 * *' do
   runner "MyMailer.all_bills.deliver"
 end
 
