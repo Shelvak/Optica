@@ -107,6 +107,10 @@ class Bill < ActiveRecord::Base
     if bill.aprobada?
       self.assign_from_afip_response(bill)
     else
+      Rails.logger.error(bill.errors)
+      Rails.logger.error(bill.observaciones)
+      Rails.logger.error(bill.response)
+      Rails.logger.error(bill.backtrace)
       self.errors.add(:base, "Hubo un error")
       self.errors.add(:afip_error, bill.errors)
       self.errors.add(:afip_observations, bill.observaciones)
