@@ -105,7 +105,7 @@
         </div>
         <div class='clear'></div>
       </div>
-      <% bill.bill_items.each do |bi| %>
+      <% bill.bill_items.order(id: :asc).each do |bi| %>
         <div class='item'>
           <div class='div400'>
             <p><%= "(x#{bi.quantity}) #{bi.description}" %></p>

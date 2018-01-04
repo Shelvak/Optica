@@ -77,7 +77,7 @@
       <th>Precio</th>
     </thead>
     <tbody>
-      <% @bill.bill_items.each do |bi| %>
+      <% @bill.bill_items.order(id: :asc).each do |bi| %>
         <tr>
           <td><%= bi.description %></td>
           <td><%= bi.quantity %></td>
