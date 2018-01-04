@@ -13,7 +13,6 @@ class Historial < ActiveRecord::Base
   after_commit :assign_to_global_sales, on: :create
   before_save :eliminar_vacio, :asignar_retirado
 
-  scope :asociado, lambda { |cliente| where('cliente_id LIKE ?', "#{cliente}") }
   scope :contactos, -> { where(tipolente: true) }
   scope :flotantes, -> { where(tipolente: false) }
   scope :asociado, lambda { |cliente| where('cliente_id LIKE ?', "#{cliente}") }
