@@ -1,6 +1,6 @@
 class EmailsController < ApplicationController
 
-  before_filter :requerir_user
+  before_action :requerir_user
 
   def index
     @client = Cliente.find(params[:id]) if params[:id]

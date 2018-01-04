@@ -2,8 +2,8 @@
 
 class ClientesController < ApplicationController
 
-  before_filter :requerir_user
-  before_filter :requerir_admin, only: :destroy
+  before_action :requerir_user
+  before_action :requerir_admin, only: :destroy
 
   # GET /clientes
   # GET /clientes.json

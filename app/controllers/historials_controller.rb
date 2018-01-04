@@ -2,8 +2,8 @@
 
 class HistorialsController < ApplicationController
 
-  before_filter :requerir_user
-  before_filter :requerir_admin, only: :destroy
+  before_action :requerir_user
+  before_action :requerir_admin, only: :destroy
 
   proc { |c| c.request.xhr? ? false : 'application'}
 

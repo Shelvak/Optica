@@ -1,7 +1,7 @@
 # encoding: UTF-8
 class VentaController < ApplicationController
 
-  before_filter :requerir_user
+  before_action :requerir_user
 
   # GET /venta
   # GET /venta.json

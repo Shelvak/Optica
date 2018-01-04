@@ -1,7 +1,7 @@
 class UserSessionsController < ApplicationController
 
-  before_filter :no_requerir_user, only: [:new, :create]
-  before_filter :requerir_user, only: [:destroy]
+  before_action :no_requerir_user, only: [:new, :create]
+  before_action :requerir_user, only: [:destroy]
 
 
   def new
