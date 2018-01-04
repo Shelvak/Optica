@@ -11,10 +11,11 @@ class HistorialsController < ApplicationController
   # GET /historials.json
   def index
     @historials = Historial.order('created_at DESC')
-    @contactos = Historial.where(tipolente: true).order('entrega DESC').page(params[:p_c])
-    @flotante = Historial.where(tipolente: false).order('entrega DESC').page(params[:p_f])
-    @contactos = Historial.search(params[:s_c]).page(params[:p_c]) if params[:s_c]
-    @flotante = Historial.search(params[:s_f]).page(params[:p_f]) if params[:s_f]
+    historial_scope = Historial.includes(:cliente)
+    @contactos = historial_scope.where(tipolente: true).order('entrega DESC').page(params[:p_c])
+    @flotante = historial_scope.where(tipolente: false).order('entrega DESC').page(params[:p_f])
+    @contactos = historial_scope.search(params[:s_c]).page(params[:p_c]) if params[:s_c]
+    @flotante = historial_scope.search(params[:s_f]).page(params[:p_f]) if params[:s_f]
 
     respond_to do |format|
       format.html # index.html.erb

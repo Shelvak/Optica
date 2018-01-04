@@ -87,6 +87,7 @@ es:
       long: "%A, %d de %B de %Y"
       short: "%d de %b"
       minimal: "%d/%m/%Y"
+      month_and_day: '%m%d'
     month_names:
       - ~
       - enero

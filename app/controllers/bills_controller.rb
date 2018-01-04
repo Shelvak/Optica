@@ -6,7 +6,7 @@ class BillsController < ApplicationController
 
   # GET /bills
   def index
-    @bills = Bill.all
+    @bills = Bill.all.includes(:client).includes(:bill_items)
     if params[:bill_number].present?
       @bills = @bills.filtered_list(params[:bill_number])
     else

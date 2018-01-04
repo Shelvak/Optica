@@ -69,39 +69,86 @@ class Cliente < ActiveRecord::Base
   end
 
   def self.week_birthdays
-    today = Time.zone.now
-    yday  = today.yday
-    in_a_week = yday + 7
-    last_day = today.at_end_of_year.yday
+    # today = Time.zone.now
+    # yday  = today.yday
+    # in_a_week = yday + 7
+    # last_day = today.at_end_of_year.yday
 
-    range = if in_a_week <= last_day
-              (yday..in_a_week).to_a
-            else
-              rest_of_days = (in_a_week - last_day) - 1
+    # range = if in_a_week <= last_day
+    #           (yday..in_a_week).to_a
+    #         else
+    #           rest_of_days = (in_a_week - last_day) - 1
 
-              (yday..last_day).to_a + (1..rest_of_days).to_a
-            end
+    #           (yday..last_day).to_a + (1..rest_of_days).to_a
+    #         end
 
-    clients = where([
-      'nacimiento IS NOT NULL',
-      'EXTRACT(YEAR FROM nacimiento::timestamp) != 1920'
-    ].join(' AND ')).where([
-      'EXTRACT(DOY FROM nacimiento::timestamp) in (:days) OR',
-      'EXTRACT(DAY FROM nacimiento::timestamp) = :day AND',
-      'EXTRACT(MONTH FROM nacimiento::timestamp) = :month'
-    ].join(' '), day: today.day, month: today.month, days: range).order(
-      'EXTRACT(DOY FROM nacimiento::timestamp)',
-    )
+    # clients = where([
+    #   'nacimiento IS NOT NULL',
+    #   'EXTRACT(YEAR FROM nacimiento::timestamp) != 1920'
+    # ].join(' AND ')).where([
+    #   'EXTRACT(DOY FROM nacimiento::timestamp) in (:days) OR',
+    #   'EXTRACT(DAY FROM nacimiento::timestamp) = :day AND',
+    #   'EXTRACT(MONTH FROM nacimiento::timestamp) = :month'
+    # ].join(' '), day: today.day, month: today.month, days: range).order(
+    #   'EXTRACT(DOY FROM nacimiento::timestamp)',
+    # )
       #.limit(
       # 20
       # ::Kaminari.config[:default_per_page]
     # )
 
-    clients.sort_by do |c|
-      _order = c.nacimiento.yday
-      _order *= 400 if _order < 8
-      c.nacimiento.leap? ? (_order - 1) : _order
-    end.first(20)
+    today = Time.now
+
+    Rails.cache.fetch("#{today.day.to_s}/week_birthdays", expires_in: (today.at_end_of_day - today).to_i) do
+
+      dates = (Date.today..6.days.from_now.to_date).map do |date|
+        I18n.l(date, format: :month_and_day)
+      end
+      if dates.any? {|date| date  == '0228' }
+        dates << '0229'
+        dates = dates.uniq.sort
+      end
+
+      birthdays = []
+      dates.each do |date|
+        birthdays += Cliente.where(
+          'nacimiento IS NOT NULL',
+        ).where(
+          'EXTRACT(YEAR FROM nacimiento::timestamp) != 1920'
+        ).where(
+          "to_char(nacimiento, 'MMDD') = :date",
+          date: date
+        ).to_a
+        break if birthdays.size >= 20
+      end
+
+      birthdays
+    end
+
+    # _order = if dates.first.starts_with?('12') && dates.last.starts_with?('01')
+    #            "CASE
+    #             WHEN to_char(nacimiento, 'MMDD') = '1225' THEN 0
+    #             WHEN to_char(nacimiento, 'MMDD') = '1226' THEN 1
+    #             WHEN to_char(nacimiento, 'MMDD') = '1227' THEN 2
+    #             WHEN to_char(nacimiento, 'MMDD') = '1228' THEN 3
+    #             WHEN to_char(nacimiento, 'MMDD') = '1229' THEN 4
+    #             WHEN to_char(nacimiento, 'MMDD') = '1230' THEN 5
+    #             WHEN to_char(nacimiento, 'MMDD') = '1231' THEN 6
+    #             WHEN to_char(nacimiento, 'MMDD') = '0101' THEN 7
+    #             WHEN to_char(nacimiento, 'MMDD') = '0102' THEN 8
+    #             WHEN to_char(nacimiento, 'MMDD') = '0103' THEN 9
+    #             WHEN to_char(nacimiento, 'MMDD') = '0104' THEN 10
+    #             WHEN to_char(nacimiento, 'MMDD') = '0105' THEN 11
+    #             WHEN to_char(nacimiento, 'MMDD') = '0106' THEN 12
+    #             END"
+    #          else
+    #            "to_char(nacimiento, 'MMDD')"
+    #           end
+
+    # Cliente.where(
+    #   "to_char(nacimiento, 'MMDD') IN (:dates)",
+    #   dates: dates.uniq.sort
+    # ).order(_order).limit(20)
   end
 
   def billing_info_incomplete?

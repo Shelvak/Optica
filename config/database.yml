@@ -11,7 +11,7 @@ test:
 
 development:
   <<: *default
-  database: optica_production
+  database: optica_development
 
 production:
   <<: *default

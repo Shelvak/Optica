@@ -5,11 +5,11 @@
     <th>Cliente</th>
     <th>Edad</th>
   </tr>
+  <% today = l(Date.today, format: :month_and_day) %>
   <% @cumples.each do |cump| %>
-    <% next unless cump.nacimiento %>
     <tr>
       <td>
-        <% if cump.nacimiento.try(:day) == Date.today.day %>
+        <% if l(cump.nacimiento, format: :month_and_day) == today %>
           <%= raw '<b>HOY </b>' %>
         <% else %>
           <%= l(cump.nacimiento, format: :birthdate) %>
