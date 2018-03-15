@@ -20,8 +20,9 @@
       <b>Asignar cliente: </b>
       <%= link_to 'X', '#', id: 'borrar_autocliente', hidden: true %>
       <br />
-      <%= f.text_field :auto_cliente, value: @historial.cliente.try(:documento),
-        placeholder: 'DNI del cliente...' %>
+      <%= f.text_field :auto_cliente, value: @historial.cliente,
+        placeholder: 'Buscar cliente...' %>
+      <%= f.hidden_field :cliente_id %>
     </div>
     <div class="span3">
       <b>Lente </b> <br \>

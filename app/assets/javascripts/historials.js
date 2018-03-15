@@ -1,10 +1,13 @@
 jQuery(function($){
-  var disableAutoClient = function () {
+  var disableAndAssignAutoClient = function (e, data) {
+      console.log(data.item)
+        $('#historial_cliente_id').val(data.item.id)
         changeAutoClient('disable');
       },
       enableAutoClient = function () {
         changeAutoClient('enable');
         $('#historial_auto_cliente').val('')
+        $('#historial_cliente_id').val('')
       },
       changeAutoClient = function (_status) {
         var readonly, hidden;
@@ -32,9 +35,9 @@ jQuery(function($){
 
         //Autocompletado de cliente En historial
       $('#historial_auto_cliente').autocomplete({
-        source: '/clientes/autocompletar.js',
+        source: '/clientes/autocompletar.json',
         minLength: 3,
-        select: disableAutoClient
+        select: disableAndAssignAutoClient
       });
       $('#borrar_autocliente').on('click', enableAutoClient);
 

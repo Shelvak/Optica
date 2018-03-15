@@ -34,6 +34,16 @@ class Cliente < ActiveRecord::Base
   def to_s
     [self.nombre, self.apellido, self.documento].join(' ')
   end
+  alias :label :to_s
+
+  def as_json(options=nil)
+    default_options = {
+      only: [:id],
+      methods: [:label]
+    }
+
+    super(default_options.merge(options || {}))
+  end
 
   def to_name
     I18n.transliterate [self.nombre, self.apellido].join(' ')

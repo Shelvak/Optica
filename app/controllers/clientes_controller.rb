@@ -98,7 +98,7 @@ class ClientesController < ApplicationController
     @clientes = Cliente.filtered_list(params[:term]).limit(5)
 
     respond_to do |format|
-      format.js { render text: @clientes.map(&:to_s) }
+      format.json { render json: @clientes.to_json }
     end
   end
 

@@ -4,6 +4,8 @@ default: &default
   pool: 5
   username: optica
   password: optica
+  host: 127.0.0.1
+  port: 5432
 
 test:
   <<: *default

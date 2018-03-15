@@ -8,7 +8,7 @@ class Historial < ActiveRecord::Base
 
   attr_accessor :auto_cliente
 
-  before_validation :asignar_cliente
+  # before_validation :asignar_cliente
   after_save :asignar_lente
   after_commit :assign_to_global_sales, on: :create
   before_save :eliminar_vacio, :asignar_retirado
@@ -17,7 +17,7 @@ class Historial < ActiveRecord::Base
   scope :flotantes, -> { where(tipolente: false) }
   scope :asociado, lambda { |cliente| where('cliente_id LIKE ?', "#{cliente}") }
 
-  validates :auto_cliente, presence: true
+  validates :cliente, presence: true
   validates :entrega, presence: true
   validates :precio, numericality: true
   validates :orden, numericality: {
@@ -60,11 +60,11 @@ class Historial < ActiveRecord::Base
      self.retirado = true if self.entrega < Date.today
    end
 
-  def asignar_cliente
-    if self.auto_cliente.present?
-      self.cliente = Cliente.find_by_documento(self.auto_cliente.split(' ').last)
-    end
-  end
+  # def asignar_cliente
+  #   if self.auto_cliente.present?
+  #     self.cliente = Cliente.find_by_documento(self.auto_cliente.split(' ').last)
+  #   end
+  # end
 
   def flotante?
     !self.tipolente?
