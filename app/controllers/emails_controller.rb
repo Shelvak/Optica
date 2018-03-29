@@ -4,6 +4,8 @@ class EmailsController < ApplicationController
 
   def index
     @client = Cliente.find(params[:id]) if params[:id]
+
+    @sidekiq_online = `ps aux |grep -i sidekiq |wc -l`.to_i > 1
   end
 
   def sendemail
