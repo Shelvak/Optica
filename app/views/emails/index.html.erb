@@ -1,5 +1,5 @@
 <h3>
   Enviador de emails:
-  <span class="label label-<%= @sidekiq_online ? 'success' : 'error' %>"><%= @sidekiq_online ? 'Prendido' : 'Apagado' %></span>
+  <span class="label label-<%= @sidekiq_online ? 'success' : 'warning' %>"><%= @sidekiq_online ? 'Prendido' : 'Apagado' %></span>
 </h3>
 <%=  render 'form'  %>
