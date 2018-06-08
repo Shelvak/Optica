@@ -1,5 +1,7 @@
 ---
 es:
+  messages:
+    confirmation: '¿Está seguro?'
   label:
     back: "Volver"
     delete: "Eliminar"
@@ -10,6 +12,7 @@ es:
         apply: "Aplicar"
         end: "Fin"
         start: "Inicio"
+      file_not_found: 'Archivo no encontrado'
     bills:
       paid_via:
         cash: "Efectivo"

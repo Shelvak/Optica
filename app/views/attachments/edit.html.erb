@@ -1,0 +1,14 @@
+<div class="dynamic-modal modal">
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">&times;</button>
+    <h3>Editando adjunto <%= @attachment.title %></h3>
+  </div>
+  <div class="modal-body">
+    <div class="row-fluid">
+      <%= form_for(@attachment, remote: true, html: { class: 'modal-form' } ) do |f| %>
+        <%= f.text_field :title %>
+        <%= f.submit 'Actualizar', class: 'btn btn-primary', data: { disable_with: 'Actualizando...' } %>
+      <% end %>
+    </div>
+  </div>
+</div>

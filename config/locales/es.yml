@@ -248,7 +248,7 @@ es:
     am: "am"
     formats:
       birthdate: "%d de %b"
-      default: "%a, %d de %b de %Y a las %H:%M:%S %Z"
+      default: "%d/%m/%Y %H:%M:%S"
       little: "%d de %b"
       long: "%A, %d de %B de %Y a las %I:%M %p"
       short: "%d de %b a las %H:%M hrs"

@@ -39,3 +39,4 @@ gem 'interactive_editor'
 gem 'awesome_print'
 gem 'byebug'
 gem 'whenever', require: nil
+gem 'carrierwave'

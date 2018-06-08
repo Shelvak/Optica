@@ -1,5 +1,3 @@
-# enconding: UTF-8
-
 class HistorialsController < ApplicationController
 
   before_action :requerir_user

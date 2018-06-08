@@ -1,12 +1,13 @@
 class Historial < ActiveRecord::Base
-
   belongs_to :cliente
   has_many :recetes
   has_many :bills
   has_one :bill
   accepts_nested_attributes_for :recetes, allow_destroy: true
 
-  attr_accessor :auto_cliente
+  has_many :attachments, as: :attachable
+
+  attr_accessor :auto_cliente, :files
 
   # before_validation :asignar_cliente
   after_save :asignar_lente
@@ -21,20 +22,26 @@ class Historial < ActiveRecord::Base
   validates :entrega, presence: true
   validates :precio, numericality: true
   validates :orden, numericality: {
-      only_integer: true, greater_than_or_equal_to: 0,
-          less_than: 2147483648 }, allow_nil: true, allow_blank: true
+    only_integer: true, greater_than_or_equal_to: 0, less_than: 2147483648
+  }, allow_nil: true, allow_blank: true
 
 
   def initialize(attributes = {})
     super(attributes)
 
-      if self.recetes.empty?
-        [true, false].each do |recete|
-          [true, false].each do |ojo|
-            self.recetes.build(ojo: ojo, receta: recete)
-          end
+    if self.recetes.empty?
+      [true, false].each do |recete|
+        [true, false].each do |ojo|
+          self.recetes.build(ojo: ojo, receta: recete)
         end
       end
+    end
+  end
+
+  def files=(*args)
+    (args || []).flatten.compact.map do |file|
+      (attachments.create(file: file) rescue nil)
+    end
   end
 
 

@@ -111,6 +111,25 @@
         <%= raw "</table> " if i == 1 || i == 3 %>
     <% end %>
 
+<% if @historial.attachments.any? %>
+  <h2>Archivos</h2>
+  <table class="table">
+    <thead>
+      <th>Titulo</th>
+      <th>Creado</th>
+    </thead>
+    <tbody>
+      <% @historial.attachments.each do |attach| %>
+        <tr>
+          <td><%= link_to attach.title, attach.file.url %></td>
+          <td><%= l(attach.created_at) %></td>
+          <td><%= link_to_edit '', data: { remote_link: edit_attachment_path(attach) }, class: 'remote-modal'  %></td>
+          <td><%= link_to_destroy attachment_path(attach)  %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 </div>
 <div class="form-actions">
   <% unless @historial.bill %>
@@ -119,4 +138,8 @@
   <%= link_to 'Editar', edit_historial_path(@historial) %> |
   <%= link_to 'Borrar', @historial, confirm: 'Seguro??', method: :delete %> |
   <%= link_to 'Volver', historials_path %>
+</div>
+
+<div class="dynamic-content">
+
 </div>

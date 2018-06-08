@@ -27,5 +27,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :attachments, only: [:update, :destroy, :edit]
+
+  get 'private/:path', to: 'files#download',
+                         constraints: { path: /.+/ }
+
   root to: 'clientes#index'
 end

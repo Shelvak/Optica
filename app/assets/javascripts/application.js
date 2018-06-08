@@ -17,3 +17,4 @@
 //= require helpers
 //= require dynamic_forms
 //= require bills
+//= require attachments

@@ -2,9 +2,10 @@ jQuery(function(){
 
   //Quitar Snowmen ^^
   $('form').submit(function() {
-    $(this).find('input[type="submit"],\n\
-        input[name="utf8"]').attr('disabled', true
-          );
+    $('.spinner-gif').show()
+    // $(this).find('input[type="submit"],\n\
+    //     input[name="utf8"]').attr('disabled', true
+    //       );
   });
 
   //paginar
