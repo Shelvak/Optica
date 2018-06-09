@@ -1,0 +1,3 @@
+$('#attachment_<%= @attachment.id %>').replaceWith(
+  '<%= j render('show', attachment: @attachment) %>'
+).effect('highlight', {}, 2000);

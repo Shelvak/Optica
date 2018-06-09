@@ -45,13 +45,35 @@
     <h3><%= link_to 'Facturas', bills_path(client_id: @cliente.id) %></h3>
   <% end %>
 
-  <% unless @historiales.empty? %>
+  <% if @historiales.any? %>
     <br />
     <h3>Presupuestos</h3>
     <div id="historialescliente">
       <%= render 'historialescliente'  %>
     </div>
   <% end %>
+
+  <% if @attachments.any? %>
+    <br />
+    <h3>Archivos</h3>
+    <table class="table">
+      <thead>
+        <th>Historial</th>
+        <th>Titulo</th>
+        <th>Actualizado</th>
+        <th>Creado</th>
+        <th colspan="2"></th>
+      </thead>
+      <tbody>
+        <% @attachments.each do |attachment| %>
+          <%= render 'attachments/show', attachment: attachment  %>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= paginate @attachments, param_name: :attach_page %>
+  <% end %>
+
 </div>
 
 

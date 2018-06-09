@@ -1,0 +1,11 @@
+<% hide_historial ||= false %>
+<tr id="attachment_<%= attachment.id %>">
+  <% unless hide_historial %>
+    <td><%= link_to attachment.attachable, attachment.attachable %></td>
+  <% end %>
+  <td><%= link_to attachment.title, attachment.file.url %></td>
+  <td><%= l(attachment.updated_at) %></td>
+  <td><%= l(attachment.created_at) %></td>
+  <td><%= link_to_edit '', data: { remote_link: edit_attachment_path(attachment) }, class: 'remote-modal'  %></td>
+  <td><%= link_to_destroy attachment_path(attachment), remote: true  %></td>
+</tr>

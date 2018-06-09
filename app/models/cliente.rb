@@ -10,6 +10,7 @@ class Cliente < ActiveRecord::Base
   before_validation :verificar_documento
   has_many :historials
   has_many :bills, foreign_key: :client_id
+  has_many :attachments, through: :historials
 
   attr_accessor :auto_recomendado
 

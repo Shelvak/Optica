@@ -10,13 +10,10 @@ class AttachmentsController < ApplicationController
     @attachment = Attachment.find(params[:id])
     title = params[:attachment][:title]
     @attachment.update(title: title) if title
-    render body: nil, head: 200
   end
 
   def destroy
     @attachment = Attachment.find(params[:id])
-    @attachment.destroy
-
-    redirect_to :back
+    @attachment.destroy!
   end
 end

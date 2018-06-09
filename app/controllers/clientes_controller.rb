@@ -26,6 +26,8 @@ class ClientesController < ApplicationController
   def show
     @cliente = Cliente.find(params[:id])
     @historiales = @cliente.historials.order(entrega: :desc).page(params[:page])
+    @attachments = @cliente.attachments.order(created_at: :desc).page(params[:attach_page])
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @cliente }

@@ -3,11 +3,12 @@ module LinksHelper
     options = args.extract_options!
 
     options[:class] ||= ''
-    options[:class] += ' iconic'
     options['title'] ||= t('label.edit')
     options['data-show-tooltip'] = true
 
-    link_to '&#x270e;'.html_safe, *args, options
+    link_to *args, options do
+      content_tag(:i, '', class: 'fa fa-pencil')
+    end
   end
 
   def link_to_destroy(*args)
@@ -19,6 +20,8 @@ module LinksHelper
     options['data-confirm'] ||= t('messages.confirmation')
     options['data-show-tooltip'] = true
 
-    link_to '&#xe05a;'.html_safe, *args, options
+    link_to *args, options do
+      content_tag(:i, '', class: 'fa fa-trash')
+    end
   end
 end

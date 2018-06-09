@@ -1,0 +1,4 @@
+$('#attachment_<%= @attachment.id %>').remove();
+$('body').append(
+  '<%=j render 'menus/notifier', hiden: false, message: 'Archivo eliminado...' %>'
+);

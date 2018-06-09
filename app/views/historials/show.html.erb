@@ -113,19 +113,16 @@
 
 <% if @historial.attachments.any? %>
   <h2>Archivos</h2>
-  <table class="table">
+  <table class="table table-striped">
     <thead>
       <th>Titulo</th>
+      <th>Actualizado</th>
       <th>Creado</th>
+      <th colspan="2"></th>
     </thead>
     <tbody>
       <% @historial.attachments.each do |attach| %>
-        <tr>
-          <td><%= link_to attach.title, attach.file.url %></td>
-          <td><%= l(attach.created_at) %></td>
-          <td><%= link_to_edit '', data: { remote_link: edit_attachment_path(attach) }, class: 'remote-modal'  %></td>
-          <td><%= link_to_destroy attachment_path(attach)  %></td>
-        </tr>
+        <%= render 'attachments/show', attachment: attach, hide_historial: true %>
       <% end %>
     </tbody>
   </table>
@@ -138,8 +135,4 @@
   <%= link_to 'Editar', edit_historial_path(@historial) %> |
   <%= link_to 'Borrar', @historial, confirm: 'Seguro??', method: :delete %> |
   <%= link_to 'Volver', historials_path %>
-</div>
-
-<div class="dynamic-content">
-
 </div>
