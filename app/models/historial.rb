@@ -47,13 +47,13 @@ class Historial < ActiveRecord::Base
 
    def self.search(search)
     if search.present?
-      includes(:cliente).where(
+      joins(:cliente).where(
         [
           "LOWER(#{Cliente.table_name}.nombre) LIKE :q",
           "LOWER(#{Cliente.table_name}.apellido) LIKE :q",
           "#{Cliente.table_name}.documento LIKE :q",
           "#{table_name}.factura LIKE :q",
-          "#{table_name}.orden LIKE :q"
+          "#{table_name}.orden::TEXT LIKE :q"
         ].join(' OR '),
         q: "#{search}%".downcase
       )
