@@ -87,10 +87,15 @@ class ClientesController < ApplicationController
   # DELETE /clientes/1.json
   def destroy
     @cliente = Cliente.find(params[:id])
-    @cliente.destroy
 
     respond_to do |format|
-      format.html { redirect_to clientes_url }
+      format.html {
+        if @cliente.destroy
+          redirect_to clientes_url
+        else
+          redirect_to cliente_url(@cliente.id), alert: 'No puede borrar un cliente con historial, o facturas'
+        end
+      }
       format.json { head :ok }
     end
   end

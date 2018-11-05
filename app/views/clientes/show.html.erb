@@ -79,7 +79,7 @@
 
 <div class="form-actions">
   <%= link_to 'Editar', edit_cliente_path(@cliente) %> |
-  <%= link_to 'Borrar', @cliente, confirm: 'Seguro quiere eliminar?', method: :delete %> |
+  <%= link_to 'Borrar', @cliente, data: { confirm: 'Seguro quiere eliminar?', method: :delete } %> |
   <%= link_to 'Volver', clientes_path %> |
   <%= link_to 'Enviar email', emails_index_path(id: @cliente.id) %>
 </div>

@@ -11,6 +11,7 @@ class Cliente < ActiveRecord::Base
   before_validation :verificar_documento
   has_many :historials
   has_many :bills, foreign_key: :client_id
+  has_many :credit_notes, through: :bills
   has_many :attachments, through: :historials
 
   attr_accessor :auto_recomendado
@@ -177,7 +178,7 @@ class Cliente < ActiveRecord::Base
   end
 
   def check_for_relations
-    if self.bills.any? || self.historials.any?
+    if self.bills.any? || self.historials.any? || self.credit_notes.any?
       self.errors.add :base, "No se puede eliminar si tiene alguna factura o historial"
       throw :abort
     end
