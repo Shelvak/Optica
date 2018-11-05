@@ -1,5 +1,6 @@
 class CreditNote < ApplicationRecord
 
+  has_paper_trail
   CREDIT_NOTES = {
     'A' => :nota_credito_a,
     'B' => :nota_credito_b,

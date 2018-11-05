@@ -1,5 +1,6 @@
 class Bill < ActiveRecord::Base
   include PgSearch
+  has_paper_trail
   pg_search_scope :unicode_search,
                   against: [:number, :client_vat_condition],
                   ignoring: :accents,

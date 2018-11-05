@@ -100,7 +100,7 @@ module CitiAfip
   end
 
   def full_name(bill)
-    I18n.transliterate(bill.client.try(:to_name)).to_s[0..29].ljust(30, ' ')
+    I18n.transliterate(bill.client.try(:to_name) || '').to_s[0..29].ljust(30, ' ')
   end
 
   def document_type_for(bill)

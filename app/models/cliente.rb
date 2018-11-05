@@ -5,6 +5,7 @@ class Cliente < ActiveRecord::Base
                   ignoring: :accents,
                   using: { tsearch: { prefix: true } }
 
+  has_paper_trail
   before_save :camel, :asignar_cantidadrecom
   before_destroy :check_for_relations
   before_validation :verificar_documento
@@ -178,6 +179,7 @@ class Cliente < ActiveRecord::Base
   def check_for_relations
     if self.bills.any? || self.historials.any?
       self.errors.add :base, "No se puede eliminar si tiene alguna factura o historial"
+      throw :abort
     end
   end
 end

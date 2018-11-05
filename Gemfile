@@ -40,3 +40,4 @@ gem 'awesome_print'
 gem 'byebug'
 gem 'whenever', require: nil
 gem 'carrierwave'
+gem 'paper_trail', '~> 10.0.1'

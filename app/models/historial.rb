@@ -1,4 +1,5 @@
 class Historial < ActiveRecord::Base
+  has_paper_trail
   belongs_to :cliente
   has_many :recetes
   has_many :bills
