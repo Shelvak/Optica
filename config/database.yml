@@ -18,3 +18,5 @@ development:
 production:
   <<: *default
   database: optica_production
+  username: optica
+  password: optica
