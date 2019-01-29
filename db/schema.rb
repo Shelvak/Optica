@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181105210726) do
+ActiveRecord::Schema.define(version: 20190129153232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -146,6 +146,7 @@ ActiveRecord::Schema.define(version: 20181105210726) do
     t.string   "password_salt",     limit: 255
     t.string   "persistence_token", limit: 255
     t.boolean  "admin"
+    t.boolean  "enabled",                       default: true
     t.index ["login"], name: "idx_17620_index_users_on_login", unique: true, using: :btree
   end
 

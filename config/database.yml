@@ -2,8 +2,8 @@ default: &default
   adapter: postgresql
   encoding: utf8
   pool: 5
-  username: optica
-  password: optica
+  username: docker
+  password: docker
   host: 127.0.0.1
   port: 5432
 

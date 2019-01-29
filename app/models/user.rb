@@ -3,6 +3,10 @@ class User < ActiveRecord::Base
     c.crypto_provider = Authlogic::CryptoProviders::Sha512
   end
 
+  scope :enabled, -> { where(enabled: true) }
+
+  default_scope -> { enabled }
+
   before_save :asignar_admin
 
   def asignar_admin
