@@ -43,7 +43,7 @@
           <p class='text1 margin5'></p>
           <p class='text1'>
             <strong>Óptica Marcela Palpacelli</strong><br>
-            <span class="center">de OPM S.A.S.</span>
+            <%= content_tag(:span, 'de OPM S.A.S.') unless bill.cuit_old? %>
           </p>
 
           <p>Perito Moreno 1667 Dpto 2</p>
@@ -71,9 +71,7 @@
           <br />
           <p>Fecha de emisión: <%= l(bill.created_at.to_date) %></p>
           <br />
-          <p>CUIT: 30-71644149-7</p>
-          <p>Ingresos Brutos: 0821022</p>
-          <p>Inicio Actividades: 01/05/2019</p>
+          <%= invoicing_firm_info_for(bill) %>
         </div>
         <div class='clear'></div>
       </div>

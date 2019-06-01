@@ -180,6 +180,14 @@ class Bill < ActiveRecord::Base
     self.client.save
   end
 
+  def cuit
+    afip_response['fecae_solicitar_response']['fecae_solicitar_result']['fe_cab_resp']['cuit'] rescue nil
+  end
+
+  def cuit_old?
+    cuit == '27125786524'
+  end
+
   def sell_type
     self.historial.try(:sell_type) || :bill
   end
