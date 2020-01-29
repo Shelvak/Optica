@@ -98,7 +98,7 @@ GEM
     erubis (2.7.0)
     eventmachine (1.2.2)
     execjs (2.7.0)
-    ffi (1.9.18)
+    ffi (1.12.1)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
