@@ -1,10 +1,10 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 5.0'
+gem 'rails', '~> 5.0.7'
 
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
-gem 'authlogic'
+gem 'authlogic', '~> 3.5.0'
 gem 'validates_timeliness'
 gem 'sidekiq'
 gem 'unicorn'
@@ -37,7 +37,8 @@ gem 'sinatra', require: nil
 # Helpers (at console)
 gem 'interactive_editor'
 gem 'awesome_print'
-gem 'byebug'
+gem 'byebug', '~> 10.0'
 gem 'whenever', require: nil
-gem 'carrierwave'
+gem 'carrierwave', '~> 1.2.2'
 gem 'paper_trail', '~> 10.0.1'
+gem 'sprockets', '< 4.0.0'
