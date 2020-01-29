@@ -10,17 +10,12 @@ class CreditNote < ApplicationRecord
   after_commit :assign_to_global_sales, on: :create
 
   belongs_to :bill
+  has_many :bill_items, through: :bill
 
   validates :cae, :bill_id, presence: true
 
-  delegate :data_for_afip, to: :bill
-  delegate :gross, to: :bill
-  delegate :sale_point, to: :bill
-  delegate :total_amount, to: :bill
-  delegate :vat_amount, to: :bill
-  delegate :client, to: :bill
-  delegate :bill_type, to: :bill
-  delegate :sell_type, to: :bill
+  delegate :data_for_afip, :gross, :sale_point, :total_amount, :vat_amount,
+    :vat, :client, :bill_type, :sell_type, to: :bill
 
   def authorize_against_afip!
     data = self.data_for_afip.merge(SECRETS[:AFIP_DATA]).with_indifferent_access
