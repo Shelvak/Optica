@@ -10,6 +10,8 @@ module CitiAfip
     ].flatten
     p "Generating #{bills.size} count"
 
+    headers   = bills.map { |b| header(b) }
+    headers   << headers_summary(bills, headers)
     cbtes     = bills.map { |b| cbte(b) }.join(EOL)
     alicuotas = bills.map { |b| alicuota(b) }.join(EOL)
     details   = bills.map { |b| bill_details(b) }.flatten.join(EOL)
@@ -18,7 +20,7 @@ module CitiAfip
     filenames = []
 
     {
-      'REGINFO_CV_CABECERA':         header(month),
+      'REGINFO_CV_CABECERA':         headers.join(EOL),
       'REGINFO_CV_VENTAS_CBTE':      cbtes,
       'REGINFO_CV_VENTAS_ALICUOTAS': alicuotas,
       'REGINFO_CV_VENTAS_DETALLES':  details
@@ -31,7 +33,67 @@ module CitiAfip
     filenames
   end
 
-  def header(month)
+  def header(bill)
+    billed_date = date(bill.try(:billed_date) || bill.created_at), # Período
+    void_date = bill.try(:bill_id) ? date(bill.due_date) : (' ' * 8)
+    [
+      '1',  # tipo de registro ?
+      billed_date,
+      bill_type_for(bill), # tipo comprobante
+      ' ', # Contr Fiscal
+      r(bill.sale_point, 4),        # Punto de venta (5)
+      r(bill.number, 8),            # Número de comprobante (20)
+      r(bill.number, 8),            # Número de comprobante (20)
+      r(1,3),  # Cant de hojas
+      document_type_for(bill), # Codigo de documento
+      document_number_for(bill), # Número de identificación del comprador (20)
+      full_name(bill),
+      d(bill.total_amount),
+      d(0),
+      d(bill.net_amount),  # importe neto gravado
+      d(0), # no categorizados
+      d(0), # exentas
+      d(0), # percepciones o pagos
+      d(0), # # IIBB
+      d(0), # Munucipales
+      d(0), # impuestos internos
+      d(0), # Transporte
+      (bill.bill_type == 'A' ? '01' : '05'), # 01 Iva Resp no inscripto 05 Cons Final
+      'PES',
+      '0001000000',
+      '1',
+      ' ',
+      bill.cae,
+      date(bill.try(:due_date) || bill.try(:billed_date) || bill.created_at),
+      void_date
+    ]
+  end
+
+  def headers_summary(bills, headers, month)
+    [
+      '1',
+      month.strftime('%Y%m'), # Período
+      ' '*13,
+      r(headers.size, 8),
+      ' '*17,
+      SECRETS[:AFIP_DATA]['cuit'], # CUIT Informante
+      ' '*33,
+      d(bills.sum(&:total_amount)),
+      d(0),
+      d(bills.sum(&:net_amount)),
+      d(0), # liqui
+      d(0), # no cat
+      d(0), # exentas
+      d(0), # pagos
+      d(0), # IIGBB
+      d(0), # Municipales
+      d(0), # Internos
+      ' '*62
+    ]
+  end
+
+  # Ya no sirve mas
+  def old_header(month)
     [
       SECRETS[:AFIP_DATA]['cuit'], # CUIT Informante
       month.strftime('%Y%m'), # Período
@@ -81,7 +143,7 @@ module CitiAfip
       bill_type_for(bill),          # Tipo de comprobante (3)
       r(bill.sale_point, 5),        # Punto de venta (5)
       r(bill.number, 20),           # Número de comprobante (20)
-      d(bill.gross),                # Importe neto gravado
+      d(bill.net_amount),                # Importe neto gravado
       r(Snoopy::ALIC_IVA[0.21], 4), # Alicuota de IVA
       d(bill.vat_amount)            # Impuesto Liquidado
     ].join

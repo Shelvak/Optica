@@ -14,7 +14,7 @@ class CreditNote < ApplicationRecord
 
   validates :cae, :bill_id, presence: true
 
-  delegate :data_for_afip, :gross, :sale_point, :total_amount, :vat_amount,
+  delegate :data_for_afip, :net_amount, :sale_point, :total_amount, :vat_amount,
     :vat, :client, :bill_type, :sell_type, to: :bill
 
   def authorize_against_afip!
@@ -66,7 +66,7 @@ class CreditNote < ApplicationRecord
       self.number_with_sale_point,
       21,
       0,
-      self.gross,
+      self.net_amount,
       self.vat_amount,
       self.total_amount
     ].join(',')

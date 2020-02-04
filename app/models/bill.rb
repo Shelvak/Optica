@@ -132,12 +132,12 @@ class Bill < ActiveRecord::Base
     self.bill_items.to_a.map(&:total_amount).sum
   end
 
-  def gross
+  def net_amount
     (self.total_amount / 1.21).round(2)
   end
 
   def recalc_vat_values
-    self.vat_amount = total_amount - gross
+    self.vat_amount = total_amount - net_amount
   end
 
   def number_with_sale_point
@@ -161,7 +161,7 @@ class Bill < ActiveRecord::Base
       self.number_with_sale_point,
       21,
       0,
-      self.gross,
+      self.net_amount,
       self.vat_amount,
       self.total_amount
     ].join(',')
