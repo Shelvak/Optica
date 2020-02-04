@@ -11,7 +11,7 @@ module CitiAfip
     p "Generating #{bills.size} count"
 
     headers   = bills.map { |b| header(b) }
-    headers   << headers_summary(bills, headers)
+    headers   << headers_summary(bills, headers, month)
     cbtes     = bills.map { |b| cbte(b) }.join(EOL)
     alicuotas = bills.map { |b| alicuota(b) }.join(EOL)
     details   = bills.map { |b| bill_details(b) }.flatten.join(EOL)
@@ -34,17 +34,17 @@ module CitiAfip
   end
 
   def header(bill)
-    billed_date = date(bill.try(:billed_date) || bill.created_at), # Período
+    billed_date = date(bill.try(:billed_date) || bill.created_at) # Período
     void_date = bill.try(:bill_id) ? date(bill.due_date) : (' ' * 8)
     [
       '1',  # tipo de registro ?
       billed_date,
       bill_type_for(bill), # tipo comprobante
       ' ', # Contr Fiscal
-      r(bill.sale_point, 4),        # Punto de venta (5)
+      r(bill.sale_point, 5),        # Punto de venta (5)
       r(bill.number, 8),            # Número de comprobante (20)
       r(bill.number, 8),            # Número de comprobante (20)
-      r(1,3),  # Cant de hojas
+      r(1, 3),  # Cant de hojas
       document_type_for(bill), # Codigo de documento
       document_number_for(bill), # Número de identificación del comprador (20)
       full_name(bill),
@@ -66,12 +66,12 @@ module CitiAfip
       bill.cae,
       date(bill.try(:due_date) || bill.try(:billed_date) || bill.created_at),
       void_date
-    ]
+    ].join
   end
 
   def headers_summary(bills, headers, month)
     [
-      '1',
+      '2',
       month.strftime('%Y%m'), # Período
       ' '*13,
       r(headers.size, 8),
@@ -89,7 +89,7 @@ module CitiAfip
       d(0), # Municipales
       d(0), # Internos
       ' '*62
-    ]
+    ].join
   end
 
   # Ya no sirve mas
@@ -198,7 +198,7 @@ module CitiAfip
   end
 
   def full_name(bill)
-    transliterate(bill.client.try(:to_name) || '', 30)
+    transliterate(bill.client.try(:to_name) || '', 30)[0..29]
   end
 
   def document_type_for(bill)
