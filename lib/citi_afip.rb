@@ -39,18 +39,19 @@ module CitiAfip
     [
       '1',  # tipo de registro ?
       billed_date,
-      bill_type_for(bill), # tipo comprobante
+      bill_type_for(bill, 2), # tipo comprobante
       ' ', # Contr Fiscal
-      r(bill.sale_point, 5),        # Punto de venta (5)
+      r(bill.sale_point, 4),        # Punto de venta (5)
       r(bill.number, 8),            # Número de comprobante (20)
       r(bill.number, 8),            # Número de comprobante (20)
       r(1, 3),  # Cant de hojas
       document_type_for(bill), # Codigo de documento
-      document_number_for(bill), # Número de identificación del comprador (20)
+      document_number_for(bill, 11), # Número de identificación del comprador (11)
       full_name(bill),
       d(bill.total_amount),
       d(0),
       d(bill.net_amount),  # importe neto gravado
+      d(0), # Imp liquidado
       d(0), # no categorizados
       d(0), # exentas
       d(0), # percepciones o pagos
@@ -77,7 +78,7 @@ module CitiAfip
       r(headers.size, 8),
       ' '*17,
       SECRETS[:AFIP_DATA]['cuit'], # CUIT Informante
-      ' '*33,
+      ' '*22,
       d(bills.sum(&:total_amount)),
       d(0),
       d(bills.sum(&:net_amount)),
@@ -208,8 +209,8 @@ module CitiAfip
     Snoopy::DOCUMENTOS[bill.client.document_type]
   end
 
-  def document_number_for(bill)
-    r(afip_response_for(bill)['fe_det_resp']['fecae_det_response']['doc_nro'], 20)
+  def document_number_for(bill, n=20)
+    r(afip_response_for(bill)['fe_det_resp']['fecae_det_response']['doc_nro'], n)
   rescue => e
     p "ROCK VIEJAAA doc num", e
     r(bill.client.document_number, 20)
