@@ -3,7 +3,7 @@ module CitiAfip
 
   EOL = "\r\n"
 
-  def generate_files(month=Time.new.advance(months: -1))
+  def generate_files(month = 1.month.ago)
     bills = [
       Bill.where(created_at: month.beginning_of_month..month.end_of_month).to_a,
       CreditNote.where(created_at: month.beginning_of_month..month.end_of_month).to_a
@@ -17,18 +17,21 @@ module CitiAfip
     details   = bills.map { |b| bill_details(b) }.flatten.join(EOL)
 
     identifier = I18n.l(month.to_date, format: '%B-%Y')
-    filenames = []
 
-    {
-      'REGINFO_CV_CABECERA':         headers.join(EOL),
-      'REGINFO_CV_VENTAS_CBTE':      cbtes,
-      'REGINFO_CV_VENTAS_ALICUOTAS': alicuotas,
-      'REGINFO_CV_VENTAS_DETALLES':  details
-    }.each do |file, body|
-      filepath = Rails.root.join("private/#{file}-#{identifier}.txt")
-      filenames << filepath
+    filenames = {
+      'REGINFO_CV_CABECERA.txt':         headers.join(EOL),
+      'REGINFO_CV_VENTAS_CBTE.txt':      cbtes,
+      'REGINFO_CV_VENTAS_ALICUOTAS.txt': alicuotas,
+      'REGINFO_CV_VENTAS_DETALLES.txt':  details,
+    }.map do |file, body|
+      filepath = Rails.root.join("private/#{identifier}-#{file}")
+
       File.open(filepath, 'w') { |f| f.write(body) }
+
+      filepath
     end
+
+    filenames << to_onvio(month, bills)
 
     filenames
   end
@@ -168,15 +171,73 @@ module CitiAfip
         '07',                         # unidad de medida [Unidad siempre] (2)
         r(item.amount.to_i, 13),            # Importe item entero (13)
         r((item.amount.frac * 1000).round(3).to_i, 3), # Importe item decimal (3)
-        r('', 15),                    # Importe bonificacion (16)
+        r('', 15),                    # Importe bonificacion (15)
         r('', 16),                    # Importe ajuste (16)
         r(item.sub_net_amount.to_i, 13), # Importe subtotal entero (16)
         l((item.sub_net_amount.frac.round(3) * 1000).to_i, 3), # Importe subtotal decimal (3)
         r(Snoopy::ALIC_IVA[bill.vat.to_f / 100], 4), # Alicuota de IVA
-        '  ',
+        'G',
+        bill.try(:bill_id) ? 'A' : ' ',
         transliterate(item.description, 75) # DETALLE
       ].join
     end
+  end
+
+  def to_onvio(month, bills)
+    Spreadsheet.client_encoding = 'UTF-8'
+
+    book = Spreadsheet::Workbook.new
+    ws   = book.create_worksheet(name: month.strftime('%Y%m'))
+
+    index = 0
+    ws.row(index).replace [
+      'Fecha de Emisión',
+      'Tipo de Comprobante (AFIP - Ms Comprobantes)',
+      'Punto de Venta',
+      'Número',
+      'Número Hasta',
+      'Número de CAI',
+      'Tipo de Documento del Cliente',
+      'Número de Documento del Cliente',
+      'Razón social del Cliente',
+      'Cotización',
+      'Moneda',
+      'Importe Neto',
+      'Impuestos Internos / No Gravado',
+      'Importe Exento',
+      'IVA Inscripto',
+      'Importe Total del Comprobante'
+    ]
+
+    bills.each do |bill|
+      human_type = bill.try(:bill_id) ? 'Nóta de Crédito' : 'Factura'
+
+      ws.row(index += 1).replace [
+        (bill.try(:billed_date) || bill.created_at).strftime('%d/%m/%Y'),
+        "#{bill_type_for(bill, 1)} - #{human_type} #{bill.bill_type}",
+        bill.sale_point.to_i,
+        bill.number,
+        '',
+        bill.cae,
+        bill.client.try(:document_type),
+        bill.client.try(:document_number),
+        bill.client.try(:to_name),
+        '1',
+        '$',
+        bill.net_amount.to_s.gsub('.', ','),
+        '',
+        '',
+        bill.vat_amount.to_s.gsub('.', ','),
+        bill.total_amount.to_s.gsub('.', ',')
+      ]
+    end
+
+    identifier = I18n.l(month.to_date, format: '%B-%Y')
+    filename = Rails.root.join('private', "#{identifier}-Ventas_ONVIO.xls")
+
+    book.write filename
+
+    filename
   end
 
   ##### HELPERS  #####

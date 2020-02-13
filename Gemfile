@@ -42,3 +42,4 @@ gem 'whenever', require: nil
 gem 'carrierwave', '~> 1.2.2'
 gem 'paper_trail', '~> 10.0.1'
 gem 'sprockets', '< 4.0.0'
+gem 'spreadsheet'
