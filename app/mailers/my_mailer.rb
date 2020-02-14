@@ -70,6 +70,7 @@ class MyMailer < ActionMailer::Base
 
     mail(
       to: 'antonio@martinscordia.com.ar',
+      cc: 'alejandro@martinscordia.com.ar',
       subject: "Optica Palpacelli - Archivos CITI - #{@formatted_date}",
       body: "Optica Palpacelli - Archivos CITI - #{@formatted_date}"
     )
