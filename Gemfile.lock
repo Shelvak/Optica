@@ -148,7 +148,7 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (4.1.0)
     nio4r (2.5.2)
-    nokogiri (1.10.7)
+    nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
     nori (2.6.0)
     paper_trail (10.0.1)
