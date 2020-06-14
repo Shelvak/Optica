@@ -102,12 +102,35 @@ class Historial < ActiveRecord::Base
   end
 
   def asignar_lente
-    return if self.cliente.blank? || self.cliente.try(:lente) == 'ambos'
+    return if self.cliente.blank?
 
-    tipo = self.tipolente? ? 'contacto' : 'flotantes'
-    cliente.lente = tipo if cliente.lente.blank?
-    cliente.lente = 'ambos' if cliente.lente != tipo
-    cliente.save
+    glass    = self.tipolente? ? 'contacto' : 'flotantes'
+    distance = self.recetes.map(&:distancia).reject(&:blank?).uniq
+
+    if distance.size > 1 || distance.include?('Ambos') # si hay mas de 1 tipo es ambos
+      distance = 'Ambos'
+    else
+      distance = distance.first
+    end
+
+
+    if cliente.lente != 'ambos'
+      cliente.lente = if cliente.lente.blank? || cliente.lente == glass
+                        glass
+                      else
+                        'ambos'
+                      end
+    end
+
+    if cliente.glass_distance != 'Ambos'
+      cliente.glass_distance = if cliente.glass_distance.blank? || cliente.glass_distance == distance
+                                 distance
+                               else
+                                 'Ambos'
+                               end
+    end
+
+    cliente.save if cliente.changed?
   end
 
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190129153232) do
+ActiveRecord::Schema.define(version: 20200614022051) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,7 +78,10 @@ ActiveRecord::Schema.define(version: 20190129153232) do
     t.string   "document_type",   limit: 5
     t.string   "bill_type",       limit: 1
     t.string   "vat_condition"
+    t.string   "glass_distance"
     t.index ["documento"], name: "idx_17585_index_clientes_on_documento", unique: true, using: :btree
+    t.index ["glass_distance"], name: "index_clientes_on_glass_distance", using: :btree
+    t.index ["lente"], name: "index_clientes_on_lente", using: :btree
   end
 
   create_table "credit_notes", force: :cascade do |t|

@@ -11,7 +11,7 @@
           Destino:
         </div>
         <div class="span3">
-          <%= select_tag :to, "<option>todos</option><option>flotantes</option><option>contacto</option>".html_safe %>
+          <%= select_tag :to, options_for_select(email_destination_options) %>
         </div>
       <% end %>
       <div class="span1">

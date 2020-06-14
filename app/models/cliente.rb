@@ -18,6 +18,13 @@ class Cliente < ActiveRecord::Base
 
   scope :with_email, -> { where("email IS NOT NULL or email != ''") }
 
+  scope :ambos_lentes, -> { where(lente: 'ambos') }
+  scope :flotantes, -> { where(lente: 'flotantes') }
+  scope :contacto, -> { where(lente: 'contacto')  }
+  scope :lejos, -> { where(glass_distance: 'Lejos') }
+  scope :cerca, -> { where(glass_distance: 'Cerca') }
+  scope :ambas_distancias, -> { where(glass_distance: 'Ambos') }
+
 
   validates :nombre, :apellido, :documento, presence: true
   validates :documento, uniqueness: true
