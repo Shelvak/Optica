@@ -6,10 +6,10 @@ module EmailHelper
       'Contacto',
       'Lejos',
       'Cerca',
+      'Bifocales',
       'Flotantes - Lejos',
       'Flotantes - Cerca',
-      'Contacto - Lejos',
-      'Contacto - Cerca',
+      'Flotantes - Bifocales'
     ]
   end
 end

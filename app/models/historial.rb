@@ -107,7 +107,9 @@ class Historial < ActiveRecord::Base
     glass    = self.tipolente? ? 'contacto' : 'flotantes'
     distance = self.recetes.map(&:distancia).reject(&:blank?).uniq
 
-    if distance.size > 1 || distance.include?('Ambos') # si hay mas de 1 tipo es ambos
+    if distance.include?('Ambos')
+      distance = 'Bifocal'
+    elsif distance.size > 1
       distance = 'Ambos'
     else
       distance = distance.first
@@ -122,8 +124,8 @@ class Historial < ActiveRecord::Base
                       end
     end
 
-    if cliente.glass_distance != 'Ambos'
-      cliente.glass_distance = if cliente.glass_distance.blank? || cliente.glass_distance == distance
+    if cliente.glass_distance != 'Bifocal' # bifocal siempre tiene prioridad
+      cliente.glass_distance = if distance == 'Bifocal' || cliente.glass_distance.blank? || cliente.glass_distance == distance
                                  distance
                                else
                                  'Ambos'
