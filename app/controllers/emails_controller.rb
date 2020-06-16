@@ -23,8 +23,8 @@ class EmailsController < ApplicationController
                Cliente.lejos.or(Cliente.ambas_distancias).pluck(:email)
              when 'Cerca'
                Cliente.cerca.or(Cliente.ambas_distancias).pluck(:email)
-             when 'Bifocales'
-               Cliente.bifocal.pluck(:email)
+             when 'Multifocales'
+               Cliente.multifocal.pluck(:email)
              when 'Flotantes - Lejos'
                [
                  Cliente.flotantes.lejos.pluck(:email),
@@ -35,8 +35,8 @@ class EmailsController < ApplicationController
                  Cliente.flotantes.cerca.pluck(:email),
                  Cliente.flotantes.ambas_distancias.pluck(:email)
                ]
-             when 'Flotantes - Bifocales'
-               Cliente.flotantes.bifocal.pluck(:email)
+             when 'Flotantes - Multifocales'
+               Cliente.flotantes.multifocal.pluck(:email)
              end.flatten.uniq.reject(&:blank?)
 
     i = 0

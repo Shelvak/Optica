@@ -24,7 +24,7 @@ class Cliente < ActiveRecord::Base
   scope :lejos, -> { where(glass_distance: 'Lejos') }
   scope :cerca, -> { where(glass_distance: 'Cerca') }
   scope :ambas_distancias, -> { where(glass_distance: 'Ambos') }
-  scope :bifocal, -> { where(glass_distance: 'Bifocal') }
+  scope :multifocal, -> { where(glass_distance: 'Multifocal') }
 
 
   validates :nombre, :apellido, :documento, presence: true

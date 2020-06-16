@@ -108,7 +108,7 @@ class Historial < ActiveRecord::Base
     distance = self.recetes.map(&:distancia).reject(&:blank?).uniq
 
     if distance.include?('Ambos')
-      distance = 'Bifocal'
+      distance = 'Multifocal'
     elsif distance.size > 1
       distance = 'Ambos'
     else
@@ -124,8 +124,8 @@ class Historial < ActiveRecord::Base
                       end
     end
 
-    if cliente.glass_distance != 'Bifocal' # bifocal siempre tiene prioridad
-      cliente.glass_distance = if distance == 'Bifocal' || cliente.glass_distance.blank? || cliente.glass_distance == distance
+    if cliente.glass_distance != 'Multifocal' # multifocal siempre tiene prioridad
+      cliente.glass_distance = if distance == 'Multifocal' || cliente.glass_distance.blank? || cliente.glass_distance == distance
                                  distance
                                else
                                  'Ambos'

@@ -3,7 +3,7 @@ class AssingGlassDistanceToClientes < ActiveRecord::Migration[5.0]
     result = Historial.joins(:recetes).group('recetes.distancia').select('array_agg(cliente_id) as client_ids', 'recetes.distancia as dist')
 
     type = {
-      'Bifocal' => [],
+      'Multifocal' => [],
       'Ambos'   => [],
       'Cerca'   => [],
       'Lejos'   => []
@@ -13,16 +13,16 @@ class AssingGlassDistanceToClientes < ActiveRecord::Migration[5.0]
       type[d.dist] = d.client_ids.uniq.reject(&:blank?)
     end
 
-    type['Bifocal'] = type['Ambos']
+    type['Multifocal'] = type['Ambos']
 
     type.delete('Ambos')
 
     # Metemos en Ambos los que estan en ambos grupos
-    type['Ambos']  = (type['Cerca'] & type['Lejos']) - type['Bifocal']
+    type['Ambos']  = (type['Cerca'] & type['Lejos']) - type['Multifocal']
     type['Cerca'] -= type['Ambos']
-    type['Cerca'] -= type['Bifocal']
+    type['Cerca'] -= type['Multifocal']
     type['Lejos'] -= type['Ambos']
-    type['Lejos'] -= type['Bifocal']
+    type['Lejos'] -= type['Multifocal']
 
     type.each do |distance, ids|
       Cliente.where(id: ids.uniq).update_all glass_distance: distance
