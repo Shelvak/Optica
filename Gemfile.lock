@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/gedera/snoopy_afip.git
-  revision: f684c74cde8c5c4b0beead765d6c4adf029af660
+  revision: b314662abe7a4d625fa9500ed358ff35d662982a
   branch: rails5
   specs:
     snoopy_afip (2.1.1)
@@ -47,6 +47,8 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    addressable (2.7.0)
+      public_suffix (>= 2.0.2, < 5.0)
     airbrussh (1.2.0)
       sshkit (>= 1.6.1, != 1.7.0)
     akami (1.3.1)
@@ -106,7 +108,7 @@ GEM
       activesupport (>= 4.2.0)
     gyoku (1.3.1)
       builder (>= 2.1.2)
-    httpi (2.4.2)
+    httpi (2.4.5)
       rack
       socksify
     i18n (1.8.2)
@@ -148,7 +150,7 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (4.1.0)
     nio4r (2.5.2)
-    nokogiri (1.10.7)
+    nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
     nori (2.6.0)
     paper_trail (10.0.1)
@@ -159,7 +161,8 @@ GEM
       activerecord (>= 3.1)
       activesupport (>= 3.1)
       arel
-    rack (2.1.2)
+    public_suffix (4.0.6)
+    rack (2.2.3)
     rack-protection (2.0.8.1)
       rack
     rack-test (0.6.3)
@@ -199,7 +202,7 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    savon (2.11.1)
+    savon (2.11.2)
       akami (~> 1.2)
       builder (>= 2.1.2)
       gyoku (~> 1.2)
@@ -250,7 +253,8 @@ GEM
       raindrops (~> 0.7)
     validates_timeliness (4.0.2)
       timeliness (~> 0.3.7)
-    wasabi (3.5.0)
+    wasabi (3.6.1)
+      addressable
       httpi (~> 2.0)
       nokogiri (>= 1.4.2)
     websocket-driver (0.6.5)
