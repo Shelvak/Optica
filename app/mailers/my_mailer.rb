@@ -1,5 +1,5 @@
 class MyMailer < ActionMailer::Base
-  default from: "Optica Palpacelli <info@opticapalpacelli.com.ar>",
+  default from: "Optica Gaspar Lunette <opticagasparlunette@gmail.com>",
     charset: "UTF-8",
     content_type: "text/html"
 
@@ -21,7 +21,7 @@ class MyMailer < ActionMailer::Base
     attachments.inline['cumple.jpg'] = File.read("#{Rails.root}/public/cumple.jpg")
     mail(
       to: cliente.email,
-      subject: "Optica Palpacelli te desea un feliz cumple #{cliente.nombre.camelize}"
+      subject: "Optica Gaspar Lunette te desea un feliz cumple #{cliente.nombre.camelize}"
     )
   end
 
@@ -71,8 +71,8 @@ class MyMailer < ActionMailer::Base
     mail(
       to: 'antonio@martinscordia.com.ar',
       cc: 'alejandro@martinscordia.com.ar',
-      subject: "Optica Palpacelli - Archivos CITI - #{@formatted_date}",
-      body: "Optica Palpacelli - Archivos CITI - #{@formatted_date}"
+      subject: "Optica Gaspar Lunette - Archivos CITI - #{@formatted_date}",
+      body: "Optica Gaspar Lunette - Archivos CITI - #{@formatted_date}"
     )
   end
 end

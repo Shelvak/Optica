@@ -41,7 +41,7 @@ class EmailsController < ApplicationController
 
     i = 0
 
-    emails.each_slice(400) do |email_group|
+    emails.each_slice(100) do |email_group|
       interval = (1.hour * i) + (10.minutes * i)
       MyMailer.delay_for(interval).enviar(
         email_group,
