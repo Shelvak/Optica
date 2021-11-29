@@ -39,16 +39,12 @@ class EmailsController < ApplicationController
                Cliente.flotantes.multifocal.pluck(:email)
              end.flatten.uniq.reject(&:blank?)
 
-    i = 0
-
-    emails.each_slice(100) do |email_group|
-      interval = (1.hour * i) + (10.minutes * i)
-      MyMailer.delay_for(interval).enviar(
-        email_group,
+    emails.each do |email|
+      MyMailer.delay_for(10.seconds).enviar(
+        [email],
         params[:subject],
         params[:body]
       )
-      i += 1
     end
 
     redirect_to '/emails/index', notice: "Enviando #{emails.size} emails"

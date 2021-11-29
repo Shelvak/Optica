@@ -1,5 +1,5 @@
 class MyMailer < ActionMailer::Base
-  default from: "Optica Gaspar Lunette <opticagasparlunette@gmail.com>",
+  default from: "Optica Gaspar Lunette <info@opticagasparlunette.com.ar>",
     charset: "UTF-8",
     content_type: "text/html"
 
@@ -9,7 +9,7 @@ class MyMailer < ActionMailer::Base
     @destinatarios = destinatarios
     if destinatarios && destinatarios.size > 0
       mail(
-        bcc: @destinatarios,
+        to: @destinatarios,
         subject: subject,
         body: @body
       )
